@@ -2,10 +2,10 @@
 ### Ruby on Rails Project
 
 ### Roles
-* Overall Project Manager:
-* Coding Manager:
-* Testing Manager:
-* Documentation:
+* Overall Project Manager: Josh Wright
+* Coding Manager: Bin Chen
+* Testing Manager: Jeb Alawi 
+* Documentation: Houyi Fan
 
 ### Contributions
 Please list who did what for each part of the project.
