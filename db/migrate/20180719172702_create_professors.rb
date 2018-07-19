@@ -1,6 +1,5 @@
 class CreateProfessors < ActiveRecord::Migration[5.2]
   def change
-		drop_table :professors
     create_table :professors do |t|
       t.string :first_name
       t.string :last_name
