@@ -4,7 +4,7 @@ class StudentsController < ApplicationController
 	end
 	
 	def create
-		@student = Student.new(article_params)
+		@student = Student.new(student_params)
  
 		if @student.save
 			redirect_to @student
