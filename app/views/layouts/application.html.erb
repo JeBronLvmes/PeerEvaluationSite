@@ -4,13 +4,26 @@
     <title>RubyRubyRuProject6</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+  <%= yield %>
+  <%= link_to 'Students', students_path %>
+  <%= link_to 'New Student', new_student_path %>
+  <span> | </span>
+  <%= link_to 'Professors', professors_path %>
+  <%= link_to 'New Professor', new_professor_path %>
+  <span> | </span>
+  <%= link_to 'Courses', courses_path %>
+  <%= link_to 'New Course', new_course_path %>
+  <span> | </span>
+  <%= link_to 'Evaluations', evaluations_path %>
+  <%= link_to 'New Evaluation', new_evaluation_path %>
+  <span> | </span>
+  <%= link_to 'Groups', groups_path %>
+  <%= link_to 'New Group', new_group_path %>
   </body>
 </html>

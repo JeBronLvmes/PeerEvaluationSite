@@ -5,6 +5,7 @@ class CreateCourses < ActiveRecord::Migration[5.2]
       t.integer :number
       t.string :name
       t.string :dept
+      t.belongs_to :professor
 
       t.timestamps
     end

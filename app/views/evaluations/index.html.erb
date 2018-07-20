@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Evaluations</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>name</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @evaluations.each do |eval| %>
+    <tr>
+      <td><%= eval.title %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>

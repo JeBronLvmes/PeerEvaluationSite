@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Student</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>name</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @students.each do |student| %>
+    <tr>
+      <td><%= student.id %></td>
+      <td><%= student.first_name %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>

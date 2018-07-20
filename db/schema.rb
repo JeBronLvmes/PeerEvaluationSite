@@ -10,15 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_19_175119) do
+ActiveRecord::Schema.define(version: 2018_07_20_000819) do
 
   create_table "courses", force: :cascade do |t|
     t.integer "section"
     t.integer "number"
     t.string "name"
     t.string "dept"
+    t.integer "professor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["professor_id"], name: "index_courses_on_professor_id"
+  end
+
+  create_table "courses_students", force: :cascade do |t|
+    t.integer "course_id"
+    t.integer "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_courses_students_on_course_id"
+    t.index ["student_id"], name: "index_courses_students_on_student_id"
   end
 
   create_table "evaluations", force: :cascade do |t|
@@ -26,14 +37,27 @@ ActiveRecord::Schema.define(version: 2018_07_19_175119) do
     t.string "due_date"
     t.string "submission_date"
     t.text "form"
+    t.integer "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_evaluations_on_student_id"
   end
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
+    t.integer "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_groups_on_course_id"
+  end
+
+  create_table "groups_students", force: :cascade do |t|
+    t.integer "group_id"
+    t.integer "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_groups_students_on_group_id"
+    t.index ["student_id"], name: "index_groups_students_on_student_id"
   end
 
   create_table "professors", force: :cascade do |t|

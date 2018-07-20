@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Prof</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>name</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @professors.each do |professor| %>
+    <tr>
+      <td><%= professor.id %></td>
+      <td><%= professor.first_name %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>

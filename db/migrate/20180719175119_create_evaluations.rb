@@ -5,6 +5,7 @@ class CreateEvaluations < ActiveRecord::Migration[5.2]
       t.string :due_date
       t.string :submission_date
       t.text :form
+      t.belongs_to :student
 
       t.timestamps
     end
