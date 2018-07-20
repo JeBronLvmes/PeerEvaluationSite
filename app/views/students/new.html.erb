@@ -1,22 +1,20 @@
+<%= render "partials/navigation_dev" %>
 
+<div class="container py-5 bg-light px-5">
+  <h2 class="pb-4">Student Sign-up</h2>
+  <div class="bg-white px-4 py-4 rounded">
+    <%= simple_form_for @student, url: students_path do |f| %>
+      <%= f.error_notification %>
 
-  <div class="container-fluid bg-primary pt-4 pb-5">
+      <%= f.input :first_name %>
+
+      <%= f.input :last_name %>
+
+      <%= f.input :email %>
+
+      <%= f.input :dot_number %>
+
+      <%= f.button :submit, class: "btn-primary" %>
+    <% end %>
   </div>
-  <div class="container py-5 bg-light px-5">
-    <h2 class="pb-4">Student Sign-up</h2>
-    <div class="bg-white px-4 py-4 rounded">
-      <%= simple_form_for @student, url: students_path do |f| %>
-        <%= f.error_notification %>
-
-        <%= f.input :first_name %>
-
-        <%= f.input :last_name %>
-
-        <%= f.input :email %>
-
-        <%= f.input :dot_number %>
-
-        <%= f.button :submit, class: "btn-primary" %>
-      <% end %>
-    </div>
-  </div>
+</div>
