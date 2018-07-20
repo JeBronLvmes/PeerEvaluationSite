@@ -5,7 +5,6 @@ class CreateProfessors < ActiveRecord::Migration[5.2]
       t.string :first_name
       t.string :last_name
       t.integer :dot_number
-      t.string :email
 
       t.timestamps
     end
