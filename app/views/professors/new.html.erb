@@ -1,41 +1,20 @@
-<%= form_with(model: @professor, local: true) do |form| %>
+<div class="container-fluid bg-primary pt-4 pb-5">
+</div>
+<div class="container py-5 bg-light px-5">
+  <h2 class="pb-4">Professor Sign-up</h2>
+  <div class="bg-white px-4 py-4 rounded">
+    <%= simple_form_for @professor, url: professors_path do |f| %>
+      <%= f.error_notification %>
 
-  <% if @professor.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@professor.errors.count, "error") %> prohibited
-        this student from being saved:
-      </h2>
-      <ul>
-        <% @professor.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+      <%= f.input :first_name %>
 
-  <p>
-    <%= form.label :first_name %><br>
-    <%= form.text_field :first_name %>
-  </p>
+      <%= f.input :last_name %>
 
-  <p>
-    <%= form.label :last_name %><br>
-    <%= form.text_area :last_name %>
-  </p>
+      <%= f.input :email %>
 
-  <p>
-    <%= form.label :dot_number %><br>
-    <%= form.text_area :dot_number %>
-  </p>
+      <%= f.input :dot_number %>
 
-  <p>
-    <%= form.label :email %><br>
-    <%= form.text_area :email %>
-  </p>
-
-  <p>
-    <%= form.submit %>
-  </p>
-
-<% end %>
+      <%= f.button :submit, class: "btn-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -1,5 +1,4 @@
 class ProfessorsController < ApplicationController
-
   def index
     @professors = Professor.all
   end
@@ -10,16 +9,16 @@ class ProfessorsController < ApplicationController
 
   def create
     @professor = Professor.new(professor_params)
+
     if @professor.save
-      redirect_to professors_path
+      redirect_to @professor
     else
       render 'new'
     end
   end
 
   private
-
-    def professor_params
-      params.require(:professor).permit(:first_name, :last_name, :dot_number, :email)
-    end
+  def professor_params
+    params.require(:professor).permit(:first_name, :last_name, :dot_number, :email)
+  end
 end
