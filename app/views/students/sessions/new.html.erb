@@ -1,5 +1,7 @@
+<%#created and implemented by Josh Wright 7/20/18%>
+<%#checks to make sure a professor isn't logged in while also trying to login as a student%>
 <%if current_professor %>
-  <div class="container py-5">
+  <div class="container py-2">
     <div class="row my-5">
       <div class="col">
 
@@ -15,13 +17,14 @@
       </div>
     </div>
   </div>
+<%#else if a professor isn't logged in, display the student login %>
 <%else%>
-    <div class="container py-5">
+    <div class="container py-2">
       <div class="row my-5">
         <div class="col">
 
         </div>
-        <div class="col bg-light rounded py-5 px-4 justify-content-center">
+        <div class="col bg-light rounded py-3 px-4 justify-content-center">
           <h1 class="my-5"> Student Login</h1>
           <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="form-inputs">
