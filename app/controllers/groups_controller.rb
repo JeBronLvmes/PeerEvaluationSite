@@ -1,3 +1,4 @@
+# Created by Jeb Alawi 7/19/18
 class GroupsController < ApplicationController
   def index
     @groups = Group.all

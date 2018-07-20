@@ -1,3 +1,4 @@
+# Created by Jeb Alawi 7/19/18
 class CreateGroupsStudents < ActiveRecord::Migration[5.2]
   def change
     create_table :groups_students do |t|
