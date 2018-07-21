@@ -6,10 +6,8 @@
         <p class="lead">Login or join as a student or professor</p>
         <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/students/sign_in'">Student</button>
         <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/professors/sign_in'">Professor</button>
-      <%elsif current_student %>
-        <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/students/profile'">View Student Profile</button>
-      <%elsif current_professor %>
-        <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/professors/profile'">View Professor Profile</button>
+      <%else%>
+        <p class="lead">Welcome!</p>
       <%end%>
     </div>
   </div>

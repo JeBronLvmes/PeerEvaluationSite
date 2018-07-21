@@ -10,6 +10,7 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
+    @course.professor_id = current_professor.id
     if @course.save
       redirect_to courses_path
     else
@@ -20,6 +21,6 @@ class CoursesController < ApplicationController
   private
 
   def course_params
-    params.require(:course).permit(:dept, :number, :section, :name, :professor_id)
+    params.require(:course).permit(:dept, :number, :section, :name)
   end
 end
