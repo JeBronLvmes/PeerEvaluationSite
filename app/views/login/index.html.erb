@@ -2,9 +2,15 @@
   <div class="jumbotron vertical-center my-5 py-5">
     <div class="container text-center">
       <h1 class="display-4">Peer Evaluation</h1>
-      <p class="lead">Login or join as a student or professor</p>
-      <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/students/sign_in'">Student</button>
-      <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/professors/sign_in'">Professor</button>
+      <%if !current_student && !current_professor %>
+        <p class="lead">Login or join as a student or professor</p>
+        <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/students/sign_in'">Student</button>
+        <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/professors/sign_in'">Professor</button>
+      <%elsif current_student %>
+        <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/students/profile'">View Student Profile</button>
+      <%elsif current_professor %>
+        <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/professors/profile'">View Professor Profile</button>
+      <%end%>
     </div>
   </div>
 

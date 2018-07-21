@@ -1,0 +1,29 @@
+<div class="container bg-light py-5 px-5">
+  <h1> Profile</h1>
+  <%@professor = Professor.find(current_professor.id) %>
+  <h4> Name: <%=@professor.first_name.capitalize + " " + @professor.last_name.capitalize%>  </h4>
+  <h4> Dot Number: <%= @professor.dot_number %> </h4>
+  <hr/>
+
+  <h1>Courses</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Course Name</th>
+      <th scope="col">Department</th>
+      <th scope="col">Number</th>
+      <th scope="col">Section</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @course_list = Course.where("professor_id = @professor.id", params[:professor])%>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
