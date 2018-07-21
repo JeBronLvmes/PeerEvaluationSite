@@ -1,26 +1,30 @@
-<%= render "partials/navigation_dev" %>
-  <div class="container-fluid bg-primary">
+<div class="container-fluid">
+  <div class="col">
+    <p id="notice">
+      <%= notice %></p>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <h1>Student</h1>
+      <table class="table table-sm">
+        <thead>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th colspan="1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- list student attributes -->
+        <% @students.each do |student| %>
+          <tr>
+            <td><%= student.id %></td>
+            <td><%= student.first_name %></td>
+            <td><%= link_to 'Show', student %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-<p id="notice"><%= notice %></p>
-
-<h1>Student</h1>
-
-<table>
-  <thead>
-  <tr>
-    <th>id</th>
-    <th>name</th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @students.each do |student| %>
-    <tr>
-      <td><%= student.id %></td>
-      <td><%= student.first_name %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<br>

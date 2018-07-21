@@ -1,4 +1,4 @@
-<%if current_student.id.to_s == params[:id].to_s%>
+<%if current_student != nil and current_student.id.to_s == params[:id].to_s%>
 
   <div class="container bg-light py-5 px-5">
     <h1> Profile</h1>
@@ -15,20 +15,29 @@
         <th scope="col">Department</th>
         <th scope="col">Number</th>
         <th scope="col">Section</th>
+        <th scope="col">course_id</th>
       </tr>
       </thead>
       <tbody>
-      <% @course_list = Course.where("student_id = @student.id", params[:student])%>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-
+        <!-- the line below is for only for demonstration purposes -->
+        <% @courses_student_list = CoursesStudent.where("student_id = #{@student.id}")%>
+        <!-- list student courses -->
+        <% @course_list = @student.courses %>
+          <% @course_list.each do |course| %>
+          <tr>
+            <th scope="row"><%= course.name %></th>
+            <td><%= course.dept %></td>
+            <td><%= course.number %></td>
+            <td><%= course.section %></td>
+            <td><%= course.id %></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
+
+    <%= render 'form_join_course', student: @student%>
   </div>
+
 <%else%>
   <div class="container">
     <div class="jumbotron vertical-center my-5 py-5">
@@ -36,7 +45,7 @@
         <h1 class="display-4">Whoops!</h1>
         <p class="lead">You don't belong here!</p>
         page id = <%= params[:id]%>
-        student id = <%= current_student.id %>
+        student id = <%#= current_student.id %>
         *these are for testing purposes*
       </div>
     </div>
