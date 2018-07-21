@@ -1,0 +1,47 @@
+<% if current_professor %>
+
+  <!-- navbar to traverse the site -->
+  <nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-primary" >
+    <a class="navbar-brand" href="#">Profile</a>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <%= link_to 'Courses', courses_path, :class => "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Sign Out",  destroy_professor_session_path, {:method => :delete, class: 'nav-link'} %>
+      </li>
+    </ul>
+    </div>
+  </nav>
+
+<% elsif current_student%>
+  <!-- navbar to traverse the site -->
+  <nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-primary" >
+    <a class="navbar-brand" href="#">Profile</a>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <%= link_to 'Courses', courses_path, :class => "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Groups', groups_path, :class => "nav-link" %>
+      </li>
+      <li class="nav-item dropdown">
+        <%= link_to 'Evaluations', evaluations_path, :class => "nav-link dropdown-toggle" %>
+        <div class="dropdown-menu mt-0">
+          <%= link_to 'Need Completed', new_evaluation_path, :class => "dropdown-item" %>
+          <%= link_to 'Completed', evaluations_path, :class => "dropdown-item" %>
+        </div>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Sign Out", destroy_student_session_path, {:method => :delete, class: 'nav-link'} %>
+      </li>
+    </ul>
+    </div>
+  </nav>
+<% else %>
+  <nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-primary">
+  </nav>
+<% end %>
+
+
+

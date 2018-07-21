@@ -1,5 +1,6 @@
 # Created by Jeb Alawi 7/19/18
 class EvaluationsController < ApplicationController
+  before_action :authenticate_student!
   def index
     @evaluations = Evaluation.all
   end
@@ -10,7 +11,7 @@ class EvaluationsController < ApplicationController
 
   def create
     @evaluation = Evaluation.new(evaluation_params)
-
+    @evaluation.student_id = current_student.id
     if @evaluation.save
       redirect_to evaluations_path
     else

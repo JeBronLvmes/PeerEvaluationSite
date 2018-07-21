@@ -1,5 +1,4 @@
 <!-- Created by Jeb Alawi 7/19/18 -->
-<%= render "partials/navigation_dev" %>
 <%= form_with(model: @evaluation, local: true) do |form| %>
 
   <% if @evaluation.errors.any? %>
@@ -34,11 +33,6 @@
   <p>
     <%= form.label :form %><br>
     <%= form.text_area :form %>
-  </p>
-
-  <p>
-    <%= form.label :student_id %><br>
-    <%= form.text_area :student_id %>
   </p>
 
   <p>
