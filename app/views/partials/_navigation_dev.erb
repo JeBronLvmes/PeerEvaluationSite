@@ -1,6 +1,6 @@
 <!-- navbar to traverse the site -->
 <nav id="myNav" class="navbar navbar-expand-sm navbar-light bg-primary" >
-  <a class="navbar-brand" href="#">RubyRubyRu</a>
+  <a class="navbar-brand" href="#">Dev Navbar</a>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item dropdown">
       <%= link_to 'Students', students_path, :class => "nav-link dropdown-toggle" %>
@@ -32,6 +32,14 @@
         <%= link_to 'New', new_group_path, :class => "dropdown-item" %>
       </div>
     </li>
+    <li class="nav-item">
+      <%= link_to 'CoursesStudent', courses_student_index_path, :class => "nav-link" %>
+    </li>
   </ul>
+  <% if professor_signed_in? %>
+      <%= button_to "Sign Out",  destroy_professor_session_path, {:method => :delete, class: 'btn'} %>
+    <% elsif student_signed_in?%>
+      <%= button_to "Sign Out", destroy_student_session_path, {:method => :delete, class: 'btn'} %>
+    <% end %>
   </div>
 </nav>

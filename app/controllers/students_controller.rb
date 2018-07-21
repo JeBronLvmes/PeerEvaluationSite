@@ -1,13 +1,17 @@
 class StudentsController < ApplicationController
 
   def index
-    @students = Student.all
+		@students = Student.all
   end
 
 	def new
 		@student = Student.new
 	end
-	
+
+	def show
+		@student = Student.find(params[:id])
+	end
+
 	def create
 		@student = Student.new(student_params)
 		if @student.save
@@ -16,13 +20,24 @@ class StudentsController < ApplicationController
 			render 'new'
 		end
 	end
-  def show
 
-  end
+	def update
+		@student = Student.find(params[:id])
+		@student.courses << Course.find(params[:student][:course_id])
+		if @student.save
+			redirect_to @student
+		end
+	end
+
+	def profile
+		@student = Student.find(student_params)
+		redirect_to @student
+	end
+
 	private
 
 		def student_params
-			params.require(:student).permit(:first_name, :last_name, :dot_number, :email, :group_ids => [])
+			params.require(:student).permit(:first_name, :last_name, :dot_number, :email, :course_id)
     end
 
 end
