@@ -1,13 +1,45 @@
+<%if current_student.id.to_s == params[:id].to_s%>
 
-<%if current_student%>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col bg-light">
-        <%= button_to 'Add Evaluation', '/evaluations/new' %>
-      </div>
-    </div>
+  <div class="container bg-light py-5 px-5">
+    <h1> Profile</h1>
+    <%@student = Student.find(current_student.id) %>
+    <h4> Name: <%=@student.first_name.capitalize + " " + @student.last_name.capitalize%>  </h4>
+    <h4> Dot Number: <%= @student.dot_number %> </h4>
+    <hr/>
+
+    <h1>Courses</h1>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Course Name</th>
+        <th scope="col">Department</th>
+        <th scope="col">Number</th>
+        <th scope="col">Section</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @course_list = Course.where("student_id = @student.id", params[:student])%>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+
+      </tbody>
+    </table>
   </div>
 <%else%>
+  <div class="container">
+    <div class="jumbotron vertical-center my-5 py-5">
+      <div class="container text-center">
+        <h1 class="display-4">Whoops!</h1>
+        <p class="lead">You don't belong here!</p>
+        page id = <%= params[:id]%>
+        student id = <%= current_student.id %>
+        *these are for testing purposes*
+      </div>
+    </div>
 
+  </div>
 <%end%>
-</div>

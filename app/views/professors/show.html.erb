@@ -1,3 +1,5 @@
+<%if current_professor.id.to_s == params[:id].to_s%>
+
 <div class="container bg-light py-5 px-5">
   <h1> Profile</h1>
   <%@professor = Professor.find(current_professor.id) %>
@@ -27,3 +29,17 @@
     </tbody>
   </table>
 </div>
+<%else%>
+  <div class="container">
+    <div class="jumbotron vertical-center my-5 py-5">
+      <div class="container text-center">
+        <h1 class="display-4">Whoops!</h1>
+          <p class="lead">You don't belong here!</p>
+          page id = <%= params[:id]%>
+          prof id = <%= current_professor.id %>
+          *these are for testing purposes*
+      </div>
+    </div>
+
+  </div>
+<%end%>

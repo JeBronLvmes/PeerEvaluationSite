@@ -16,10 +16,9 @@ class StudentsController < ApplicationController
 			render 'new'
 		end
 	end
-	def profile
-		@student = Student.find(student_params)
-		redirect_to @student
-	end
+  def show
+
+  end
 	private
 
 		def student_params
