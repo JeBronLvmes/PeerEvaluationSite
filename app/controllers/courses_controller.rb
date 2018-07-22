@@ -22,19 +22,24 @@ class CoursesController < ApplicationController
   end
 
   def create
-    @course = Course.new(course_params)
-    @course.professor_id = current_professor.id
-    if @course.save
-      redirect_to courses_path
-    else
-      render 'new'
+    if current_professor
+      @course = Course.new(course_params)
+      @course.professor_id = current_professor.id
+      if @course.save
+        redirect_to current_professor
+      else
+        render 'new'
+      end
     end
   end
 
+  # Created by Jeb Alawi 7/21/18
   def destroy
-    @course.destroy
     if current_professor
-      redirect_to professor_path(current_professor.id), notice: 'Course was successfully deleted.'
+      @course.destroy
+      if current_professor
+        redirect_to professor_path(current_professor.id), notice: 'Course was successfully deleted.'
+      end
     end
   end
 
