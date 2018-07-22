@@ -14,7 +14,8 @@
       </div>
     </div>
     <div id ="pageContent" class="col bg-light">
-      <%= render partial: "partials/course_list", locals: {courses: @courses}%>
+      <%#= render partial: "partials/course_list", locals: {courses: @courses}%>
+      <% render 'partials/form_course_list_with_add_student' %>
     </div>
   </div>
 </div>

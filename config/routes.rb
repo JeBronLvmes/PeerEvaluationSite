@@ -9,8 +9,9 @@ Rails.application.routes.draw do
   end
   resources :professors do
     get 'groups'
+    resources :professor_forms
   end
-  resources :students, :professors, :courses, :evaluations, :groups, :courses_student
+  resources :students, :professors, :courses, :evaluations, :groups, :courses_student, :professor_forms
   get 'login/index'
   get 'login/student'
   get 'login/professor'
