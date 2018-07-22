@@ -1,0 +1,45 @@
+<%if current_professor %>
+
+  <div class="container bg-light py-5 px-5">
+    <h1> Profile</h1>
+    <%@professor = Professor.find(current_professor.id) %>
+    <h4> Name: <%=@professor.first_name.capitalize + " " + @professor.last_name.capitalize%>  </h4>
+    <h4> Dot Number: <%= @professor.dot_number %> </h4>
+    <hr/>
+
+    <h1>Groups</h1>
+
+      <!-- list student courses -->
+      <% @course_list = @professor.courses %>
+      <% @course_list.each do |course| %>
+        <h3><%=course.name%></h3>
+        <% group_list = course.groups %>
+        <% group_list.each do |group| %>
+          <b><%= group.name %></b>
+          <ul>
+            <% if group.students.length == 0 %>
+              <li>No students</li>
+            <% else %>
+              <% group.students.each do |student| %>
+                <li><%= student.first_name %> <%= student.last_name %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+
+  </div>
+<%else%>
+  <div class="container">
+    <div class="jumbotron vertical-center my-5 py-5">
+      <div class="container text-center">
+        <h1 class="display-4">Whoops!</h1>
+        <p class="lead">You don't belong here!</p>
+        page id = <%= params[:id]%>
+        prof id = <%= current_professor.id %>
+        *these are for testing purposes!!!!!!!!!!!!!!!!!!!!!*
+      </div>
+    </div>
+
+  </div>
+<%end%>
