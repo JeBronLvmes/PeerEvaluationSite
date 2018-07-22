@@ -1,6 +1,13 @@
+# Created by Jeb Alawi on 7/22/18
 class ProfessorsController < ApplicationController
+
+  # Created by Jeb Alawi on 7/22/18
   def index
-    @professors = Professor.all
+    @professor = nil
+    if current_professor
+      @professor = current_professor
+    end
+
   end
 
   def new

@@ -1,0 +1,26 @@
+
+<div class="container-fluid">
+  <div class = "row">
+    <h1 class="mr-auto"><%= title %></h1> <span><b>Student/Groups</b></span>
+  </div>
+  <div class="row">
+
+    <!-- List of Courses On The left -->
+    <div class="col-2 px-0 mx-0">
+      <div class="list-group list-group-flush" id="list-tab" role="tablist">
+        <% professor.courses.each_with_index do |course,index| %>
+          <a class="list-group-item list-group-item-action" name="course" onclick="showCourses(this)" id="list_course_<%=index%>" data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
+        <%end%>
+        <%= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
+      </div>
+
+    </div>
+    <div id ="pageContent" class="col bg-light">
+      <div class="row">
+        <%= render partial: "professors/partials/course_list", locals: {courses: @courses}%>
+
+        <%#= render partial: "professors/partials/groups_list", locals: {groups: professor.courses}%>
+      </div>
+    </div>
+  </div>
+</div>

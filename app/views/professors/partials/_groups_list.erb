@@ -1,0 +1,27 @@
+<% @courses.each_with_index do |course,index| %>
+  <div class="courses_content" id="course_<%=index%>" <%if index == 0%><%= %Q[style="display: block;"] %><%end%> >
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Dept</th>
+        <th>Course Number</th>
+        <th>Section</th>
+        <th>ID</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td><%= course.name %></td>
+        <td><%= course.dept %></td>
+        <td><%= course.number %></td>
+        <td><%= course.section %></td>
+        <td><%= course.id %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+<% end %>
+

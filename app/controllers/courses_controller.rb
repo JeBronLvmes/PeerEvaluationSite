@@ -2,15 +2,23 @@
 class CoursesController < ApplicationController
   # sets @course for destory method
   before_action :set_course, only: [:destroy]
+
+  # Created by Jeb Alawi 7/19/18
   def index
+    @professor = nil
     @courses = nil
     if current_professor
-      @courses = Course.where('professor_id = :current_id', {:current_id => current_professor.id})
+      @courses = current_professor.courses
+      @professor = current_professor
     end
   end
 
   def new
     @course = Course.new
+    @professor= nil
+    if(current_professor)
+      @professor=current_professor
+    end
   end
 
   def create
