@@ -3,8 +3,10 @@ class CoursesController < ApplicationController
   # sets @course for destory method
   before_action :set_course, only: [:destroy]
   def index
-    @courses = Course.all
-    @students = Student.all
+    @courses = nil
+    if current_professor
+      @courses = Course.where('professor_id = :current_id', {:current_id => current_professor.id})
+    end
   end
 
   def new
@@ -21,7 +23,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  # Author
   def destroy
     @course.destroy
     if current_professor
