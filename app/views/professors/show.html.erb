@@ -15,16 +15,26 @@
       <th scope="col">Department</th>
       <th scope="col">Number</th>
       <th scope="col">Section</th>
+      <th scope="col">course_id</th>
+      <th />
     </tr>
     </thead>
     <tbody>
-    <% @course_list = Course.where("professor_id = @professor.id", params[:professor])%>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
+    <!-- list student courses -->
+    <% @course_list = @professor.courses %>
+    <% @course_list.each do |course| %>
+      <tr>
+        <th scope="row"><%= course.name %></th>
+        <td><%= course.dept %></td>
+        <td><%= course.number %></td>
+        <td><%= course.section %></td>
+        <td><%= course.id %></td>
+        <% course_ref = Course.where("professor_id = #{@professor.id} and id = #{course.id}").first %>
+        <td><%= link_to 'Delete', course_ref, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 
     </tbody>
   </table>
@@ -36,7 +46,7 @@
         <h1 class="display-4">Whoops!</h1>
           <p class="lead">You don't belong here!</p>
           page id = <%= params[:id]%>
-          prof id = <%= current_professor.id %>
+          prof id = <%#= current_professor.id %>
           *these are for testing purposes*
       </div>
     </div>

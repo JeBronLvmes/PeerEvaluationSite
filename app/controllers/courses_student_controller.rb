@@ -20,7 +20,7 @@ class CoursesStudentController < ApplicationController
 
   def destroy
     @courses_student.destroy
-    if (current_student != nil)
+    if (current_student)
       redirect_to student_path(current_student.id), notice: 'Course was successfully dropped from Student.'
     else
       redirect_to courses_student_url, notice: 'Course was successfully dropped from Student.'

@@ -1,28 +1,35 @@
 <% if current_professor %>
   <!-- navbar to traverse the site -->
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-primary" >
-    <a class="navbar-brand" href="/professors/<%=current_professor.id %>">Profile</a>
+    <%= link_to 'Professor Profile', '/professors/'+current_professor.id.to_s, :class => "navbar-brand" %>
+
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <%= link_to 'Courses', courses_path, :class => "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link_to "Sign Out",  destroy_professor_session_path, {:method => :delete, class: 'nav-link'} %>
+        <%= link_to 'Groups', '/professors/'+current_professor.id.to_s+'/groups', :class => "nav-link" %>
       </li>
+
     </ul>
+    <%= link_to "Sign Out",  destroy_professor_session_path, {:method => :delete, class: 'text-dark nav-link'} %>
     </div>
   </nav>
 
 <% elsif current_student%>
   <!-- navbar to traverse the site -->
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-primary" >
-    <a class="navbar-brand" href="/students/<%=current_student.id %>">Profile</a>
+    <%= link_to 'Student Profile', '/students/'+current_student.id.to_s, :class => "navbar-brand" %>
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      <li class="nav-item dropdown">
         <%= link_to 'Courses', courses_path, :class => "nav-link" %>
+        <div class="dropdown-menu  mt-0">
+          <%= link_to 'Join Course', '/students/'+current_student.id.to_s+'/courses_student/new', :class => "dropdown-item" %>
+        </div>
       </li>
+
       <li class="nav-item">
-        <%= link_to 'Groups', groups_path, :class => "nav-link" %>
+        <%= link_to 'Groups', '/professors/'+current_student.id.to_s+'/groups', :class => "nav-link" %>
       </li>
       <li class="nav-item dropdown">
         <%= link_to 'Evaluations', evaluations_path, :class => "nav-link dropdown-toggle" %>
@@ -31,10 +38,8 @@
           <%= link_to 'Completed', evaluations_path, :class => "dropdown-item" %>
         </div>
       </li>
-      <li class="nav-item">
-        <%= link_to "Sign Out", destroy_student_session_path, {:method => :delete, class: 'nav-link'} %>
-      </li>
     </ul>
+    <%= link_to "Sign Out", destroy_student_session_path, {:method => :delete, class: 'text-dark nav-link'} %>
     </div>
   </nav>
 <% else %>

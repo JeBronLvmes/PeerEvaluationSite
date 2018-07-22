@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   
   resources :students do
     resources :courses_student
+    get 'groups'
+  end
+  resources :professors do
+    get 'groups'
   end
   resources :students, :professors, :courses, :evaluations, :groups, :courses_student
   get 'login/index'
