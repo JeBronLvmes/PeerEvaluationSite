@@ -18,7 +18,6 @@ class ProfessorsController < ApplicationController
   end
 
   def show
-
   end
 
   def showCourses

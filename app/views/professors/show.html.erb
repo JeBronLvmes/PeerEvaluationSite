@@ -29,8 +29,7 @@
         <td><%= course.number %></td>
         <td><%= course.section %></td>
         <td><%= course.id %></td>
-        <% course_ref = Course.where("professor_id = #{@professor.id} and id = #{course.id}").first %>
-        <td><%= link_to 'Delete', course_ref, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', professor_course_path(current_professor.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
     </tbody>

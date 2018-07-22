@@ -1,22 +1,2 @@
 <!-- Created by Jeb Alawi 7/19/18 -->
-<p id="notice"><%= notice %></p>
-<div class="container-fluid">
-  <h1> Courses</h1>
-  <div class="row">
-    <div class="col-2 px-0 mx-0">
-      <div class="list-group list-group-flush" id="list-tab" role="tablist">
-        <%#Course.all.each do |course| %>
-        <%@courses.each_with_index do |course,index| %>
-          <a class="list-group-item list-group-item-action%>" name="course" onclick="showCourses(this)" id="list_course_<%=index%>" data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
-        <%end%>
-      </div>
-    </div>
-    <div id ="pageContent" class="col bg-light">
-      <%= render partial: "partials/course_list", locals: {courses: @courses}%>
-    </div>
-  </div>
-</div>
-
-
-
-<br>
+<%= render :partial => "partials/courses_index", :locals => { :title => 'Courses'} %>
