@@ -4,14 +4,16 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
   resources :students do
-    resources :courses_student
+    resources :courses_student, :courses
     get 'groups'
   end
+
   resources :professors do
     get 'groups'
-    resources :professor_forms
+    resources :courses, :professor_forms
   end
-  resources :students, :professors, :courses, :evaluations, :groups, :courses_student, :professor_forms
+
+  resources :students, :professors, :evaluations, :groups, :courses_student, :professor_forms
   get 'login/index'
   get 'login/student'
   get 'login/professor'
