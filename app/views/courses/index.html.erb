@@ -9,12 +9,12 @@
         <%@courses = Course.where('professor_id = :current_id', {:current_id => current_professor.id})%>
         <%#Course.all.each do |course| %>
         <%@courses.each_with_index do |course,index| %>
-          <a class="list-group-item list-group-item-action <%if index == 0 %> <%= "active" %><%end%> %>" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
+          <a class="list-group-item list-group-item-action%>" name="course" onclick="showCourses(this)" id="list_course_<%=index%>" data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
         <%end%>
       </div>
     </div>
     <div id ="pageContent" class="col bg-light">
-
+      <%= render partial: "partials/course_list", locals: {courses: @courses}%>
     </div>
   </div>
 </div>

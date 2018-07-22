@@ -14,3 +14,16 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+ function showCourses(button){
+    var buttons = document.getElementsByName("course")
+    for(var i = 0; i < buttons.length; i++){
+        var str = buttons[i].id.substring(5,buttons[i].id.length);
+        var div = document.getElementById(str);
+        if(buttons[i].className.includes("active")){
+            div.style.display = "block"
+        }
+        else{
+            div.style.display = "none"
+        }
+    }
+ }
