@@ -4,6 +4,7 @@ class CoursesController < ApplicationController
   before_action :set_course, only: [:destroy]
   def index
     @courses = Course.all
+    @students = Student.all
   end
 
   def new
@@ -20,6 +21,7 @@ class CoursesController < ApplicationController
     end
   end
 
+  # Author
   def destroy
     @course.destroy
     if current_professor
