@@ -25,7 +25,7 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)
     @course.professor_id = current_professor.id
     if @course.save
-      redirect_to courses_path
+      redirect_to professor_courses_path
     else
       render 'new'
     end
