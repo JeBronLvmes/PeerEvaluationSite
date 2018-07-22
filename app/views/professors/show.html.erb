@@ -29,7 +29,7 @@
         <td><%= course.number %></td>
         <td><%= course.section %></td>
         <td><%= course.id %></td>
-        <td><%= link_to 'Delete', professor_course_path(current_professor.id, course.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', professor_course_path(@professor, course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
     </tbody>
