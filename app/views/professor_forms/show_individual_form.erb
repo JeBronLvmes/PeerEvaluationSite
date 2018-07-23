@@ -21,7 +21,7 @@
       <%= render partial: "professors/partials/evaluation_form.erb", locals: {form: @form} %>
     </div>
 
-    <td><%= link_to 'Delete', professor_form_path(@professor, @course,@form.id), method: :delete, data: {confirm: "Are you sure? "} %></td>
+    <td><%= link_to 'Delete', professor_form_path(@form), method: :delete, data: {confirm: "Are you sure? "} %></td>
 
   </div>
 </div>

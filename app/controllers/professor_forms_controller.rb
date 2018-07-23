@@ -39,7 +39,7 @@ class ProfessorFormsController < ApplicationController
     if current_professor
       @professor_form.destroy
       if current_professor
-        redirect_to professor_path(current_professor.id), notice: 'Course was successfully deleted.'
+        redirect_to professor_course_professor_form_path(current_professor.id, :course_id), notice: 'Course was successfully deleted.'
       end
     end
   end
