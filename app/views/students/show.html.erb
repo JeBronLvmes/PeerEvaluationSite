@@ -5,6 +5,7 @@
     <%@student = Student.find(current_student.id) %>
     <h4> Name: <%=@student.first_name.capitalize + " " + @student.last_name.capitalize%>  </h4>
     <h4> Dot Number: <%= @student.dot_number %> </h4>
+		<%= link_to 'Edit Profile', edit_student_path(@student) %> 
     <hr/>
 
     <h1>Courses</h1>
