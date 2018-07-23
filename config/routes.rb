@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   # get all of the students in the course
   get 'professors/:pro_id/courses/:course_id/students', to: 'courses#get_students'
+  get 'professors/:pro_id/courses/:course_id/groups', to: 'courses#get_groups'
 
   root to: 'login#index'
 

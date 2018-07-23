@@ -32,6 +32,9 @@
             <div ng-switch-when="true">
               <br>
               Groups:
+              <tr ng-repeat="gp in groups">
+                <td> {{ gp.name }} </td>
+              </tr>
             </div>
             <div ng-switch-when="false">
               <br>

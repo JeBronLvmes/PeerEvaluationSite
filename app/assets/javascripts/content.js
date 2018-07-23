@@ -14,8 +14,15 @@ app.controller('courseCon', function($scope, $http) {
             });
 
         if ($scope.isGroup) {
+            $scope.students = null;
 
+            $http.get("/professors/" + prof_id + "/courses/" + course_id + "/groups")
+                .then(function (response) {
+                    $scope.groups = response;
+                });
         } else {
+            $scope.groups = null;
+
             $http.get("/professors/" + prof_id + "/courses/" + course_id + "/students")
                 .then(function (response) {
                     $scope.students = response;
