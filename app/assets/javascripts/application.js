@@ -12,7 +12,6 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
 //= require_tree .
  function showCourses(button){
     var buttons = document.getElementsByName("course")
