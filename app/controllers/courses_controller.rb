@@ -35,9 +35,9 @@ class CoursesController < ApplicationController
 
   # Created by Bin Chen 7/23/18
   def show
-    @article = Course.find(params[:id])
+    @course = Course.find(params[:id])
 
-    render json: @article
+    render json: @course
   end
 
   # Created by Jeb Alawi 7/21/18

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'login/student'
   get 'login/professor'
   get 'evaluations/new'
+
   root to: 'login#index'
 
 end

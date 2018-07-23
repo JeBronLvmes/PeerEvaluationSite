@@ -1,5 +1,5 @@
 
-<div class="container-fluid">
+<div class="container-fluid" ng-app="myApp" ng-controller="myCon">
   <div class = "row">
     <h1 class="mr-auto"><%= title %></h1> <span><b>Student/Groups</b></span>
   </div>
@@ -8,8 +8,9 @@
     <!-- List of Courses On The left -->
     <div class="col-2 px-0 mx-0">
       <div class="list-group list-group-flush" id="list-tab" role="tablist">
-        <% professor.courses.each_with_index do |course,index| %>
-          <a class="list-group-item list-group-item-action" name="course" onclick="showCourses(this)" id="list_course_<%=index%>" data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
+        <% professor.courses.each_with_index do |course| %>
+          <a class="list-group-item list-group-item-action" name="course" ng-click="showDetail(<%=professor.id%>, <%=course.id%>)"
+             data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
         <%end%>
         <%= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
       </div>
@@ -24,3 +25,5 @@
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag 'content' %>
