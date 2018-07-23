@@ -8,6 +8,10 @@ class StudentsController < ApplicationController
 		@student = Student.new
 	end
 
+	def edit
+		@student = Student.find(params[:id])
+	end
+
 	def show
 		@student = Student.find(params[:id])
 	end
@@ -23,15 +27,28 @@ class StudentsController < ApplicationController
 
 	def update
 		@student = Student.find(params[:id])
-		@student.courses << Course.find(params[:student][:course_id])
-		if @student.save
-			redirect_to @student
-		end
+
+		if @student.update(student_params)
+    	redirect_to @student
+  	else
+    	render 'edit'
+  	end
+#		@student.courses << Course.find(params[:student][:course_id])
+#		if @student.save
+#			redirect_to @student
+#		end
 	end
 
 	def profile
 		@student = Student.find(student_params)
 		redirect_to @student
+	end
+
+	def destroy
+		@student = Student.find(params[:id])
+		@student.destroy
+	 
+		redirect_to students_path
 	end
 
 	private

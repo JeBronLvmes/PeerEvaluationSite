@@ -12,7 +12,6 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
 //= require_tree .
 /*Shows the correct course information based on which course button is selected in the course side navigation bar*/
  function showCourses(button){

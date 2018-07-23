@@ -19,12 +19,14 @@
         <%= link_to 'New', new_professor_path, :class => "dropdown-item" %>
       </div>
     </li>
+    <% if current_professor %>
     <li class="nav-item dropdown">
       <%= link_to 'Courses', professor_courses_path(current_professor.id), :class => "nav-link dropdown-toggle" %>
       <div class="dropdown-menu mt-0">
         <%= link_to 'New', new_professor_course_path(current_professor.id), :class => "dropdown-item" %>
       </div>
     </li>
+    <% end %>
     <li class="nav-item dropdown">
       <%= link_to 'Evaluations', evaluations_path, :class => "nav-link dropdown-toggle" %>
       <div class="dropdown-menu mt-0">

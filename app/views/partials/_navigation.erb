@@ -8,6 +8,9 @@
         <%= link_to 'Courses', professor_courses_path(current_professor.id), :class => "nav-link" %>
       </li>
       <li class="nav-item">
+        <%= link_to 'Evaluations', professor_professor_forms_path(current_professor.id), :class => "nav-link" %>
+      </li>
+      <li class="nav-item">
         <%= link_to 'Groups', '/professors/'+current_professor.id.to_s+'/groups', :class => "nav-link" %>
       </li>
 

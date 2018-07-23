@@ -1,4 +1,3 @@
-
 <%= javascript_include_tag 'content' %>
 
 <div class="container-fluid" ng-app="myApp" ng-controller="myCon">
@@ -20,12 +19,14 @@
 
     </div>
     <div id ="pageContent" class="col bg-light">
-      <div class="row py-3 px-3" id="course_content">
-        <h1> {{course_dept}}: {{course_name}}-{{course_number}}</h1>
+      <div class="row">
+        {{course_name}}
+        {{description}}
+
+
         <%#= render partial: "professors/partials/course_list", locals: {courses: @courses}%>
         <%#= render partial: "professors/partials/groups_list", locals: {groups: professor.courses}%>
       </div>
     </div>
   </div>
 </div>
-
