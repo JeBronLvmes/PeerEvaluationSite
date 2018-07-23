@@ -33,6 +33,14 @@ class CoursesController < ApplicationController
     end
   end
 
+  # Get all of the students in the course
+  # Created by Bin Chen 7/23/18
+  def get_students
+    @course = Course.find(params[:course_id])
+
+    render json: @course.students
+  end
+
   # Created by Bin Chen 7/23/18
   def show
     @course = Course.find(params[:id])

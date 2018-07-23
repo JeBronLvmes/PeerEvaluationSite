@@ -1,7 +1,7 @@
 
 <%= javascript_include_tag 'content' %>
 
-<div class="container-fluid" ng-app="myApp" ng-controller="myCon" ng-init="isGroup=false">
+<div class="container-fluid" ng-app="courseApp" ng-controller="courseCon" ng-init="isGroup=false">
 
   <div class = "row">
     <h1 class="mr-auto"><%= title %></h1>
@@ -27,8 +27,20 @@
       <div class="row py-3 px-3">
         <h1>
           {{course_name}}
-          <br>
-          {{isGroup? "Group" : "Student"}}
+          <br><br>
+          <div ng-switch on="isGroupTemp">
+            <div ng-switch-when="true">
+              <br>
+              Groups:
+            </div>
+            <div ng-switch-when="false">
+              <br>
+              Students:
+              <tr ng-repeat="std in students">
+                <td> {{ std.first_name + " " + std.last_name }} </td>
+              </tr>
+            </div>
+          </div>
         </h1>
         <%#= render partial: "professors/partials/course_list", locals: {courses: @courses}%>
         <%#= render partial: "professors/partials/groups_list", locals: {groups: professor.courses}%>
