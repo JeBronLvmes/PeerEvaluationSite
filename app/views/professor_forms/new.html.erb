@@ -37,7 +37,7 @@
 
           <p>
             <%= form.label :course_id %><br>
-            <%= collection_select(:professor_form, :course_id, Course.all, :id, :name) %>
+            <%= collection_select(:professor_form, :course_id, @professor.courses, :id, :name) %>
           </p>
 
           <p>
