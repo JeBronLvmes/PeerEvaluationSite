@@ -40,6 +40,8 @@ class CoursesController < ApplicationController
     render json: @course
   end
 
+
+
   # Created by Jeb Alawi 7/21/18
   def destroy
     if current_professor

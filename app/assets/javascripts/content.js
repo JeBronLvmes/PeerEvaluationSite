@@ -9,4 +9,8 @@ app.controller('myCon', function($scope, $http) {
                ' (section ' + response.data.section + ')';
             });
     };
+
+    $scope.switchState = function () {
+        $scope.isGroup = !$scope.isGroup;
+    };
 });
