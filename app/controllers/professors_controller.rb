@@ -7,12 +7,21 @@ class ProfessorsController < ApplicationController
     if current_professor
       @professor = current_professor
     end
+#		@professors = Professor.all
 
+  end
+
+	def show
+    @professor = Professor.find(params[:id])
   end
 
   def new
     @professor = Professor.new
   end
+
+	def edit
+		@professor = Professor.find(params[:id])
+	end
 
   def create
     @professor = Professor.new(professor_params)
@@ -24,8 +33,22 @@ class ProfessorsController < ApplicationController
     end
   end
 
-  def show
-  end
+	def update
+		@professor = Professor.find(params[:id])
+
+		if @professor.update(professor_params)
+			redirect_to @professor
+		else
+			render 'edit'
+		end
+	end
+
+	def destroy
+		@professor = Professor.find(params[:id])
+		@professor.destroy
+	 
+		redirect_to professors_path
+	end
 
   def showCourses
 
