@@ -28,9 +28,9 @@
     </li>
     <% end %>
     <li class="nav-item dropdown">
-      <%= link_to 'Evaluations', evaluations_path, :class => "nav-link dropdown-toggle" %>
+      <%= link_to 'Evaluations', professor_forms_path(current_professor.id), :class => "nav-link dropdown-toggle" %>
       <div class="dropdown-menu mt-0">
-        <%= link_to 'New', new_evaluation_path, :class => "dropdown-item" %>
+        <%= link_to 'New', new_professor_form_path(current_professor.id), :class => "dropdown-item" %>
       </div>
     </li>
     <li class="nav-item dropdown">

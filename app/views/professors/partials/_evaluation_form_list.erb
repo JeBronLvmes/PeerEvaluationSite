@@ -1,0 +1,30 @@
+
+  <% @professor_forms.each do |evaluation, index| %>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Due Date</th>
+      <th>Submission Date</th>
+      <th>Course ID</th>
+      <th>HTML Form</th>
+      <th> Form ID</th>
+      <th> Show form</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><%= evaluation.title %></td>
+      <td><%= evaluation.due_date %></td>
+      <td><%= evaluation.submission_date %></td>
+      <td><%= evaluation.course_id %></td>
+      <td><%= evaluation.html_form %></td>
+      <td><%= evaluation.id %></td>
+      <td><a href="/professors/<%= professor.id%>/courses/<%= course.id%>/professor_forms/<%=course.id%>/form/<%= evaluation.id%>">Show/Edit</a></td>
+      <td><%= link_to "delete", :controller => :professor_forms, :method => :delete%> </td>
+    </tr>
+    </tbody>
+  </table>
+  <hr/>
+  <% end %>

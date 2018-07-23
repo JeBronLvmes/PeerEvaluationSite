@@ -15,9 +15,11 @@
       <%= render partial: "professors/partials/course_dropdown.erb", locals: {courses: @courses, professor: @professor} %>
     </div>
 
-    <!--Content of the page on the right: empty of the index page since no class is selected-->
-    <div class="col">
+    <!--Content of the page on the right: filled with a specific courses evaluations-->
 
+    <div class="col">
+      <%= render partial: "professors/partials/evaluation_form.erb", locals: {form: @form} %>
     </div>
+
   </div>
 </div>

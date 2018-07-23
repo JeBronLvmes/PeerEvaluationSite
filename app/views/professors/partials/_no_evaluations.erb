@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2 px-0 mx-0">
+      <%= render partial: "professors/partials/course_dropdown.erb", locals: {courses: @courses, professor: @professor} %>
+    </div>
+    <div class="col bg-light">
+      <% render partial: "professors/partials/evaluation_form_list" %>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2 px-0 mx-0">
+      <%= render partial: "professors/partials/course_dropdown.erb", locals: {courses: @courses, professor: @professor} %>
+    </div>
+    <div class="col bg-light">
+    </div>
+  </div>
+</div>

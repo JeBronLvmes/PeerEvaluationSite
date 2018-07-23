@@ -8,24 +8,14 @@
   <div class="row">
 
     <!-- List of Courses On The left -->
-    <div class="col-2 px-0 mx-0">
-      <div class="list-group list-group-flush" id="list-tab" role="tablist">
-        <% professor.courses.each_with_index do |course| %>
-          <a class="list-group-item list-group-item-action" name="course" ng-click="showDetail(<%=professor.id%>, <%=course.id%>)"
-             data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
-        <%end%>
-        <%= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
-      </div>
+
+      <%= render partial: "professors/partials/course_dropdown.erb", locals: {courses: @courses, professor: @professor} %>
 
     </div>
-    <div id ="pageContent" class="col bg-light">
-      <div class="row">
-        {{course_name}}
-        {{description}}
-
-
-        <%#= render partial: "professors/partials/course_list", locals: {courses: @courses}%>
-        <%#= render partial: "professors/partials/groups_list", locals: {groups: professor.courses}%>
+    <div  class="col bg-light">
+      <div class="row py-3 px-3">
+        <h1> {{course_dept}}-{{course_number}}: {{course_name}}</h1>
+        <%= render partial: "professors/partials/evaluation_form_list", locals: {courses: @courses}%>
       </div>
     </div>
   </div>

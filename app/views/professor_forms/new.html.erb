@@ -1,0 +1,60 @@
+<%= javascript_include_tag 'content' %>
+
+<div class="container-fluid">
+
+  <!--Header For Evaluations-->
+  <div class = "row">
+    <h1 class="px-3 py-3">Evaluations</h1> <span><b>Student/Groups</b></span>
+  </div>
+
+  <!-- Main Content on the page. Vertical list of courses on the left and page content on the right -->
+  <div class="row">
+
+    <!--List of courses on the left-->
+    <div class="col-2 px-0 mx-0">
+      <%= render partial: "professors/partials/course_dropdown.erb", locals: {courses: @courses, professor: @professor} %>
+    </div>
+    <div  class="col bg-light">
+      <div class="col bg-light rounded px-5 py-5">
+        <h1 class=""> Create Evaluation Form </h1>
+        <%= form_with(model: @professor_form, local: true) do |form| %>
+
+
+          <p>
+            <%= form.label :title %><br>
+            <%= form.text_field :title %>
+          </p>
+
+          <p>
+            <%= form.label :due_date %><br>
+            <%= form.text_area :due_date %>
+          </p>
+
+          <p>
+            <%= form.label :submission_date %><br>
+            <%= form.text_area :submission_date %>
+          </p>
+
+          <p>
+            <%= form.label :course_id %><br>
+            <%= form.text_field :course_id %>
+          </p>
+
+          <p>
+            <%= form.label :html_form %><br>
+            <%= form.text_area :html_form %>
+          </p>
+
+          <p>
+            <%= form.submit %>
+          </p>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+

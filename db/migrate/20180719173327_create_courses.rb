@@ -8,7 +8,6 @@ class CreateCourses < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :dept
       t.belongs_to :professor
-
       t.timestamps
     end
   end

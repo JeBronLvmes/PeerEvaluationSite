@@ -21,3 +21,7 @@
 #course_content{
     display:none;
 }
+
+a.course_link {
+    width:100%;
+}
