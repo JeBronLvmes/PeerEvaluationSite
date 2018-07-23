@@ -22,7 +22,7 @@
       <td><%= evaluation.html_form %></td>
       <td><%= evaluation.id %></td>
       <td><a href="/professors/<%= professor.id%>/courses/<%= course.id%>/professor_forms/<%=course.id%>/form/<%= evaluation.id%>">Show/Edit</a></td>
-      <td><%= link_to "delete", :controller => :professor_forms, :method => :delete%> </td>
+      <td><%= link_to 'Delete', professor_form_path(@professor, @course, @professor_form), method: :delete, data: {confirm: "Are you sure? "} %> </td>
     </tr>
     </tbody>
   </table>

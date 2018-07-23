@@ -9,8 +9,10 @@ Rails.application.routes.draw do
   end
 
   resources :professors do
+    resources :courses do
+      resources :professor_forms
+    end
     get 'groups'
-    resources :courses, :professor_forms
   end
 
   resources :students, :professors, :evaluations, :groups, :courses_student, :professor_forms
@@ -22,7 +24,9 @@ Rails.application.routes.draw do
   # get all of the students in the course
   get 'professors/:pro_id/courses/:course_id/students', to: 'courses#get_students'
   get 'professors/:pro_id/courses/:course_id/groups', to: 'courses#get_groups'
-
+  get 'professors/:pro_id/courses/:course_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
+  delete 'professors/:pro_id/courses/:course_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
   root to: 'login#index'
 
 end
+
