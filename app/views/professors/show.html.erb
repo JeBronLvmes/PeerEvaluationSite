@@ -6,7 +6,10 @@
   <%@professor = Professor.find(current_professor.id) %>
   <h4> Name: <%=@professor.first_name.capitalize + " " + @professor.last_name.capitalize%>  </h4>
   <h4> Dot Number: <%= @professor.dot_number %> </h4>
-	<%= link_to 'Edit Profile', edit_professor_path(@professor) %>
+	<%= link_to 'Edit Profile', edit_professor_path(@professor) %> |
+	<%= link_to 'Cancel Account', professor_path(@professor),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
   <hr/>
 
   <h1>Courses</h1>
