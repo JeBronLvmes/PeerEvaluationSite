@@ -1,4 +1,6 @@
 class ProfessorFormsController < ApplicationController
+
+  before_action :set_professor_form, only: [:destroy]
   def new
     @professor = current_professor
     @professor_form = ProfessorForm.new
@@ -33,9 +35,19 @@ class ProfessorFormsController < ApplicationController
   end
 
   def destroy
+    @form = ProfessorForm.find(params[:id])
+    if current_professor
+      @professor_form.destroy
+      if current_professor
+        redirect_to professor_course_professor_form_path(current_professor.id, :course_id), notice: 'Course was successfully deleted.'
+      end
+    end
   end
 
   private
+  def set_professor_form
+    @professor_form = ProfessorForm.find(params[:id])
+  end
   def professor_form_params
     params.require(:professor_form).permit(:title, :due_date, :submission_date, :html_form, :course_id)
   end
