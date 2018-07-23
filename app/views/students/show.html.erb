@@ -5,7 +5,10 @@
     <%@student = Student.find(current_student.id) %>
     <h4> Name: <%=@student.first_name.capitalize + " " + @student.last_name.capitalize%>  </h4>
     <h4> Dot Number: <%= @student.dot_number %> </h4>
-		<%= link_to 'Edit Profile', edit_student_path(@student) %> 
+		<%= link_to 'Edit Profile', edit_student_path(@student) %> |
+		<%= link_to 'Cancel Account', student_path(@student),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
     <hr/>
 
     <h1>Courses</h1>
