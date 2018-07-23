@@ -26,11 +26,18 @@ class CoursesController < ApplicationController
       @course = Course.new(course_params)
       @course.professor_id = current_professor.id
       if @course.save
-        redirect_to professor_course_path
+        redirect_to current_professor
       else
         render 'new'
       end
     end
+  end
+
+  # Created by Bin Chen 7/23/18
+  def show
+    @article = Course.find(params[:id])
+
+    render json: @article
   end
 
   # Created by Jeb Alawi 7/21/18
