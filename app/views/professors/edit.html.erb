@@ -1,1 +1,40 @@
+<!-- Created by Houyi Fan 7/22/18 -->
 
+<h1>Edit Profile</h1>
+<%= form_with model: @professor, local: true do |form| %>
+ 
+  <% if @professor.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@professor.errors.count, "error") %> prohibited
+        this professor from being saved:
+      </h2>
+      <ul>
+        <% @professor.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <p>
+    <%= form.label :first_name %><br>
+    <%= form.text_field :first_name %>
+  </p>
+ 
+  <p>
+    <%= form.label :last_name %><br>
+    <%= form.text_field :last_name %>
+  </p>
+
+	<p>
+    <%= form.label :dot_number %><br>
+    <%= form.text_field :dot_number %>
+ 
+  <p>
+    <%= form.submit %>
+  </p>
+ 
+<% end %>
+
+<%= link_to 'Back', professors_path %>

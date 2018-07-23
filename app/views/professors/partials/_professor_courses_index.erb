@@ -1,10 +1,14 @@
 
 <%= javascript_include_tag 'content' %>
 
-<div class="container-fluid" ng-app="myApp" ng-controller="myCon">
+<div class="container-fluid" ng-app="courseApp" ng-controller="courseCon" ng-init="isGroup=false">
 
   <div class = "row">
-    <h1 class="mr-auto"><%= title %></h1> <span><b>Student/Groups</b></span>
+    <h1 class="mr-auto"><%= title %></h1>
+    <span>
+      <button ng-click="switchState()" ng-disabled="!isGroup">Students</button>
+      <button ng-click="switchState()" ng-disabled="isGroup">Groups</button>
+    </span>
   </div>
   <div class="row">
 
@@ -12,14 +16,35 @@
     <div class="col-2 px-0 mx-0">
       <div class="list-group list-group-flush" id="list-tab" role="tablist">
         <% professor.courses.each_with_index do |course| %>
-          <a class="list-group-item list-group-item-action" href="/professors/<%=professor.id%>/professor_forms/<%= course.id %>"><%= course.name %></a>
+          <a class="list-group-item list-group-item-action" name="course" ng-click="showDetail(<%=professor.id%>, <%=course.id%>)"
+             data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
         <%end%>
         <%= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
       </div>
+
     </div>
     <div id ="pageContent" class="col bg-light">
-      <div class="row py-3 px-3" id="course_content">
-        <h1>{{course_dept}}-{{course_number}}: {{course_name}}</h1>
+      <div class="row py-3 px-3">
+        <h1>
+          {{course_name}}
+          <br><br>
+          <div ng-switch on="isGroupTemp">
+            <div ng-switch-when="true">
+              <br>
+              Groups:
+              <tr ng-repeat="gp in groups">
+                <td> {{ gp.name }} </td>
+              </tr>
+            </div>
+            <div ng-switch-when="false">
+              <br>
+              Students:
+              <tr ng-repeat="std in students">
+                <td> {{ std.first_name + " " + std.last_name }} </td>
+              </tr>
+            </div>
+          </div>
+        </h1>
         <%#= render partial: "professors/partials/course_list", locals: {courses: @courses}%>
         <%#= render partial: "professors/partials/groups_list", locals: {groups: professor.courses}%>
       </div>

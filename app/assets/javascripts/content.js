@@ -1,27 +1,39 @@
-var app = angular.module('myApp', []);
+var app = angular.module('courseApp', []);
 
-app.controller('myCon', function($scope, $http) {
+app.controller('courseCon', function($scope, $http) {
     $scope.showDetail = function (prof_id, course_id) {
+        $scope.curProfId = prof_id;
+        $scope.curCourseId = course_id;
+        if (course_id != null)  $scope.isGroupTemp = $scope.isGroup;
+
         $http.get("/professors/" + prof_id + "/courses/" + course_id)
             .then(function(response) {
-                $scope.course_name = response.data.name;
-                $scope.course_dept = response.data.dept;
-                $scope.course_number = response.data.number;
-                $scope.course_id = response.data.course_id;
+                $scope.course_name = response.data.dept + ' ' +
+                    response.data.number + ' - ' + response.data.name +
+               ' (section ' + response.data.section + ')';
             });
-        var div = document.getElementById("course_content");
-        div.style.display = "block";
-    };
-    $scope.showFromDetails = function (prof_id, course_id) {
-        $http.get("/professors/" + prof_id + "/professor_forms/" + course_id)
-            .then(function(response) {
-                $scope.course_name = response.data.name;
-                $scope.course_dept = response.data.dept;
-                $scope.course_number = response.data.number;
-                $scope.course_id = response.data.course_id;
-            });
-        var div = document.getElementById("course_content");
-        div.style.display = "block";
+
+        if ($scope.isGroup) {
+            $scope.students = null;
+
+            $http.get("/professors/" + prof_id + "/courses/" + course_id + "/groups")
+                .then(function (response) {
+                    $scope.groups = response;
+                });
+        } else {
+            $scope.groups = null;
+
+            $http.get("/professors/" + prof_id + "/courses/" + course_id + "/students")
+                .then(function (response) {
+                    $scope.students = response;
+                });
+        }
     };
 
+    $scope.switchState = function () {
+        $scope.isGroup = !$scope.isGroup;
+
+        if ($scope.curCourseId != null)
+            $scope.showDetail($scope.curProfId , $scope.curCourseId);
+    };
 });
