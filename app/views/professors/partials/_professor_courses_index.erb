@@ -39,9 +39,11 @@
             <div ng-switch-when="false">
               <br>
               Students:
-              <tr ng-repeat="std in students">
-                <td> {{ std.first_name + " " + std.last_name }} </td>
-              </tr>
+              <table>
+                <tr ng-repeat="s in students">
+                  <td> {{ s.first_name + " " + s.last_name }} </td>
+                </tr>
+              </table>
             </div>
           </div>
         </h1>

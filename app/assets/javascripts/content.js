@@ -18,14 +18,14 @@ app.controller('courseCon', function($scope, $http) {
 
             $http.get("/professors/" + prof_id + "/courses/" + course_id + "/groups")
                 .then(function (response) {
-                    $scope.groups = response;
+                    $scope.groups = response.data;
                 });
         } else {
             $scope.groups = null;
 
             $http.get("/professors/" + prof_id + "/courses/" + course_id + "/students")
                 .then(function (response) {
-                    $scope.students = response;
+                    $scope.students = response.data;
                 });
         }
     };
