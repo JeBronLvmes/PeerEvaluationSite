@@ -1,3 +1,4 @@
+<!-- Modified by Houyi Fan 7/22/18 -->
 <%if current_professor.id.to_s == params[:id].to_s%>
 
 <div class="container bg-light py-5 px-5">
@@ -5,6 +6,7 @@
   <%@professor = Professor.find(current_professor.id) %>
   <h4> Name: <%=@professor.first_name.capitalize + " " + @professor.last_name.capitalize%>  </h4>
   <h4> Dot Number: <%= @professor.dot_number %> </h4>
+	<%= link_to 'Edit Profile', edit_professor_path(@professor) %>
   <hr/>
 
   <h1>Courses</h1>
