@@ -56,6 +56,12 @@
           <div ng-switch-when="true">
             <br>
             <h2>Groups:</h2>
+            <form class="form-inline" name="addGroupForm" ng-submit="addGroup()">
+              <div class="form-group">
+                <input ng-model="$parent.group_name" type="text" class="form-control" placeholder="Group Name" required/>
+              </div>
+              <button type="submit" class="btn btn-success">Add Group</button>
+            </form>
             <table class="table table-sm">
               <thead>
               <th>Name</th>

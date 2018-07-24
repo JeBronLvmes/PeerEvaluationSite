@@ -25,6 +25,17 @@ class CoursesController < ApplicationController
     end
   end
 
+  # add a group to the class
+  # created by Jeb Alawi 7/24/18
+  def add_group
+    @professor = Professor.find(params[:professor_id])
+    @course = Course.find(params[:course_id])
+    @group = Group.new(group_params)
+    @course.groups << @group
+    if @group.save
+      render :json => "ok"
+    end
+  end
 
   # Get all of the groups in the course
   # Created by Bin Chen 7/23/18
@@ -95,6 +106,11 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
   end
   def course_params
-    params.require(:course).permit(:dept, :number, :section, :name, :professor_id)
+    params.require(:course).permit(:dept, :number, :section, :name, :professor_id, :group_name)
   end
+
+  def group_params
+    params.permit(:course_id, :name)
+  end
+
 end

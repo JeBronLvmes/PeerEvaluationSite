@@ -53,6 +53,13 @@ app.controller('courseCon', function($scope, $http) {
             });
     };
 
+    $scope.updateCurProfFormView = function () {
+        $http.get("/professors/" + $scope.curProfId  + "/professor_forms/" + $scope.curCourseId)
+            .then(function (response) {
+                $scope.forms = response.data;
+            });
+    };
+
     $scope.updateCurStdView = function () {
         $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/students")
             .then(function (response) {
@@ -80,6 +87,23 @@ app.controller('courseCon', function($scope, $http) {
         $scope.isGroup = !$scope.isGroup;
         $scope.isGroupTemp = $scope.isGroup;
         $scope.updateView();
+    };
+
+    $scope.addGroup = function () {
+        $http({
+            url: 'courses/' + $scope.curCourseId + '/group',
+            method: 'POST',
+            data: { 'name': $scope.group_name },
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(function(response) {
+                window.alert("success");
+                $scope.updateCurStdView();
+            },
+            function(response) {
+                window.alert("fail");
+            });
+
     };
 
     $scope.addCourse = function () {
