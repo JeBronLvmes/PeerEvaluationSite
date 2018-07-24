@@ -27,7 +27,18 @@ class ProfessorFormsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       render 'new'
   end
+  def get_forms
+    @course = Course.find(params[:course_id])
+    @forms = @course.professor_forms
 
+    render json: @forms
+  end
+
+  def get_groups
+    @forms = ProfessorForm.find(params[:course_id])
+
+    render json: @forms.groups
+  end
   def show_individual_form
     @professor = current_professor
     @courses = current_professor.courses
@@ -41,6 +52,21 @@ class ProfessorFormsController < ApplicationController
       if current_professor
         redirect_to professor_course_professor_form_path(current_professor.id, :course_id), notice: 'Course was successfully deleted.'
       end
+    end
+  end
+
+  def edit
+    @form = ProfessorForm.find(params[:id])
+  end
+
+  def update
+    @professor = current_professor
+    @form = ProfessorForm.find(params[:id])
+    @course = Course.find(params[:course_id])
+    if @form.save
+      redirect_to professor_course_professor_form_path(current_professor.id, @course)
+    else
+      render 'new'
     end
   end
 

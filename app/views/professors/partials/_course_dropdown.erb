@@ -1,8 +1,8 @@
-<div class="col-2 px-0 mx-0">
+
   <div class="list-group list-group-flush" id="list-tab" role="tablist">
     <% professor.courses.each_with_index do |course| %>
-      <a class="btn px-4 course_link" href="/professors/<%=professor.id%>/courses/<%= course.id %>/professor_forms/<%= course.id %>"><%= course.name %></a>
+      <a class="list-group-item list-group-item-action" name="course" ng-click="showDetail(<%=professor.id%>, <%=course.id%>)"
+         data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
     <%end%>
-    <%= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn px-4'%>
+    <%= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
   </div>
-</div>

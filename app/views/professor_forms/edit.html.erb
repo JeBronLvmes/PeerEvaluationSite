@@ -1,0 +1,20 @@
+<h1>Update Form</h1>
+
+
+<%= form_for(@form) do |f| %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title, class: 'form-control' %>
+
+  <%= f.label :due_date %>
+  <%= f.text_field :due_date, class: 'form-control' %>
+
+  <%= f.label :submission_date %>
+  <%= f.text_field :submission_date, class: 'form-control' %>
+
+  <%= f.label :html_form %>
+  <%= f.text_field :html_form, class: 'form-control' %>
+
+  <%= f.submit "Save changes", class: "btn btn-primary" %>
+
+<% end %>

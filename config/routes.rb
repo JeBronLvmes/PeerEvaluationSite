@@ -10,8 +10,9 @@ Rails.application.routes.draw do
 
   resources :professors do
     resources :courses do
-      resources :professor_forms
+
     end
+    resources :professor_forms
     get 'groups'
   end
 
@@ -40,8 +41,9 @@ Rails.application.routes.draw do
   # query the students that qualified with some conditions
   get 'studentSearch', to: 'students#search'
 
-  get 'professors/:pro_id/courses/:course_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
-  delete 'professors/:pro_id/courses/:course_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
+  get 'professors/:pro_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
+  get 'professors/:pro_id/professor_forms/:course_id/form/:id/edit', to: 'professor_forms#edit'
+  delete 'professors/:pro_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
   root to: 'login#index'
 
 end

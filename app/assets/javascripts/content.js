@@ -42,6 +42,13 @@ app.controller('courseCon', function($scope, $http) {
             });
     };
 
+    $scope.updateCurProfFormView = function () {
+        $http.get("/professors/" + $scope.curProfId  + "/professor_forms/" + $scope.curCourseId)
+            .then(function (response) {
+                $scope.forms = response.data;
+            });
+    };
+
     $scope.updateCurStdView = function () {
         $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/students")
             .then(function (response) {
