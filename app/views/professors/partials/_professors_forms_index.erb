@@ -1,22 +1,118 @@
-<%= javascript_include_tag 'content' %>
-
-<div class="container-fluid" ng-app="myApp" ng-controller="myCon">
+<div class="container-fluid" ng-app="courseApp" ng-controller="courseCon" ng-init="isGroup=false">
 
   <div class = "row">
-    <h1 class="mr-auto"><%= title %></h1> <span><b>Student/Groups</b></span>
+    <h1 class="mr-auto"><%= title %></h1>
+    <span>
+      <button ng-click="switchState()" ng-disabled="!isGroup">Students</button>
+      <button ng-click="switchState()" ng-disabled="isGroup">Groups</button>
+    </span>
   </div>
+
   <div class="row">
-
     <!-- List of Courses On The left -->
-
-      <%= render partial: "professors/partials/course_dropdown.erb", locals: {courses: @courses, professor: @professor} %>
-
+    <div class="col-2 px-0 mx-0">
+      <div class="list-group list-group-flush" id="list-tab" role="tablist">
+        <% professor.courses.each_with_index do |course| %>
+          <a class="list-group-item list-group-item-action" name="course" ng-click="showDetail(<%=professor.id%>, <%=course.id%>)"
+             data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
+        <%end%>
+        <%= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
+      </div>
     </div>
-    <div  class="col bg-light">
-      <div class="row py-3 px-3">
-        <h1> {{course_dept}}-{{course_number}}: {{course_name}}</h1>
-        <%= render partial: "professors/partials/evaluation_form_list", locals: {courses: @courses}%>
+
+    <div id="pageContent" class="col bg-light px-5 py-5">
+      <div class="row">
+        <h1>{{course_name}}</h1>
+        <br /><br />
+      </div>
+
+      <div class="row">
+        <!-- Evaluation Forms View -->
+        <div ng-switch on="isGroupTemp" ng-hide="hideCourseGroupsView">
+          <div ng-switch-when="true">
+            <br>
+            <h2>Forms:</h2>
+            <table class="table table-sm">
+              <thead>
+              <th>Name</th>
+              <th>Members</th>
+              <th>Add Student</th>
+              </thead>
+              <tr ng-repeat="g in groups">
+                <td>{{ g.name }}</td>
+                <td> <small>number of members</small> </td>
+                <td> <small>add student</small> </td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- Evaluation From Students View -->
+          <div ng-switch-when="false" ng-hide="hideCourseStudentsView">
+            <br>
+            <span class="h2 mr-auto">Current Students:</span>
+
+            <table class="table table-sm">
+              <thead>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Dot #</th>
+              <th>e-mail</th>
+              </thead>
+              <tr ng-repeat="s in students">
+                <td>{{ s.first_name }}</td>
+                <td>{{ s.last_name }}</td>
+                <td>{{ s.dot_number }}</td>
+                <td>{{ s.email }}</td>
+                <td> <button class="btn btn-danger" ng-click="deleteStudent(s.id)">Delete</button> </td>
+              </tr>
+            </table>
+            <br><hr>
+            <span class="h2 mr-auto">Query/Add Students:</span>
+
+            <form ng-submit="submitQuery()">
+              <div class="row">
+                <div class="col-4">
+                  First Name: <br><input type="text" name="student_id" ng-model="$parent.std_fname" />
+                </div>
+                <div class="col-4">
+                  Last Name: <br><input type="text" name="student_id" ng-model="$parent.std_lname" />
+                </div>
+                <div class="col-4">
+                  Dot Number: <br><input type="text" name="student_dot" ng-model="$parent.std_dot" />
+                </div>
+              </div>
+              <br>
+              <button type="submit">Query Students</button>
+            </form>
+
+            <br>
+            <table class="table table-sm">
+              <thead>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Dot #</th>
+              <th>e-mail</th>
+              </thead>
+              <tr ng-repeat="s in studentsFind">
+                <td>{{ s.first_name }}</td>
+                <td>{{ s.last_name }}</td>
+                <td>{{ s.dot_number }}</td>
+                <td>{{ s.email }}</td>
+                <td> <button class="btn btn-primary" ng-click="addStudent(s.id)">Add</button> </td>
+              </tr>
+            </table>
+
+            <div ng-show="showAddStudentForm">
+            </div>
+          </div>
+        </div>
+
+        <%#= render partial: "professors/partials/course_list", locals: {courses: @courses}%>
+        <%#= render partial: "professors/partials/groups_list", locals: {groups: professor.courses}%>
       </div>
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag 'content' %>
+

@@ -10,8 +10,9 @@ Rails.application.routes.draw do
 
   resources :professors do
     resources :courses do
-      resources :professor_forms
+
     end
+    resources :professor_forms
     get 'groups'
   end
 
