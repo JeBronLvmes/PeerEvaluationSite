@@ -1,6 +1,6 @@
 <!-- Modified by Jeb Alawi on 7/23/18 List Groups and Students -->
 
-<div class="container-fluid" ng-app="courseApp" ng-controller="courseCon" ng-init="init()">
+<div class="container-fluid" ng-app="courseApp" ng-controller="courseCon" ng-init="init(<%= professor.id %>)">
 
   <div class = "row">
     <h1 class="mr-auto"><%= title %></h1>
@@ -14,10 +14,10 @@
     <!-- List of Courses On The left -->
     <div class="col-2 px-0 mx-0">
       <div class="list-group list-group-flush" id="list-tab" role="tablist">
-        <% professor.courses.each_with_index do |course| %>
-          <a class="list-group-item list-group-item-action" name="course" ng-click="showDetail(<%=professor.id%>, <%=course.id%>)"
-             data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
-        <%end%>
+        <div ng-repeat="c in courses" >
+          <a class="list-group-item list-group-item-action" name="course" ng-click="showDetail(c.id)"
+             data-toggle="list" href="#list-home" role="tab" aria-controls="home"> {{c.name}} </a>
+        </div>
         <%#= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
         <a class="btn" name="addCourse" ng-click="toggleAddCourseForm()">Add Course</a>
         <div class="container">

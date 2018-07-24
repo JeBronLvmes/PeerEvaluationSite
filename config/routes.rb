@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   # add a group to the course
   post 'professors/:professor_id/courses/:course_id/group', to: 'courses#add_group'
 
+  # get all of the courses from one professor
+  get 'professors/:pro_id/get_courses', to: 'courses#get_courses'
+
   # get all of the students in the course
   get 'professors/:pro_id/courses/:course_id/students', to: 'courses#get_students'
 
