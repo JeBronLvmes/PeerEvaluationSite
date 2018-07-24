@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get 'professors/:pro_id/courses/:course_id/students', to: 'courses#get_students'
   get 'professors/:pro_id/courses/:course_id/groups', to: 'courses#get_groups'
   get 'professors/:pro_id/courses/:course_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
+  get 'professors/:pro_id/courses/:course_id/professor_forms/:course_id/form/:id/edit', to: 'professor_forms#edit'
   delete 'professors/:pro_id/courses/:course_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
   root to: 'login#index'
 
