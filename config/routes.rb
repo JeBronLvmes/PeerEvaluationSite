@@ -26,6 +26,10 @@ Rails.application.routes.draw do
   # add a group to the course
   post 'professors/:professor_id/courses/:course_id/group', to: 'courses#add_group'
 
+  # delete a group from the course
+  delete 'professors/:professor_id/courses/:course_id/group/:group_id', to: 'courses#delete_group'
+
+
   # get all of the students in the course
   get 'professors/:pro_id/courses/:course_id/students', to: 'courses#get_students'
 

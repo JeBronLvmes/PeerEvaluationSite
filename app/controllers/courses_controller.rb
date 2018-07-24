@@ -35,10 +35,22 @@ class CoursesController < ApplicationController
     @professor = Professor.find(params[:professor_id])
     @course = Course.find(params[:course_id])
     @group = Group.new(group_params)
-    @course.groups << @group
-    if @group.save
-      render :json => "ok"
+    @check = @course.groups.where('name = ?', params[:name]).empty?
+    @course.groups << @group if @course.groups.where('name = ?', params[:name]).empty?
+    if @group.save and @course.groups.where('name = ?', params[:name]).empty?
+      render :json => @check
+    else
+      render :json => @check
     end
+  end
+
+  # delete group
+  # Created by Jeb Alawi 7/24/18
+  def delete_group
+    @group = Group.find(params[:group_id])
+    @course = Course.find(params[:course_id])
+    @course.groups.delete @group
+    render :json => @course.groups
   end
 
   # Get all of the groups in the course

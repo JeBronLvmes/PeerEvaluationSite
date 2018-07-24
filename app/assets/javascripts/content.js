@@ -86,13 +86,25 @@ app.controller('courseCon', function($scope, $http) {
             headers: {'Content-Type': 'application/json'}
         })
         .then(function(response) {
-                window.alert("success");
-                $scope.updateCurStdView();
+                $scope.updateCurGroupView();
             },
             function(response) {
                 window.alert("fail");
             });
 
+    };
+
+    $scope.deleteGroup = function(id) {
+      if(window.confirm('Delete this group?')) {
+          $http({
+              url: 'courses/' + $scope.curCourseId + '/group/' + id,
+              method: 'DELETE'
+
+          })
+          .then(function (response) {
+                  $scope.updateCurGroupView();
+          });
+      }
     };
 
     $scope.addCourse = function () {
