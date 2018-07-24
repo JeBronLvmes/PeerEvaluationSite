@@ -1,0 +1,47 @@
+<%if current_student != nil and current_student.id.to_s == params[:id].to_s%>
+
+<div class="container bg-light py-5 px-5">
+
+    <h1>Groups</h1>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Evaluation Name</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">Submission Date</th>
+        <th scope="col">Form</th>
+        <th />
+      </tr>
+      </thead>
+      <tbody>
+
+        <!-- list student evaluations -->
+        <% @evaluation_list = @student.groups %>
+          <% @evaluation_list.each do |evaluation| %>
+          <tr>
+        	 	<td><%= evaluation.title %></td>
+            <td><%= evaluation.due_date %></td>
+            <td><%= evaluation.submission_date %></td>
+            <td><%= evaluation.form %></td>
+<% if false %>
+           
+<% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+<%else%>
+  <div class="container">
+    <div class="jumbotron vertical-center my-5 py-5">
+      <div class="container text-center">
+        <h1 class="display-4">Whoops!</h1>
+        <p class="lead">You don't belong here!</p>
+        page id = <%= params[:id]%>
+        student id = <%#= current_student.id %>
+        *these are for testing purposes*
+      </div>
+    </div>
+
+  </div>
+<%end%>

@@ -83,6 +83,11 @@ class StudentsController < ApplicationController
 		render 'get_groups'
 	end
 
+	def get_evaluations
+		@student = Student.find(params[:id])
+		render 'get_evaluations'
+	end
+
 	private
 
 		def student_params

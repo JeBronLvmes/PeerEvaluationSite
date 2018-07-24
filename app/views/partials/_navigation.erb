@@ -23,18 +23,15 @@
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-primary" >
     <%= link_to 'Student Profile', '/students/'+current_student.id.to_s, :class => "navbar-brand" %>
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
+      <li class="nav-item">
         <%= link_to 'Courses', '/students/' + current_student.id.to_s + '/get_courses', :class => "nav-link" %>
-        <div class="dropdown-menu  mt-0">
-          <%= link_to 'Join Course', '/students/'+current_student.id.to_s+'/courses_student/new', :class => "dropdown-item" %>
-        </div>
       </li>
 
       <li class="nav-item">
         <%= link_to 'Groups', '/students/' + current_student.id.to_s + '/get_groups', :class => "nav-link" %>
       </li>
       <li class="nav-item dropdown">
-        <%= link_to 'Evaluations', evaluations_path, :class => "nav-link dropdown-toggle" %>
+        <%= link_to 'Evaluations', '/students/' + current_student.id.to_s + '/get_evaluations', :class => "nav-link dropdown-toggle" %>
         <div class="dropdown-menu mt-0">
           <%= link_to 'Need Completed', new_evaluation_path, :class => "dropdown-item" %>
           <%= link_to 'Completed', evaluations_path, :class => "dropdown-item" %>
