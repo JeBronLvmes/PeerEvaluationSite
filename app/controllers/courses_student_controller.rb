@@ -5,8 +5,10 @@ class CoursesStudentController < ApplicationController
   end
 
   def new
-    @courses_student = CoursesStudent.new
-    @student = Student.find(params[:student_id])
+    if(current_professor)
+      @courses_student = CoursesStudent.new(courses_student_params)
+      @courses_student.save
+    end
   end
 
   def create
