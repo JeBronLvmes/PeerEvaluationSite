@@ -2,6 +2,9 @@ var app = angular.module('courseApp', []);
 
 
 app.controller('courseCon', function($scope, $http) {
+
+    // Functions that Update View
+
     $scope.showDetail = function (prof_id, course_id) {
         if (course_id != null) {
             $scope.isGroupTemp = $scope.isGroup;
@@ -19,25 +22,39 @@ app.controller('courseCon', function($scope, $http) {
         $scope.updateView();
     };
 
+    $scope.updateQueryStdView = function (response) {
+        $scope.studentsFind = response.data;
+    };
+
+    $scope.updateCurGroupView = function () {
+        $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/groups")
+            .then(function (response) {
+                $scope.groups = response.data;
+            });
+    };
+
+    $scope.updateCurStdView = function () {
+        $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/students")
+            .then(function (response) {
+                $scope.students = response.data;
+            });
+    };
+
     $scope.updateView = function () {
         if ($scope.curCourseId != null) {
             if ($scope.isGroup) {
                 $scope.students = null;
 
-                $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/groups")
-                    .then(function (response) {
-                        $scope.groups = response.data;
-                    });
+                $scope.updateCurGroupView();
             } else {
                 $scope.groups = null;
 
-                $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/students")
-                    .then(function (response) {
-                        $scope.students = response.data;
-                    });
+                $scope.updateCurStdView();
             }
         }
     };
+
+    // Other Controller Functions
 
     $scope.switchState = function () {
         $scope.isGroup = !$scope.isGroup;
@@ -45,19 +62,54 @@ app.controller('courseCon', function($scope, $http) {
         $scope.updateView();
     };
 
-    $scope.submitStudent = function() {
-        console.log("student_id: "+ $scope.student_id);
-        console.log("course_id: "+ $scope.curCourseId);
+    $scope.addStudent = function (id) {
+        if (window.confirm('Do you want to add this student?')) {
+            $http({
+                url: '/professors/' + $scope.curProfId + '/courses/' + $scope.curCourseId + '/add_std',
+                method: "POST",
+                data: {'std_id': parseInt(id)},
+                headers: {'Content-Type': 'application/json'}
+            })
+            .then(function (response) {
+                    window.alert("success");
+                    $scope.updateView();
+                },
+                function (response) {
+                    window.alert("fail");
+                });
+        }
+    };
+
+    $scope.submitQuery = function () {
+        var queryUrl = '/studentSearch?';
+        var check = false;
+
+        if ($scope.std_fname != null && $scope.std_fname != '') {
+            check = true;
+            queryUrl += 'first_name=' + $scope.std_fname;
+        }
+
+        if ($scope.std_lname != null && $scope.std_lname != '') {
+            if (check)
+                queryUrl += '&';
+
+            check = true;
+            queryUrl += 'last_name=' + $scope.std_lname;
+        }
+
+        if ($scope.std_dot != null && $scope.std_dot != '') {
+            if (check)
+                queryUrl += '&';
+
+            queryUrl += 'dot_number=' + $scope.std_dot;
+        }
 
         $http({
-            url: '/professors/' + $scope.curProfId + '/courses/' + $scope.curCourseId + '/add_std',
-            method: "POST",
-            data: { 'std_id' : parseInt($scope.student_id) },
-            headers: {'Content-Type': 'application/json' }
+            url: queryUrl,
+            method: "GET"
         })
         .then(function(response) {
-              window.alert("success");
-              $scope.updateView();
+                $scope.updateQueryStdView(response);
             },
             function(response) {
                 window.alert("fail");
@@ -72,7 +124,7 @@ app.controller('courseCon', function($scope, $http) {
             })
             .then(function(response) {
                     window.alert("success");
-                    $scope.updateView();
+                    $scope.updateCurStdView();
                 },
                 function(response) {
                     window.alert("fail");

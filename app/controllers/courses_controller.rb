@@ -65,7 +65,7 @@ class CoursesController < ApplicationController
 
     # add students into course only if the student does not exists in the course already
     @course.students << @std unless @course.students.include? @std
-    
+
   end
 
   # Created by Bin Chen 7/24/18
