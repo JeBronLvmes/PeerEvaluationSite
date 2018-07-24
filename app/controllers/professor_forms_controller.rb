@@ -44,6 +44,21 @@ class ProfessorFormsController < ApplicationController
     end
   end
 
+  def edit
+    @form = ProfessorForm.find(params[:id])
+  end
+
+  def update
+    @professor = current_professor
+    @form = ProfessorForm.find(params[:id])
+    @course = Course.find(params[:course_id])
+    if @form.save
+      redirect_to professor_course_professor_form_path(current_professor.id, @course)
+    else
+      render 'new'
+    end
+  end
+
   private
   def set_professor_form
     @professor_form = ProfessorForm.find(params[:id])
