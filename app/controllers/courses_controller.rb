@@ -2,6 +2,7 @@
 class CoursesController < ApplicationController
   # sets @course for destory method
   before_action :set_course, only: [:destroy]
+  protect_from_forgery with: :null_session
 
   # Created by Jeb Alawi 7/19/18
   def index
@@ -56,7 +57,13 @@ class CoursesController < ApplicationController
     render json: @course
   end
 
+  # Created by Bin Chen 7/24/18
+  def add_std
+    @pro = Professor.find(params[:pro_id])
+    @course = @pro.courses.find(params[:course_id])
 
+    add_student
+  end
 
   # Created by Jeb Alawi 7/21/18
   def destroy
@@ -74,5 +81,12 @@ class CoursesController < ApplicationController
   end
   def course_params
     params.require(:course).permit(:dept, :number, :section, :name)
+  end
+
+  # Created by Bin Chen 7/24/2018
+  def add_student
+    unless @course.students.find(params[:std_id])
+      @course.students << Student.find(params[:std_id])
+    end
   end
 end

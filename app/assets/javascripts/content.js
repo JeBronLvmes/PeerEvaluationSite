@@ -9,7 +9,9 @@ app.controller('courseCon', function($scope, $http) {
             $scope.curProfId = prof_id;
             $scope.curCourseId = course_id;
         }
-            selected_course_id = course_id;
+
+        selected_course_id = course_id;
+
         $http.get("/professors/" + prof_id + "/courses/" + course_id)
             .then(function(response) {
                 $scope.course_name = response.data.dept + ' ' +
@@ -17,32 +19,33 @@ app.controller('courseCon', function($scope, $http) {
                ' (section ' + response.data.section + ')';
             });
 
-        if ($scope.isGroup) {
-            $scope.students = null;
-
-            $http.get("/professors/" + prof_id + "/courses/" + course_id + "/groups")
-                .then(function (response) {
-                    $scope.groups = response.data;
-                });
-        } else {
-            $scope.groups = null;
-
-            $http.get("/professors/" + prof_id + "/courses/" + course_id + "/students")
-                .then(function (response) {
-                    $scope.students = response.data;
-                });
-        }
+        $scope.updateView();
     };
 
-    $scope.update = function () {
-        if ($scope.curCourseId != null)
-            $scope.showDetail();
+    $scope.updateView = function () {
+        if ($scope.curCourseId != null) {
+            if ($scope.isGroup) {
+                $scope.students = null;
+
+                $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/groups")
+                    .then(function (response) {
+                        $scope.groups = response.data;
+                    });
+            } else {
+                $scope.groups = null;
+
+                $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/students")
+                    .then(function (response) {
+                        $scope.students = response.data;
+                    });
+            }
+        }
     }
 
     $scope.switchState = function () {
         $scope.isGroup = !$scope.isGroup;
 
-        $scope.update();
+        $scope.updateView();
     };
 
     $scope.submitStudent = function() {
@@ -50,17 +53,33 @@ app.controller('courseCon', function($scope, $http) {
         console.log("course_id: "+ selected_course_id);
 
         $http({
-            url: '/courses_student',
+            url: '/professors/' + $scope.curProfId + '/courses/' + selected_course_id + '/add_std',
             method: "POST",
-            data: { 'student_id' : parseInt($scope.student_id), 'course_id' : selected_course_id },
+            data: { 'std_id' : parseInt($scope.student_id) },
             headers: {'Content-Type': 'application/json' }
         })
         .then(function(response) {
-               window.alert("success");
-                $scope.update();
+              window.alert("success");
+              $scope.updateView();
             },
         function(response) {
             window.alert("fail");
         });
+    };
+
+    $scope.deleteStudent = function (id) {
+        if (window.confirm('Do you want to delete this student?')) {
+            $http({
+                url: '/courses_student/' + id,
+                method: "DELETE"
+            })
+            .then(function(response) {
+                    window.alert("success");
+                    $scope.updateView();
+                },
+                function(response) {
+                    window.alert("fail");
+                });
+        }
     };
 });

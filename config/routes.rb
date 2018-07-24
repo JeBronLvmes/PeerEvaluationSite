@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     get 'groups'
   end
 
-  resources :students, :professors, :evaluations, :groups, :courses_student, :professor_forms
+  resources :students, :professors, :evaluations, :groups, :professor_forms
   get 'login/index'
   get 'login/student'
   get 'login/professor'
@@ -23,7 +23,13 @@ Rails.application.routes.draw do
 
   # get all of the students in the course
   get 'professors/:pro_id/courses/:course_id/students', to: 'courses#get_students'
+
+  # get all of the groups in the course
   get 'professors/:pro_id/courses/:course_id/groups', to: 'courses#get_groups'
+
+  # add a student to a course
+  post 'professors/:pro_id/courses/:course_id/add_std', to: 'courses#add_std'
+
   get 'professors/:pro_id/courses/:course_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
   delete 'professors/:pro_id/courses/:course_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
   root to: 'login#index'

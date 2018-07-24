@@ -1,5 +1,4 @@
 <!-- Modified by Jeb Alawi on 7/23/18 List Groups and Students -->
-<%= javascript_include_tag 'content' %>
 
 <div class="container-fluid" ng-app="courseApp" ng-controller="courseCon" ng-init="isGroup=false">
 
@@ -58,6 +57,7 @@
               <input type="text" name="student_id" ng-model="$parent.student_id" required/>
               <button id="addStudent" type="submit">Add Student</button>
             </form>
+
             <table class="table table-sm">
               <thead>
                 <th>First Name</th>
@@ -70,6 +70,7 @@
                 <td>{{ s.last_name }}</td>
                 <td>{{ s.dot_number }}</td>
                 <td>{{ s.email }}</td>
+                <td> <button class="btn btn-danger" ng-click="deleteStudent(s.id)">Delete</button> </td>
               </tr>
             </table>
           </div>
@@ -85,4 +86,6 @@
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag 'content' %>
 
