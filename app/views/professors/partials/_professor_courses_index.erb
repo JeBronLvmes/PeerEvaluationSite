@@ -67,11 +67,13 @@
               <th>Name</th>
               <th>Members</th>
               <th>Add Student</th>
+              <th />
               </thead>
               <tr ng-repeat="g in groups">
                 <td>{{ g.name }}</td>
                 <td> <small>number of members</small> </td>
                 <td> <small>add student</small> </td>
+                <td> <button class="btn btn-danger" ng-click="deleteGroup(g.id)">Delete</button> </td>
               </tr>
             </table>
           </div>

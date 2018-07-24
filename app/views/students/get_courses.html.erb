@@ -1,16 +1,6 @@
-<!-- Modified by Houyi Fan 7/22/18 -->
 <%if current_student != nil and current_student.id.to_s == params[:id].to_s%>
 
-  <div class="container bg-light py-5 px-5">
-    <h1> Profile</h1>
-    <%@student = Student.find(current_student.id) %>
-    <h4> Name: <%=@student.first_name.capitalize + " " + @student.last_name.capitalize%>  </h4>
-    <h4> Dot Number: <%= @student.dot_number %> </h4>
-		<%= link_to 'Edit Profile', edit_student_path(@student) %> |
-		<%= link_to 'Cancel Account', student_path(@student),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %>
-    <hr/>
+<div class="container bg-light py-5 px-5">
 
     <h1>Courses</h1>
     <table class="table">
@@ -21,21 +11,22 @@
         <th scope="col">Number</th>
         <th scope="col">Section</th>
         <th scope="col">course_id</th>
+        <th scope="col">Professor</th>
         <th />
       </tr>
       </thead>
       <tbody>
-        <!-- the line below is for only for demonstration purposes -->
         <% @courses_student_list = CoursesStudent.where("student_id = #{@student.id}")%>
         <!-- list student courses -->
         <% @course_list = @student.courses %>
           <% @course_list.each do |course| %>
           <tr>
-            <th scope="row"><%= course.name %></th>
+            <td><%= course.name %></td>
             <td><%= course.dept %></td>
             <td><%= course.number %></td>
             <td><%= course.section %></td>
             <td><%= course.id %></td>
+            
 <% if false %>
             <% courses_student_ref = CoursesStudent.where("student_id = #{@student.id} and course_id = #{course.id}").first %>
             <td><%= link_to 'Drop', courses_student_ref, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -44,9 +35,7 @@
         <% end %>
       </tbody>
     </table>
-
-  </div>
-
+    
 <%else%>
   <div class="container">
     <div class="jumbotron vertical-center my-5 py-5">
