@@ -1,32 +1,83 @@
 class ProfessorFormsController < ApplicationController
 
   before_action :set_professor_form, only: [:destroy]
-  def new
-    @professor = current_professor
-    @professor_form = ProfessorForm.new
-  end
-  def index
-    @courses = current_professor.courses
-    @professor = current_professor
-  end
+  protect_from_forgery with: :null_session
 
-  def create
-    @professor_form = ProfessorForm.new(professor_form_params)
-    if @professor_form.save
-      redirect_to professor_forms_path
-    else
-      render 'new'
+  # Created by Josh Wright 7/22/18
+  def new
+    @professor_form = ProfessorForm.new
+    @professor = nil
+    if(current_professor)
+      @professor=current_professor
     end
   end
 
-  def show
-    @professor = current_professor
-    @courses = current_professor.courses
-    @course = Course.find(params[:course_id])
-    @professor_forms = Course.find(params[:id]).professor_forms
-    rescue ActiveRecord::RecordNotFound
-      render 'new'
+  # Created by Josh Wright 7/22/18
+  def index
+    @professor = nil
+    @courses = nil
+    if current_professor
+      @courses = current_professor.courses
+      @professor = current_professor
+    end
   end
+
+  # Created by Josh Wright 7/22/18
+  def create
+    if current_professor
+      @professor_form = ProfessorForm.new(professor_form_params)
+      if @professor_form.save
+        redirect_to current_professor
+      else
+        render 'new'
+      end
+    end
+  end
+
+  # Created by Bin Chen 7/23/18
+  def show
+    @form = ProfessorForm.find(params[:id])
+
+    render json: @form
+  end
+
+  # Get all of the groups in the course
+  # Created by Josh Wright 7/24/18
+  def get_groups
+    @course = Course.find(params[:course_id])
+    render json: @course.groups
+  end
+
+  # Get all of the groups in the course
+  # Created by Josh Wright 7/24/18
+  def get_forms
+    @course = Course.find(params[:course_id])
+    @forms = @course.professor_forms
+    render json: @course.groups
+  end
+
+  # Get all of the students in the course
+  # Created by Josh Wright 7/24/18
+  def get_students
+    @course = Course.find(params[:course_id])
+
+    render json: @course.students
+  end
+
+  # Get a students in the course
+  # Created by Josh Wright 7/24/18
+  def get_student
+    @student = Student.find(params[:std_id])
+    render json: @student
+  end
+
+  # Created by Josh Wright 7/24/18
+  def show
+    @form = ProfessorForm.find(params[:id])
+
+    render json: @form
+  end
+
   def get_forms
     @course = Course.find(params[:course_id])
     @forms = @course.professor_forms
@@ -34,45 +85,20 @@ class ProfessorFormsController < ApplicationController
     render json: @forms
   end
 
-  def get_groups
-    @forms = ProfessorForm.find(params[:course_id])
-
-    render json: @forms.groups
-  end
-  def show_individual_form
-    @professor = current_professor
-    @courses = current_professor.courses
-    @form = ProfessorForm.find(params[:id])
-  end
-
+  # Created by Jeb Alawi 7/21/18
   def destroy
-    @form = ProfessorForm.find(params[:id])
     if current_professor
-      @professor_form.destroy
+      @form.destroy
       if current_professor
-        redirect_to professor_course_professor_form_path(current_professor.id, :course_id), notice: 'Course was successfully deleted.'
+        redirect_to professor_path(current_professor.id), notice: 'Course was successfully deleted.'
       end
     end
   end
 
-  def edit
-    @form = ProfessorForm.find(params[:id])
-  end
-
-  def update
-    @professor = current_professor
-    @form = ProfessorForm.find(params[:id])
-    @course = Course.find(params[:course_id])
-    if @form.save
-      redirect_to professor_course_professor_form_path(current_professor.id, @course)
-    else
-      render 'new'
-    end
-  end
-
+  # Created by Josh Wright 7/22/18
   private
   def set_professor_form
-    @professor_form = ProfessorForm.find(params[:id])
+    @form = ProfessorForm.find(params[:course_id])
   end
   def professor_form_params
     params.require(:professor_form).permit(:title, :due_date, :submission_date, :html_form, :course_id)

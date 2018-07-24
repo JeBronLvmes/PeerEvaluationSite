@@ -1,12 +1,12 @@
-var app = angular.module('courseApp', []);
+var app = angular.module('evaluationApp', []);
 
 
-app.controller('courseCon', function($scope, $http) {
+app.controller('evaluationCon', function($scope, $http) {
 
     $scope.init = function (prof_id) {
         $scope.curProfId = prof_id;
         $scope.processing = false;
-        $scope.isGroup = false;
+        $scope.isProfessorForm = false;
         $scope.showCourses();
     };
 
@@ -26,7 +26,7 @@ app.controller('courseCon', function($scope, $http) {
             .then(function(response) {
                 $scope.course_name = response.data.dept + ' ' +
                     response.data.number + ' - ' + response.data.name +
-               ' (section ' + response.data.section + ')';
+                    ' (section ' + response.data.section + ')';
             });
 
         $scope.updateView();
@@ -37,9 +37,9 @@ app.controller('courseCon', function($scope, $http) {
             url: '/professors/' + $scope.curProfId + '/get_courses',
             method: 'GET'
         })
-        .then(function (response) {
-            $scope.courses = response.data;
-        });
+            .then(function (response) {
+                $scope.courses = response.data;
+            });
     };
 
     $scope.updateQueryStdView = function (response) {
@@ -72,7 +72,7 @@ app.controller('courseCon', function($scope, $http) {
             if ($scope.isProfessorForm) {
                 $scope.students = null;
 
-                $scope.updateCurGroupView();
+                $scope.updateCurProfFormView();
             } else {
                 $scope.groups = null;
 
@@ -96,13 +96,13 @@ app.controller('courseCon', function($scope, $http) {
             data: { 'name': $scope.group_name },
             headers: {'Content-Type': 'application/json'}
         })
-        .then(function(response) {
-                window.alert("success");
-                $scope.updateCurStdView();
-            },
-            function(response) {
-                window.alert("fail");
-            });
+            .then(function(response) {
+                    window.alert("success");
+                    $scope.updateCurStdView();
+                },
+                function(response) {
+                    window.alert("fail");
+                });
 
     };
 
@@ -119,9 +119,9 @@ app.controller('courseCon', function($scope, $http) {
             },
             headers: {'Content-Type': 'application/json'}
         })
-        .then(function (response) {
-            $scope.showCourses();
-        });
+            .then(function (response) {
+                $scope.showCourses();
+            });
 
         $scope.toggleAddCourseForm();
     };
@@ -138,14 +138,14 @@ app.controller('courseCon', function($scope, $http) {
                     'Accept': 'application/json'
                 }
             })
-            .then(function (response) {
-                    window.alert("success");
-                    $scope.processing = false;
-                    $scope.updateView();
-                },
-                function (response) {
-                    window.alert("fail");
-                });
+                .then(function (response) {
+                        window.alert("success");
+                        $scope.processing = false;
+                        $scope.updateView();
+                    },
+                    function (response) {
+                        window.alert("fail");
+                    });
         }
     };
 
@@ -177,12 +177,12 @@ app.controller('courseCon', function($scope, $http) {
             url: queryUrl,
             method: "GET"
         })
-        .then(function(response) {
-                $scope.updateQueryStdView(response);
-            },
-            function(response) {
-                window.alert("fail");
-            });
+            .then(function(response) {
+                    $scope.updateQueryStdView(response);
+                },
+                function(response) {
+                    window.alert("fail");
+                });
     };
 
     $scope.deleteStudent = function (id) {
@@ -191,13 +191,13 @@ app.controller('courseCon', function($scope, $http) {
                 url: '/professors/' + $scope.curProfId + '/courses/' + $scope.curCourseId + '/del_std/' + id,
                 method: "DELETE"
             })
-            .then(function(response) {
-                    window.alert("success");
-                    $scope.updateCurStdView();
-                },
-                function(response) {
-                    window.alert("fail");
-                });
+                .then(function(response) {
+                        window.alert("success");
+                        $scope.updateCurStdView();
+                    },
+                    function(response) {
+                        window.alert("fail");
+                    });
         }
     };
 });

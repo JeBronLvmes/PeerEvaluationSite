@@ -1,10 +1,10 @@
-<div class="container-fluid" ng-app="courseApp" ng-controller="courseCon" ng-init="isGroup=false">
+<div class="container-fluid" ng-app="evaluationApp" ng-controller="evaluationCon" ng-init="init(<%= professor.id %>)">
 
   <div class = "row">
     <h1 class="mr-auto"><%= title %></h1>
     <span>
-      <button ng-click="switchState()" ng-disabled="!isGroup">Students</button>
-      <button ng-click="switchState()" ng-disabled="isGroup">Groups</button>
+      <button ng-click="switchState()" ng-disabled="!isProfessorForm">Student Forms</button>
+      <button ng-click="switchState()" ng-disabled="isProfessorForm">Professor Forms</button>
     </span>
   </div>
 
@@ -12,10 +12,11 @@
     <!-- List of Courses On The left -->
     <div class="col-2 px-0 mx-0">
       <div class="list-group list-group-flush" id="list-tab" role="tablist">
-        <% professor.courses.each_with_index do |course| %>
-          <a class="list-group-item list-group-item-action" name="course" ng-click="showDetail(<%=professor.id%>, <%=course.id%>)"
-             data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
-        <%end%>
+        <div ng-repeat="c in courses" >
+          <a class="list-group-item list-group-item-action" name="course" ng-click="showDetail(c.id)"
+             data-toggle="list" href="#list-home" role="tab" aria-controls="home"> {{c.name}} </a>
+        </div>
+        <%#= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
         <a class="btn" name="addCourse" ng-click="toggleAddCourseForm()">Add Course</a>
         <div class="container">
           <form name="addCourseForm" ng-submit="addCourse()" ng-show="showAddCourseForm">
@@ -41,35 +42,38 @@
       </div>
     </div>
 
-    <div id="pageContent" class="col bg-light px-5 py-5">
-      <div class="row">
+    <div id ="pageContent" class="col bg-light px-5 py-5">
+      <div class="row py-3 px-3">
         <h1>{{course_name}}</h1>
         <br /><br />
       </div>
 
       <div class="row">
-
-        <!-- Evaluation Forms View -->
-        <div ng-switch on="isGroupTemp" ng-hide="hideCourseGroupsView">
+        <!-- Course Groups View -->
+        <div ng-switch on="isGroupTemp">
           <div ng-switch-when="true">
             <br>
             <h2>Forms:</h2>
+
             <table class="table table-sm">
               <thead>
               <th>Title</th>
-              <th>Post Date</th>
               <th>Due Date</th>
+              <th>Creation Date</th>
+              <th>Course ID</th>
               </thead>
               <tr ng-repeat="form in forms">
-                <td>{{ form.title }}</td>
-                <td> <small>{{form.submission_date}}</small> </td>
-                <td> <small>{{form.due_date}}</small> </td>
+                <td>{{form.title}}</td>
+                <td>{{form.due_date}}</td>
+                <td>{{form.submission_date}} </td>
+                <td>{{form.course_id}} </td>
+
               </tr>
             </table>
           </div>
 
-          <!-- Evaluation From Students View -->
-          <div ng-switch-when="false" ng-hide="hideCourseStudentsView">
+          <!-- Course Students View -->
+          <div ng-switch-when="false">
             <br>
             <span class="h2 mr-auto">Current Students:</span>
 
@@ -120,21 +124,15 @@
                 <td>{{ s.last_name }}</td>
                 <td>{{ s.dot_number }}</td>
                 <td>{{ s.email }}</td>
-                <td> <button class="btn btn-primary" ng-click="addStudent(s.id)">Add</button> </td>
+                <td> <button class="btn btn-primary" ng-disable="processing" ng-click="addStudent(s.id)">Add</button> </td>
               </tr>
             </table>
-
-            <div ng-show="showAddStudentForm">
-            </div>
           </div>
         </div>
-
-        <%#= render partial: "professors/partials/course_list", locals: {courses: @courses}%>
-        <%#= render partial: "professors/partials/groups_list", locals: {groups: professor.courses}%>
       </div>
     </div>
   </div>
 </div>
 
-<%= javascript_include_tag 'content' %>
+<%= javascript_include_tag 'contentEvaluations' %>
 
