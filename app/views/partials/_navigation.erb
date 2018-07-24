@@ -31,7 +31,7 @@
       </li>
 
       <li class="nav-item">
-        <%= link_to 'Groups', '/professors/'+current_student.id.to_s+'/groups', :class => "nav-link" %>
+        <%= link_to 'Groups', '/students/' + current_student.id.to_s + '/get_groups', :class => "nav-link" %>
       </li>
       <li class="nav-item dropdown">
         <%= link_to 'Evaluations', evaluations_path, :class => "nav-link dropdown-toggle" %>
