@@ -27,7 +27,18 @@ class ProfessorFormsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       render 'new'
   end
+  def get_forms
+    @course = Course.find(params[:course_id])
+    @forms = @course.professor_forms
 
+    render json: @forms
+  end
+
+  def get_groups
+    @forms = ProfessorForm.find(params[:course_id])
+
+    render json: @forms.groups
+  end
   def show_individual_form
     @professor = current_professor
     @courses = current_professor.courses

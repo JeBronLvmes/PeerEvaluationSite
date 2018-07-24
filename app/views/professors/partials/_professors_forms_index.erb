@@ -27,6 +27,7 @@
       </div>
 
       <div class="row">
+
         <!-- Evaluation Forms View -->
         <div ng-switch on="isGroupTemp" ng-hide="hideCourseGroupsView">
           <div ng-switch-when="true">
@@ -34,14 +35,14 @@
             <h2>Forms:</h2>
             <table class="table table-sm">
               <thead>
-              <th>Name</th>
-              <th>Members</th>
-              <th>Add Student</th>
+              <th>Title</th>
+              <th>Post Date</th>
+              <th>Due Date</th>
               </thead>
-              <tr ng-repeat="g in groups">
-                <td>{{ g.name }}</td>
-                <td> <small>number of members</small> </td>
-                <td> <small>add student</small> </td>
+              <tr ng-repeat="form in forms">
+                <td>{{ form.title }}</td>
+                <td> <small>{{form.submission_date}}</small> </td>
+                <td> <small>{{form.due_date}}</small> </td>
               </tr>
             </table>
           </div>
