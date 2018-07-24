@@ -2,15 +2,12 @@ var app = angular.module('courseApp', []);
 
 
 app.controller('courseCon', function($scope, $http) {
-    var selected_course_id = null;
     $scope.showDetail = function (prof_id, course_id) {
         if (course_id != null) {
             $scope.isGroupTemp = $scope.isGroup;
             $scope.curProfId = prof_id;
             $scope.curCourseId = course_id;
         }
-
-        selected_course_id = course_id;
 
         $http.get("/professors/" + prof_id + "/courses/" + course_id)
             .then(function(response) {
@@ -40,7 +37,7 @@ app.controller('courseCon', function($scope, $http) {
                     });
             }
         }
-    }
+    };
 
     $scope.switchState = function () {
         $scope.isGroup = !$scope.isGroup;
@@ -50,10 +47,10 @@ app.controller('courseCon', function($scope, $http) {
 
     $scope.submitStudent = function() {
         console.log("student_id: "+ $scope.student_id);
-        console.log("course_id: "+ selected_course_id);
+        console.log("course_id: "+ $scope.curCourseId);
 
         $http({
-            url: '/professors/' + $scope.curProfId + '/courses/' + selected_course_id + '/add_std',
+            url: '/professors/' + $scope.curProfId + '/courses/' + $scope.curCourseId + '/add_std',
             method: "POST",
             data: { 'std_id' : parseInt($scope.student_id) },
             headers: {'Content-Type': 'application/json' }
@@ -62,15 +59,15 @@ app.controller('courseCon', function($scope, $http) {
               window.alert("success");
               $scope.updateView();
             },
-        function(response) {
-            window.alert("fail");
-        });
+            function(response) {
+                window.alert("fail");
+            });
     };
 
     $scope.deleteStudent = function (id) {
         if (window.confirm('Do you want to delete this student?')) {
             $http({
-                url: '/courses_student/' + id,
+                url: '/professors/' + $scope.curProfId + '/courses/' + $scope.curCourseId + '/del_std/' + id,
                 method: "DELETE"
             })
             .then(function(response) {

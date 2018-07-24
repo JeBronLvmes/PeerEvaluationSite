@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   # add a student to a course
   post 'professors/:pro_id/courses/:course_id/add_std', to: 'courses#add_std'
 
+  # delete a student from a course
+  delete 'professors/:pro_id/courses/:course_id/del_std/:std_id', to: 'courses#delete_std'
+
   get 'professors/:pro_id/courses/:course_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
   delete 'professors/:pro_id/courses/:course_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
   root to: 'login#index'

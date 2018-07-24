@@ -61,8 +61,20 @@ class CoursesController < ApplicationController
   def add_std
     @pro = Professor.find(params[:pro_id])
     @course = @pro.courses.find(params[:course_id])
+    @std = Student.find(params[:std_id])
 
-    add_student
+    # add students into course only if the student does not exists in the course already
+    @course.students << @std unless @course.students.include? @std
+    
+  end
+
+  # Created by Bin Chen 7/24/18
+  def delete_std
+    @pro = Professor.find(params[:pro_id])
+    @course = @pro.courses.find(params[:course_id])
+    @std = Student.find(params[:std_id])
+
+    @course.students.delete @std
   end
 
   # Created by Jeb Alawi 7/21/18
@@ -81,12 +93,5 @@ class CoursesController < ApplicationController
   end
   def course_params
     params.require(:course).permit(:dept, :number, :section, :name)
-  end
-
-  # Created by Bin Chen 7/24/2018
-  def add_student
-    unless @course.students.find(params[:std_id])
-      @course.students << Student.find(params[:std_id])
-    end
   end
 end
