@@ -3,6 +3,11 @@ var app = angular.module('courseApp', []);
 
 app.controller('courseCon', function($scope, $http) {
 
+    $scope.init = function () {
+        $scope.processing = false;
+        $scope.isGroup = false;
+    };
+
     // Functions that Update View
 
     $scope.toggleAddCourseForm = function() {
@@ -86,6 +91,7 @@ app.controller('courseCon', function($scope, $http) {
 
     $scope.addStudent = function (id) {
         if (window.confirm('Do you want to add this student?')) {
+            $scope.processing = true;
             $http({
                 url: '/professors/' + $scope.curProfId + '/courses/' + $scope.curCourseId + '/add_std',
                 method: "POST",
@@ -94,6 +100,7 @@ app.controller('courseCon', function($scope, $http) {
             })
             .then(function (response) {
                     window.alert("success");
+                    $scope.processing = false;
                     $scope.updateView();
                 },
                 function (response) {
