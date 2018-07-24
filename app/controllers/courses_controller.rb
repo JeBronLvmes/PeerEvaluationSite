@@ -6,12 +6,7 @@ class CoursesController < ApplicationController
 
   # Created by Jeb Alawi 7/19/18
   def index
-    @professor = nil
-    @courses = nil
-    if current_professor
-      @courses = current_professor.courses
-      @professor = current_professor
-    end
+    @professor = current_professor
   end
 
   def new
@@ -22,10 +17,11 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)
     @professor = Professor.find(params[:professor_id])
     @professor.courses << @course
+
     if @course.save
-      render :json => "ok", status: "200 OK"
-      #redirect_to professor_courses_url(params[:professor_id])
-      #redirect_back(fallback_location: root_path)
+      render :json => @course
+    elsif
+      render :json => @course.errors
     end
   end
 
@@ -61,6 +57,14 @@ class CoursesController < ApplicationController
     render json: @course.groups
   end
 
+  # Get all of the courses from one professor
+  # Created by Bin Chen 7/23/18
+  def get_courses
+    @prof = Professor.find(params[:pro_id])
+
+    render json: @prof.courses
+  end
+
   # Get all of the students in the course
   # Created by Bin Chen 7/23/18
   def get_students
@@ -85,6 +89,7 @@ class CoursesController < ApplicationController
     # add students into course only if the student does not exists in the course already
     @course.students << @std unless @course.students.include? @std
 
+    render json: @std
   end
 
   # Created by Bin Chen 7/24/18
@@ -94,6 +99,8 @@ class CoursesController < ApplicationController
     @std = Student.find(params[:std_id])
 
     @course.students.delete @std
+
+    render json: @course.students
   end
 
   # Created by Jeb Alawi 7/21/18
@@ -109,7 +116,6 @@ class CoursesController < ApplicationController
   private
   def set_course
     @course = Course.find(params[:id])
-
   end
   def course_params
     params.require(:course).permit(:dept, :number, :section, :name, :professor_id, :group_name)

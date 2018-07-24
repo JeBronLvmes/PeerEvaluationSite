@@ -3,9 +3,11 @@ var app = angular.module('courseApp', []);
 
 app.controller('courseCon', function($scope, $http) {
 
-    $scope.init = function () {
+    $scope.init = function (prof_id) {
+        $scope.curProfId = prof_id;
         $scope.processing = false;
         $scope.isGroup = false;
+        $scope.showCourses();
     };
 
     // Functions that Update View
@@ -14,14 +16,13 @@ app.controller('courseCon', function($scope, $http) {
         $scope.showAddCourseForm = !$scope.showAddCourseForm;
     };
 
-    $scope.showDetail = function (prof_id, course_id) {
+    $scope.showDetail = function (course_id) {
         if (course_id != null) {
             $scope.isGroupTemp = $scope.isGroup;
-            $scope.curProfId = prof_id;
             $scope.curCourseId = course_id;
         }
 
-        $http.get("/professors/" + prof_id + "/courses/" + course_id)
+        $http.get("/professors/" + $scope.curProfId  + "/courses/" + course_id)
             .then(function(response) {
                 $scope.course_name = response.data.dept + ' ' +
                     response.data.number + ' - ' + response.data.name +
@@ -29,6 +30,16 @@ app.controller('courseCon', function($scope, $http) {
             });
 
         $scope.updateView();
+    };
+
+    $scope.showCourses = function () {
+        $http({
+            url: '/professors/' + $scope.curProfId + '/get_courses',
+            method: 'GET'
+        })
+        .then(function (response) {
+            $scope.courses = response.data;
+        });
     };
 
     $scope.updateQueryStdView = function (response) {
@@ -121,7 +132,9 @@ app.controller('courseCon', function($scope, $http) {
             headers: {'Content-Type': 'application/json'}
         })
         .then(function (response) {
-            });
+            $scope.showCourses();
+        });
+
         $scope.toggleAddCourseForm();
     };
 
@@ -132,7 +145,10 @@ app.controller('courseCon', function($scope, $http) {
                 url: '/professors/' + $scope.curProfId + '/courses/' + $scope.curCourseId + '/add_std',
                 method: "POST",
                 data: {'std_id': parseInt(id)},
-                headers: {'Content-Type': 'application/json'}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
             })
             .then(function (response) {
                     window.alert("success");

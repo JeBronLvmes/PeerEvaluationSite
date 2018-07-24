@@ -30,11 +30,17 @@ Rails.application.routes.draw do
   delete 'professors/:professor_id/courses/:course_id/group/:group_id', to: 'courses#delete_group'
 
 
+  # get all of the courses from one professor
+  get 'professors/:pro_id/get_courses', to: 'courses#get_courses'
+
   # get all of the students in the course
   get 'professors/:pro_id/courses/:course_id/students', to: 'courses#get_students'
 
   # get all of the groups in the course
   get 'professors/:pro_id/courses/:course_id/groups', to: 'courses#get_groups'
+
+  # get all of the courses in the student
+  get 'students/:id/get_courses', to: 'students#get_courses'
 
   # add a student to a course
   post 'professors/:pro_id/courses/:course_id/add_std', to: 'courses#add_std'
