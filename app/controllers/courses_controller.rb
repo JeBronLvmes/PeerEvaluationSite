@@ -2,6 +2,7 @@
 class CoursesController < ApplicationController
   # sets @course for destory method
   before_action :set_course, only: [:destroy]
+  protect_from_forgery with: :null_session
 
   # Created by Jeb Alawi 7/19/18
   def index
@@ -56,7 +57,25 @@ class CoursesController < ApplicationController
     render json: @course
   end
 
+  # Created by Bin Chen 7/24/18
+  def add_std
+    @pro = Professor.find(params[:pro_id])
+    @course = @pro.courses.find(params[:course_id])
+    @std = Student.find(params[:std_id])
 
+    # add students into course only if the student does not exists in the course already
+    @course.students << @std unless @course.students.include? @std
+
+  end
+
+  # Created by Bin Chen 7/24/18
+  def delete_std
+    @pro = Professor.find(params[:pro_id])
+    @course = @pro.courses.find(params[:course_id])
+    @std = Student.find(params[:std_id])
+
+    @course.students.delete @std
+  end
 
   # Created by Jeb Alawi 7/21/18
   def destroy

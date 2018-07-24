@@ -1,10 +1,16 @@
 var app = angular.module('courseApp', []);
 
+
 app.controller('courseCon', function($scope, $http) {
+
+    // Functions that Update View
+
     $scope.showDetail = function (prof_id, course_id) {
-        $scope.curProfId = prof_id;
-        $scope.curCourseId = course_id;
-        if (course_id != null)  $scope.isGroupTemp = $scope.isGroup;
+        if (course_id != null) {
+            $scope.isGroupTemp = $scope.isGroup;
+            $scope.curProfId = prof_id;
+            $scope.curCourseId = course_id;
+        }
 
         $http.get("/professors/" + prof_id + "/courses/" + course_id)
             .then(function(response) {
@@ -13,27 +19,116 @@ app.controller('courseCon', function($scope, $http) {
                ' (section ' + response.data.section + ')';
             });
 
-        if ($scope.isGroup) {
-            $scope.students = null;
+        $scope.updateView();
+    };
 
-            $http.get("/professors/" + prof_id + "/courses/" + course_id + "/groups")
-                .then(function (response) {
-                    $scope.groups = response;
-                });
-        } else {
-            $scope.groups = null;
+    $scope.updateQueryStdView = function (response) {
+        $scope.studentsFind = response.data;
+    };
 
-            $http.get("/professors/" + prof_id + "/courses/" + course_id + "/students")
-                .then(function (response) {
-                    $scope.students = response;
-                });
+    $scope.updateCurGroupView = function () {
+        $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/groups")
+            .then(function (response) {
+                $scope.groups = response.data;
+            });
+    };
+
+    $scope.updateCurStdView = function () {
+        $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/students")
+            .then(function (response) {
+                $scope.students = response.data;
+            });
+    };
+
+    $scope.updateView = function () {
+        if ($scope.curCourseId != null) {
+            if ($scope.isGroup) {
+                $scope.students = null;
+
+                $scope.updateCurGroupView();
+            } else {
+                $scope.groups = null;
+
+                $scope.updateCurStdView();
+            }
         }
     };
+
+    // Other Controller Functions
 
     $scope.switchState = function () {
         $scope.isGroup = !$scope.isGroup;
 
-        if ($scope.curCourseId != null)
-            $scope.showDetail($scope.curProfId , $scope.curCourseId);
+        $scope.updateView();
+    };
+
+    $scope.addStudent = function (id) {
+        if (window.confirm('Do you want to add this student?')) {
+            $http({
+                url: '/professors/' + $scope.curProfId + '/courses/' + $scope.curCourseId + '/add_std',
+                method: "POST",
+                data: {'std_id': parseInt(id)},
+                headers: {'Content-Type': 'application/json'}
+            })
+            .then(function (response) {
+                    window.alert("success");
+                    $scope.updateView();
+                },
+                function (response) {
+                    window.alert("fail");
+                });
+        }
+    };
+
+    $scope.submitQuery = function () {
+        var queryUrl = '/studentSearch?';
+        var check = false;
+
+        if ($scope.std_fname != null && $scope.std_fname != '') {
+            check = true;
+            queryUrl += 'first_name=' + $scope.std_fname;
+        }
+
+        if ($scope.std_lname != null && $scope.std_lname != '') {
+            if (check)
+                queryUrl += '&';
+
+            check = true;
+            queryUrl += 'last_name=' + $scope.std_lname;
+        }
+
+        if ($scope.std_dot != null && $scope.std_dot != '') {
+            if (check)
+                queryUrl += '&';
+
+            queryUrl += 'dot_number=' + $scope.std_dot;
+        }
+
+        $http({
+            url: queryUrl,
+            method: "GET"
+        })
+        .then(function(response) {
+                $scope.updateQueryStdView(response);
+            },
+            function(response) {
+                window.alert("fail");
+            });
+    };
+
+    $scope.deleteStudent = function (id) {
+        if (window.confirm('Do you want to delete this student?')) {
+            $http({
+                url: '/professors/' + $scope.curProfId + '/courses/' + $scope.curCourseId + '/del_std/' + id,
+                method: "DELETE"
+            })
+            .then(function(response) {
+                    window.alert("success");
+                    $scope.updateCurStdView();
+                },
+                function(response) {
+                    window.alert("fail");
+                });
+        }
     };
 });

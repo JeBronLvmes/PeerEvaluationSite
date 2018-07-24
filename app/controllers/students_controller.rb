@@ -4,6 +4,7 @@ class StudentsController < ApplicationController
 		@students = Student.all
   end
 
+	# craeted by Bin Chen 7/19/18
 	def new
 		@student = Student.new
 	end
@@ -49,6 +50,27 @@ class StudentsController < ApplicationController
 		@student.destroy
 	 
 		redirect_to students_path
+	end
+
+	# created by Bin Chen 7/24/18
+	def search
+		query_str = ""
+		is_first = true
+		val_list = []
+
+		params.each do |key, value|
+			if key == 'first_name' or key == 'last_name' or key == 'dot_number'
+					query_str += " AND " unless is_first
+
+					is_first = false
+					query_str += key + " = ?"
+					val_list << value
+			end
+		end
+
+		puts query_str
+
+		render json: Student.where(query_str, *val_list)
 	end
 
 	private
