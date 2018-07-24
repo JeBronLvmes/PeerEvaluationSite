@@ -73,6 +73,11 @@ class StudentsController < ApplicationController
 		render json: Student.where(query_str, *val_list)
 	end
 
+	def get_courses
+		@student = Student.find(params[:id])
+		render 'get_courses'
+	end
+
 	private
 
 		def student_params

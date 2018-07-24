@@ -35,6 +35,9 @@ Rails.application.routes.draw do
   # get all of the groups in the course
   get 'professors/:pro_id/courses/:course_id/groups', to: 'courses#get_groups'
 
+  # get all of the courses in the student
+  get 'students/:id/get_courses', to: 'students#get_courses'
+
   # add a student to a course
   post 'professors/:pro_id/courses/:course_id/add_std', to: 'courses#add_std'
 

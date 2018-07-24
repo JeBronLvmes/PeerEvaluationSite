@@ -24,7 +24,7 @@
     <%= link_to 'Student Profile', '/students/'+current_student.id.to_s, :class => "navbar-brand" %>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
-        <%= link_to 'Courses', student_courses_path(current_student.id), :class => "nav-link" %>
+        <%= link_to 'Courses', '/students/' + current_student.id.to_s + '/get_courses', :class => "nav-link" %>
         <div class="dropdown-menu  mt-0">
           <%= link_to 'Join Course', '/students/'+current_student.id.to_s+'/courses_student/new', :class => "dropdown-item" %>
         </div>
