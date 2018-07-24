@@ -4,10 +4,11 @@ var app = angular.module('courseApp', []);
 app.controller('courseCon', function($scope, $http) {
     var selected_course_id = null;
     $scope.showDetail = function (prof_id, course_id) {
-        $scope.curProfId = prof_id;
-        $scope.curCourseId = course_id;
-        if (course_id != null)
+        if (course_id != null) {
             $scope.isGroupTemp = $scope.isGroup;
+            $scope.curProfId = prof_id;
+            $scope.curCourseId = course_id;
+        }
             selected_course_id = course_id;
         $http.get("/professors/" + prof_id + "/courses/" + course_id)
             .then(function(response) {
@@ -33,16 +34,33 @@ app.controller('courseCon', function($scope, $http) {
         }
     };
 
+    $scope.update = function () {
+        if ($scope.curCourseId != null)
+            $scope.showDetail();
+    }
+
     $scope.switchState = function () {
         $scope.isGroup = !$scope.isGroup;
 
-        if ($scope.curCourseId != null)
-            $scope.showDetail($scope.curProfId , $scope.curCourseId);
-
+        $scope.update();
     };
+
     $scope.submitStudent = function() {
         console.log("student_id: "+ $scope.student_id);
         console.log("course_id: "+ selected_course_id);
-        //$http.get("/courses_student/new/?course_id="+selected_course_id+"&student_id="+$scope.student_id)
+
+        $http({
+            url: '/courses_student',
+            method: "POST",
+            data: { 'student_id' : parseInt($scope.student_id), 'course_id' : selected_course_id },
+            headers: {'Content-Type': 'application/json' }
+        })
+        .then(function(response) {
+               window.alert("success");
+                $scope.update();
+            },
+        function(response) {
+            window.alert("fail");
+        });
     };
 });
