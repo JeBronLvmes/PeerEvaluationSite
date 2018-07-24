@@ -31,12 +31,12 @@ class CoursesController < ApplicationController
     @professor = Professor.find(params[:professor_id])
     @course = Course.find(params[:course_id])
     @group = Group.new(group_params)
-    @check = @course.groups.where('name = ?', params[:name]).empty?
-    @course.groups << @group if @course.groups.where('name = ?', params[:name]).empty?
-    if @group.save and @course.groups.where('name = ?', params[:name]).empty?
-      render :json => @check
+
+    if @course.groups.find_by(name: params[:name]) == nil and @group.save
+      @course.groups << @group
+      render :json => @course.groups
     else
-      render :json => @check
+      render :json => @group.errors
     end
   end
 
