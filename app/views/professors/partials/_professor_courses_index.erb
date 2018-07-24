@@ -1,6 +1,6 @@
 <!-- Modified by Jeb Alawi on 7/23/18 List Groups and Students -->
 
-<div class="container-fluid" ng-app="courseApp" ng-controller="courseCon" ng-init="isGroup=false">
+<div class="container-fluid" ng-app="courseApp" ng-controller="courseCon" ng-init="init()">
 
   <div class = "row">
     <h1 class="mr-auto"><%= title %></h1>
@@ -30,7 +30,7 @@
 
       <div class="row">
         <!-- Course Groups View -->
-        <div ng-switch on="isGroupTemp" ng-hide="hideCourseGroupsView">
+        <div ng-switch on="isGroupTemp">
           <div ng-switch-when="true">
             <br>
             <h2>Groups:</h2>
@@ -49,7 +49,7 @@
           </div>
 
           <!-- Course Students View -->
-          <div ng-switch-when="false" ng-hide="hideCourseStudentsView">
+          <div ng-switch-when="false">
             <br>
             <span class="h2 mr-auto">Current Students:</span>
 
@@ -100,12 +100,12 @@
                 <td>{{ s.last_name }}</td>
                 <td>{{ s.dot_number }}</td>
                 <td>{{ s.email }}</td>
-                <td> <button class="btn btn-primary" ng-click="addStudent(s.id)">Add</button> </td>
+                <td> <button class="btn btn-primary" ng-disable="processing" ng-click="addStudent(s.id)">Add</button> </td>
               </tr>
             </table>
 
             <div ng-show="showAddStudentForm">
-          </div>
+            </div>
           </div>
         </div>
 
