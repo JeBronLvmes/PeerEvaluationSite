@@ -5,6 +5,10 @@ app.controller('courseCon', function($scope, $http) {
 
     // Functions that Update View
 
+    $scope.toggleAddCourseForm = function() {
+        $scope.showAddCourseForm = !$scope.showAddCourseForm;
+    };
+
     $scope.showDetail = function (prof_id, course_id) {
         if (course_id != null) {
             $scope.isGroupTemp = $scope.isGroup;
@@ -58,8 +62,26 @@ app.controller('courseCon', function($scope, $http) {
 
     $scope.switchState = function () {
         $scope.isGroup = !$scope.isGroup;
-
+        $scope.isGroupTemp = $scope.isGroup;
         $scope.updateView();
+    };
+
+    $scope.addCourse = function () {
+
+        $http({
+            url: 'courses/',
+            method: 'POST',
+            data: {
+                'name': $scope.new_course_name,
+                'dept': $scope.course_dept,
+                'number': $scope.course_number,
+                'section': $scope.course_section
+            },
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(function (response) {
+            });
+        $scope.toggleAddCourseForm();
     };
 
     $scope.addStudent = function (id) {

@@ -15,24 +15,20 @@ class CoursesController < ApplicationController
   end
 
   def new
-    @course = Course.new
-    @professor= nil
-    if(current_professor)
-      @professor=current_professor
-    end
+
   end
 
   def create
-    if current_professor
-      @course = Course.new(course_params)
-      @course.professor_id = current_professor.id
-      if @course.save
-        redirect_to current_professor
-      else
-        render 'new'
-      end
+    @course = Course.new(course_params)
+    @professor = Professor.find(params[:professor_id])
+    @professor.courses << @course
+    if @course.save
+      render :json => "ok", status: "200 OK"
+      #redirect_to professor_courses_url(params[:professor_id])
+      #redirect_back(fallback_location: root_path)
     end
   end
+
 
   # Get all of the groups in the course
   # Created by Bin Chen 7/23/18
@@ -90,8 +86,9 @@ class CoursesController < ApplicationController
   private
   def set_course
     @course = Course.find(params[:id])
+
   end
   def course_params
-    params.require(:course).permit(:dept, :number, :section, :name)
+    params.require(:course).permit(:dept, :number, :section, :name, :professor_id)
   end
 end

@@ -14,15 +14,40 @@
     <!-- List of Courses On The left -->
     <div class="col-2 px-0 mx-0">
       <div class="list-group list-group-flush" id="list-tab" role="tablist">
+        <
+
+
         <% professor.courses.each_with_index do |course| %>
           <a class="list-group-item list-group-item-action" name="course" ng-click="showDetail(<%=professor.id%>, <%=course.id%>)"
              data-toggle="list" href="#list-home" role="tab" aria-controls="home"> <%= course.name %> </a>
         <%end%>
-        <%= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
+        <%#= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
+        <a class="btn" name="addCourse" ng-click="toggleAddCourseForm()">Add Course</a>
+        <div class="container">
+          <form name="addCourseForm" ng-submit="addCourse()" ng-show="showAddCourseForm">
+            <div class="form-group">
+              <label for="dept">Department</label>
+              <input ng-model="$parent.course_dept" id="dept" type="text" class="form-control" placeholder="" />
+            </div>
+            <div class="form-group">
+              <label for="courseNumber">Course Number</label>
+              <input ng-model="$parent.course_number" id="courseNumber" type="number" class="form-control" placeholder="" />
+            </div>
+            <div class="form-group">
+              <label for="section">Section</label>
+              <input ng-model="$parent.course_section" id="section" type="number" class="form-control" placeholder="" />
+            </div>
+            <div class="form-group">
+              <label for="courseName">Name</label>
+              <input ng-model="$parent.new_course_name" id="courseName" type="text" class="form-control" placeholder="" />
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </form>
+        </div>
       </div>
     </div>
 
-    <div id ="pageContent" class="col bg-light">
+    <div id ="pageContent" class="col bg-light px-5 py-5">
       <div class="row py-3 px-3">
         <h1>{{course_name}}</h1>
         <br /><br />
@@ -30,7 +55,8 @@
 
       <div class="row">
         <!-- Course Groups View -->
-        <div ng-switch on="isGroupTemp" ng-hide="hideCourseGroupsView">
+        <div ng-switch on="isGroupTemp">
+
           <div ng-switch-when="true">
             <br>
             <h2>Groups:</h2>
@@ -49,7 +75,7 @@
           </div>
 
           <!-- Course Students View -->
-          <div ng-switch-when="false" ng-hide="hideCourseStudentsView">
+          <div ng-switch-when="false">
             <br>
             <span class="h2 mr-auto">Current Students:</span>
 
@@ -103,14 +129,8 @@
                 <td> <button class="btn btn-primary" ng-click="addStudent(s.id)">Add</button> </td>
               </tr>
             </table>
-
-            <div ng-show="showAddStudentForm">
-          </div>
           </div>
         </div>
-
-        <%#= render partial: "professors/partials/course_list", locals: {courses: @courses}%>
-        <%#= render partial: "professors/partials/groups_list", locals: {groups: professor.courses}%>
       </div>
     </div>
   </div>
