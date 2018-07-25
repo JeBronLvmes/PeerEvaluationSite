@@ -33,11 +33,10 @@ ActiveRecord::Schema.define(version: 2018_07_22_164944) do
   end
 
   create_table "evaluations", force: :cascade do |t|
-    t.string "title"
-    t.string "due_date"
-    t.string "submission_date"
-    t.text "form"
+    t.integer "professor_form_id"
+    t.text "form_info"
     t.integer "student_id"
+    t.boolean "isCompleted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_evaluations_on_student_id"
