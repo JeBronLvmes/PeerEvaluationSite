@@ -4,6 +4,7 @@ var app = angular.module('evaluationApp', []);
 app.controller('evaluationCon', function($scope, $http) {
 
     $scope.init = function (prof_id) {
+        $scope.clickedClass = false; //false until a class is clicked on, to disable groups from being clicked before a class is
         $scope.curProfId = prof_id;
         $scope.processing = false;
         $scope.isProfessorForm = false;
@@ -18,6 +19,7 @@ app.controller('evaluationCon', function($scope, $http) {
 
     $scope.showDetail = function (course_id) {
         if (course_id != null) {
+            $scope.clickedClass = true;
             $scope.isGroupTemp = $scope.isProfessorForm;
             $scope.curCourseId = course_id;
         }
@@ -88,6 +90,15 @@ app.controller('evaluationCon', function($scope, $http) {
         $scope.isGroupTemp = $scope.isProfessorForm;
         $scope.updateView();
     };
+
+ 	$scope.addEvaluation = function () {
+		$http({
+                url: "/professors/" + $scope.curProfId + "/professor_forms/new/",
+                method: "GET"
+        }).then(function(response) {
+				window.location.href = "/professors/" + $scope.curProfId + "/professor_forms/new/";
+		});
+	};
 
     $scope.addGroup = function () {
         $http({

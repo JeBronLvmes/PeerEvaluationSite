@@ -49,6 +49,12 @@ class CoursesController < ApplicationController
     render :json => @course.groups
   end
 
+  def get_group_students
+    @course = Course.find(params[:course_id])
+    @group = Group.find(params[:group_id])
+    render json: @group.students
+  end
+
   # Get all of the groups in the course
   # Created by Bin Chen 7/23/18
   def get_groups

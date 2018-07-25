@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :students, path: 'students', controllers: { sessions: "students/sessions",registrations: "students/registrations",passwords: "students/passwords", confirmations: "students/confirmations", unlocks: "students/unlocks",profiles: "students/profiles" }
   devise_for :professors, path: 'professors', controllers: { sessions: "professors/sessions",registrations: "professors/registrations",passwords: "professors/passwords", confirmations: "professors/confirmations", unlocks: "professors/unlocks", }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get 'professors/:pro_id/professor_forms/new', to: 'professor_forms#new'
   get 'professors/:pro_id/professor_forms/:course_id', to: 'professor_forms#get_forms'
   resources :students do
     resources :courses_student, :courses
@@ -20,12 +21,14 @@ Rails.application.routes.draw do
   get 'evaluations/new'
 
 
+  get 'professors/:professor_id/courses/:course_id/groups/:group_id/students',
+      to: 'courses#get_group_students'
+
   # add a group to the course
   post 'professors/:professor_id/courses/:course_id/group', to: 'courses#add_group'
 
   # delete a group from the course
   delete 'professors/:professor_id/courses/:course_id/group/:group_id', to: 'courses#delete_group'
-
 
   # get all of the courses from one professor
   get 'professors/:pro_id/get_courses', to: 'courses#get_courses'

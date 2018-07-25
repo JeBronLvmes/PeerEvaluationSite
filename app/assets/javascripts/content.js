@@ -4,6 +4,7 @@ var app = angular.module('courseApp', []);
 app.controller('courseCon', function($scope, $http) {
 
     $scope.init = function (prof_id) {
+        $scope.clickedClass = false; //false until a class is clicked on, to disable groups from being clicked before a class is
         $scope.curProfId = prof_id;
         $scope.processing = false;
         $scope.isGroup = false;
@@ -16,9 +17,11 @@ app.controller('courseCon', function($scope, $http) {
         $scope.showAddCourseForm = !$scope.showAddCourseForm;
     };
 
+    // shows the information on the class
     $scope.showDetail = function (course_id) {
         if (course_id != null) {
-            $scope.isGroupTemp = $scope.isProfessorForm;
+            $scope.clickedClass = true;
+            $scope.isGroupTemp = $scope.isGroup;
             $scope.curCourseId = course_id;
         }
 
@@ -69,7 +72,7 @@ app.controller('courseCon', function($scope, $http) {
 
     $scope.updateView = function () {
         if ($scope.curCourseId != null) {
-            if ($scope.isProfessorForm) {
+            if ($scope.isGroup) {
                 $scope.students = null;
 
                 $scope.updateCurGroupView();
@@ -83,12 +86,21 @@ app.controller('courseCon', function($scope, $http) {
 
     // Other Controller Functions
 
+    //gets student list for group
+    $scope.getGroupStudents = function (id) {
+        $http.get('courses/'+$scope.curCourseId+'/groups/'+ id +'/students')
+            .then(function (response){
+                $scope.groupStudents = response.data;
+            });
+    };
+
     $scope.switchState = function () {
-        $scope.isProfessorForm = !$scope.isProfessorForm;
-        $scope.isGroupTemp = $scope.isProfessorForm;
+        $scope.isGroup = !$scope.isGroup;
+        $scope.isGroupTemp = $scope.isGroup;
         $scope.updateView();
     };
 
+    // adds a group to the class
     $scope.addGroup = function () {
         $http({
             url: 'courses/' + $scope.curCourseId + '/group',
@@ -105,6 +117,7 @@ app.controller('courseCon', function($scope, $http) {
 
     };
 
+    // deletes a group from the class
     $scope.deleteGroup = function(id) {
       if(window.confirm('Delete this group?')) {
           $http({
@@ -118,6 +131,7 @@ app.controller('courseCon', function($scope, $http) {
       }
     };
 
+    // adds a course to the professor course list
     $scope.addCourse = function () {
 
         $http({

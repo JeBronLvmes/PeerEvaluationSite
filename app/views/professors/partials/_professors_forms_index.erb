@@ -1,23 +1,35 @@
 <div class="container-fluid" ng-app="evaluationApp" ng-controller="evaluationCon" ng-init="init(<%= professor.id %>)">
 
   <div class = "row">
-    <h1 class="mr-auto"><%= title %></h1>
-    <span>
-      <button ng-click="switchState()" ng-disabled="!isProfessorForm">Student Forms</button>
-      <button ng-click="switchState()" ng-disabled="isProfessorForm">Professor Forms</button>
-    </span>
+    <h1 class="mr-auto"><%= title %>
+			<!-- "+" icon -->
+      <span>
+				<button id="new_evaluation" class="btn btn-secondary" ng-click="addEvaluation()">
+					<i class="fa fa-plus fa-2x"></i>
+				</button>
+			</span>
+    </h1>
+
+    <!-- toggle buttons -->
+    <div id="buttonToggle" class="btn-group btn-group-toggle h-50 mt-2 mr-1" data-toggle="buttons">
+      <button class="btn btn-primary" type="radio" ng-click="switchState()" ng-disabled="!isProfessorForm">Student Forms</button>
+      <button class="btn btn-primary" type="radio" ng-click="switchState()" ng-disabled="isProfessorForm || !clickedClass">Professor Forms</button>
+    </div>
+
   </div>
 
   <div class="row">
     <!-- List of Courses On The left -->
     <div class="col-2 px-0 mx-0">
-      <div class="list-group list-group-flush" id="list-tab" role="tablist">
-        <div ng-repeat="c in courses" >
-          <a class="list-group-item list-group-item-action" name="course" ng-click="showDetail(c.id)"
+      <div>
+        <div id="courseList" class="list-group list-group-flush">
+          <a id="list-tab" class="list-group-item list-group-item-action" role="tablist" name="course" ng-repeat="c in courses" ng-click="showDetail(c.id)"
              data-toggle="list" href="#list-home" role="tab" aria-controls="home"> {{c.name}} </a>
         </div>
         <%#= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
-        <a class="btn" name="addCourse" ng-click="toggleAddCourseForm()">Add Course</a>
+        <a class="list-group-item list-group-item-action text-success text-center" name="addCourse" ng-click="toggleAddCourseForm()">Add Course</a>
+
+        <!-- Add courses form -->
         <div class="container">
           <form name="addCourseForm" ng-submit="addCourse()" ng-show="showAddCourseForm">
             <div class="form-group">
@@ -42,17 +54,17 @@
       </div>
     </div>
 
-    <div id ="pageContent" class="col bg-light px-5 py-5">
-      <div class="row py-3 px-3">
+    <div id ="pageContent" class="col bg-light px-5 pb-5">
+      <!-- Course Title -->
+      <div class="text-center">
         <h1>{{course_name}}</h1>
-        <br /><br />
       </div>
 
       <div class="row">
-        <!-- Course Groups View -->
+        <!-- Evaluation Forms View -->
         <div ng-switch on="isGroupTemp">
           <div ng-switch-when="true">
-            <br>
+            <br />
             <h2>Forms:</h2>
 
             <table class="table table-sm">
@@ -71,17 +83,18 @@
             </table>
           </div>
 
-          <!-- Course Students View -->
+          <!-- Evaluation Students View -->
           <div ng-switch-when="false">
-            <br>
-            <span class="h2 mr-auto">Current Students:</span>
 
+            <!-- Current Students Table -->
+            <span class="h2 mr-auto">Current Students:</span>
             <table class="table table-sm">
               <thead>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Dot #</th>
               <th>e-mail</th>
+              <th />
               </thead>
               <tr ng-repeat="s in students">
                 <td>{{ s.first_name }}</td>
@@ -91,27 +104,30 @@
                 <td> <button class="btn btn-danger" ng-click="deleteStudent(s.id)">Delete</button> </td>
               </tr>
             </table>
-            <br><hr>
-            <span class="h2 mr-auto">Query/Add Students:</span>
+            <br />
+            <hr />
 
+            <!-- Query/Add Students -->
+            <span class="h2 mr-auto">Query/Add Students:</span>
             <form ng-submit="submitQuery()">
               <div class="row">
-                <div class="col-4">
-                  First Name: <br><input type="text" name="student_id" ng-model="$parent.std_fname" />
+                <div class="col-3">
+                  First Name: <br><input class="form-control" type="text" name="student_id" ng-model="$parent.std_fname" />
                 </div>
-                <div class="col-4">
-                  Last Name: <br><input type="text" name="student_id" ng-model="$parent.std_lname" />
+                <div class="col-3">
+                  Last Name: <br><input class="form-control" type="text" name="student_id" ng-model="$parent.std_lname" />
                 </div>
-                <div class="col-4">
-                  Dot Number: <br><input type="text" name="student_dot" ng-model="$parent.std_dot" />
+                <div class="col-3">
+                  Dot Number: <br><input class="form-control" type="text" name="student_dot" ng-model="$parent.std_dot" />
+                </div>
+                <div class="col-3">
+                  <button class="btn btn-primary mt-4" type="submit">Query Students</button>
                 </div>
               </div>
-              <br>
-              <button type="submit">Query Students</button>
             </form>
 
             <br>
-            <table class="table table-sm">
+            <table class="table table-hover table-sm">
               <thead>
               <th>First Name</th>
               <th>Last Name</th>

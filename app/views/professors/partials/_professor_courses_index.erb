@@ -3,24 +3,30 @@
 <div class="container-fluid" ng-app="courseApp" ng-controller="courseCon" ng-init="init(<%= professor.id %>)">
 
   <div class = "row">
-    <h1 class="mr-auto"><%= title %></h1>
-    <span>
-      <button ng-click="switchState()" ng-disabled="!isGroup">Students</button>
-      <button ng-click="switchState()" ng-disabled="isGroup">Groups</button>
-    </span>
+    <!-- heading -->
+    <h1 class="mr-auto ml-1"><%= title %></h1>
+
+    <!-- toggle buttons -->
+    <div id="buttonToggle" class="btn-group btn-group-toggle h-50 mt-2 mr-1" data-toggle="buttons">
+      <button class="btn btn-primary" type="radio" ng-click="switchState()" ng-disabled="!isGroup" checked>Students</button>
+      <button class="btn btn-primary" type="radio" ng-click="switchState()" ng-disabled="isGroup || !clickedClass">Groups</button>
+    </div>
   </div>
 
   <div class="row">
-    <!-- List of Courses On The left -->
     <div class="col-2 px-0 mx-0">
-      <div class="list-group list-group-flush" id="list-tab" role="tablist">
-        <div ng-repeat="c in courses" >
-          <a class="list-group-item list-group-item-action" name="course" ng-click="showDetail(c.id)"
+      <div>
+
+        <!-- List of Courses On The left -->
+        <div id="courseList" class="list-group list-group-flush" role="tablist"  >
+          <a class="list-group-item list-group-item-action" id="list-tab" name="course" ng-repeat="c in courses" ng-click="showDetail(c.id)"
              data-toggle="list" href="#list-home" role="tab" aria-controls="home"> {{c.name}} </a>
         </div>
         <%#= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
-        <a class="btn" name="addCourse" ng-click="toggleAddCourseForm()">Add Course</a>
-        <div class="container">
+        <a class="list-group-item list-group-item-action text-success text-center" name="addCourse" ng-click="toggleAddCourseForm()">Add Course</a>
+
+        <!-- Add courses form -->
+        <div class="container py-3 bg-light">
           <form name="addCourseForm" ng-submit="addCourse()" ng-show="showAddCourseForm">
             <div class="form-group">
               <label for="dept">Department</label>
@@ -44,51 +50,64 @@
       </div>
     </div>
 
-    <div id ="pageContent" class="col bg-light px-5 py-5">
-      <div class="row py-3 px-3">
+    <div id ="pageContent" class="col bg-light px-5 pb-5">
+      <!-- Course Title -->
+      <div class="text-center">
         <h1>{{course_name}}</h1>
-        <br /><br />
       </div>
 
       <div class="row">
-        <!-- Course Groups View -->
         <div ng-switch on="isGroupTemp">
+          <!-- Course Groups View -->
           <div ng-switch-when="true">
-            <br>
+            <br />
             <h2>Groups:</h2>
-            <form class="form-inline" name="addGroupForm" ng-submit="addGroup()">
+
+            <!-- Add group form -->
+            <form class="form-inline mb-3" name="addGroupForm" ng-submit="addGroup()">
               <div class="form-group">
                 <input ng-model="$parent.group_name" type="text" class="form-control" placeholder="Group Name" required/>
               </div>
               <button type="submit" class="btn btn-success">Add Group</button>
             </form>
-            <table class="table table-sm">
-              <thead>
-              <th>Name</th>
-              <th>Members</th>
-              <th>Add Student</th>
-              <th />
-              </thead>
-              <tr ng-repeat="g in groups">
-                <td>{{ g.name }}</td>
-                <td> <small>number of members</small> </td>
-                <td> <small>add student</small> </td>
-                <td> <button class="btn btn-danger" ng-click="deleteGroup(g.id)">Delete</button> </td>
-              </tr>
-            </table>
+
+            <!-- Repeat Group Tables -->
+            <div class="container-fluid mb-5" ng-repeat="g in groups">
+              <span class="h1 mr-auto">{{ g.name }}</span> <button class="btn btn-danger float-right" ng-click="deleteGroup(g.id)">Delete</button>
+              <table ng-init="getGroupStudents(g.id)" class="table table-sm">
+                <thead>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Dot #</th>
+                <th>e-mail</th>
+                <th />
+                <th />
+                </thead>
+                <tr ng-repeat="s in groupStudents">
+                  <td>{{ s.first_name }}</td>
+                  <td>{{ s.last_name }}</td>
+                  <td>{{ s.dot_number }}</td>
+                  <td>{{ s.email }}</td>
+                  <td> <button class="btn btn-danger" ng-click="deleteStudentFromGroup(s.id)">Delete</button> </td>
+                </tr>
+              </table>
+              <button class="btn btn-sm btn-success" ng-click="addStudentToGroup(g.id)">Add Student</button>
+            </div>
+
           </div>
 
           <!-- Course Students View -->
           <div ng-switch-when="false">
-            <br>
-            <span class="h2 mr-auto">Current Students:</span>
 
-            <table class="table table-sm">
+            <!-- Current Students Table -->
+            <span class="h2 mr-auto">Current Students:</span>
+            <table class="table table-hover table-sm">
               <thead>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Dot #</th>
                 <th>e-mail</th>
+                <th />
               </thead>
               <tr ng-repeat="s in students">
                 <td>{{ s.first_name }}</td>
@@ -98,27 +117,30 @@
                 <td> <button class="btn btn-danger" ng-click="deleteStudent(s.id)">Delete</button> </td>
               </tr>
             </table>
-            <br><hr>
-            <span class="h2 mr-auto">Query/Add Students:</span>
+            <br />
+            <hr />
 
+            <!-- Query/Add Students -->
+            <span class="h2 mr-auto">Query/Add Students:</span>
             <form ng-submit="submitQuery()">
               <div class="row">
-                <div class="col-4">
-                  First Name: <br><input type="text" name="student_id" ng-model="$parent.std_fname" />
+                <div class="col-3">
+                  First Name: <br><input class="form-control" type="text" name="student_id" ng-model="$parent.std_fname" />
                 </div>
-                <div class="col-4">
-                  Last Name: <br><input type="text" name="student_id" ng-model="$parent.std_lname" />
+                <div class="col-3">
+                  Last Name: <br><input class="form-control" type="text" name="student_id" ng-model="$parent.std_lname" />
                 </div>
-                <div class="col-4">
-                  Dot Number: <br><input type="text" name="student_dot" ng-model="$parent.std_dot" />
+                <div class="col-3">
+                  Dot Number: <br><input class="form-control" type="text" name="student_dot" ng-model="$parent.std_dot" />
+                </div>
+                <div class="col-3">
+                  <button class="btn btn-primary mt-4" type="submit">Query Students</button>
                 </div>
               </div>
-              <br>
-              <button type="submit">Query Students</button>
             </form>
 
             <br>
-            <table class="table table-sm">
+            <table class="table table-hover table-sm">
               <thead>
               <th>First Name</th>
               <th>Last Name</th>

@@ -32,3 +32,9 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
+
+div#courseList:first-child{
+    border-top: 1px solid gainsboro;}
+
+div#courseList a{
+    border-right: 1px solid gainsboro;}
