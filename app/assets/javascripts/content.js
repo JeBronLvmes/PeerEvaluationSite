@@ -16,6 +16,7 @@ app.controller('courseCon', function($scope, $http) {
         $scope.showAddCourseForm = !$scope.showAddCourseForm;
     };
 
+    //
     $scope.showDetail = function (course_id) {
         if (course_id != null) {
             $scope.isGroupTemp = $scope.isGroup;
@@ -83,12 +84,23 @@ app.controller('courseCon', function($scope, $http) {
 
     // Other Controller Functions
 
+    $scope.getGroupStudents = function (id) {
+        var students;
+        $http.get('courses/'+$scope.curCourseId+'/groups/'+ id +'/students')
+            .then(function (response){
+                students = response.data.length;
+                console.log(students);
+            });
+        return students;
+    };
+
     $scope.switchState = function () {
         $scope.isGroup = !$scope.isGroup;
         $scope.isGroupTemp = $scope.isGroup;
         $scope.updateView();
     };
 
+    // adds a group to the class
     $scope.addGroup = function () {
         $http({
             url: 'courses/' + $scope.curCourseId + '/group',
@@ -105,6 +117,7 @@ app.controller('courseCon', function($scope, $http) {
 
     };
 
+    // deletes a group from the class
     $scope.deleteGroup = function(id) {
       if(window.confirm('Delete this group?')) {
           $http({
@@ -118,6 +131,7 @@ app.controller('courseCon', function($scope, $http) {
       }
     };
 
+    // adds a course to the professor course list
     $scope.addCourse = function () {
 
         $http({

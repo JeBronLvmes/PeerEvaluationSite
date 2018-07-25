@@ -23,12 +23,14 @@ Rails.application.routes.draw do
   get 'evaluations/new'
 
 
+  get 'professors/:professor_id/courses/:course_id/groups/:group_id/students',
+      to: 'courses#get_group_students'
+
   # add a group to the course
   post 'professors/:professor_id/courses/:course_id/group', to: 'courses#add_group'
 
   # delete a group from the course
   delete 'professors/:professor_id/courses/:course_id/group/:group_id', to: 'courses#delete_group'
-
 
   # get all of the courses from one professor
   get 'professors/:pro_id/get_courses', to: 'courses#get_courses'
