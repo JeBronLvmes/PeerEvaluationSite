@@ -100,6 +100,7 @@ class ProfessorFormsController < ApplicationController
     @course = Course.find(params[:course_id])
     if current_professor
       @form = ProfessorForm.find(params[:id])
+      render json: @form
     end
   end
 

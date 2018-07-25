@@ -54,6 +54,7 @@
       </div>
     </div>
 
+    <!-- all of the page content to the right of the class list navigation bar -->
     <div id ="pageContent" class="col bg-light px-5 pb-5">
       <!-- Course Title -->
       <div class="text-center">
@@ -85,8 +86,14 @@
                 </button></td>
               </tr>
             </table>
-          </div>
+            <div class="formContent" id="formContent" style="display: none;" >
+              <h1>{{form.title}}</h1>
+              <p>{{"Due Date: " + form.due_date}}</p>
+              <p>{{"Submission: " + form.submisison_date}}</p>
+              <p>{{"Form Data: " + form.html_form}}</p>
 
+            </div>
+          </div>
           <!-- Evaluation Students View -->
           <div ng-switch-when="false">
 
