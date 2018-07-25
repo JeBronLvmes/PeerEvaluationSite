@@ -10,9 +10,11 @@ class CoursesController < ApplicationController
   end
 
   def new
-
   end
 
+  # create a new course
+  #
+  # Created by Jeb Alawi 7/24/18
   def create
     @course = Course.new(course_params)
     @professor = Professor.find(params[:professor_id])
@@ -26,6 +28,7 @@ class CoursesController < ApplicationController
   end
 
   # add a group to the class
+  #
   # created by Jeb Alawi 7/24/18
   def add_group
     @professor = Professor.find(params[:professor_id])
@@ -41,6 +44,7 @@ class CoursesController < ApplicationController
   end
 
   # delete group
+  #
   # Created by Jeb Alawi 7/24/18
   def delete_group
     @group = Group.find(params[:group_id])
@@ -49,6 +53,10 @@ class CoursesController < ApplicationController
     render :json => @course.groups
   end
 
+  # delete a student from a group
+  #
+  # Created by Jeb Alawi 7/24/18
+  # Modified by Bin Chen 7/25/18
   def delete_group_student
     @group = Group.find(params[:group_id])
     @student = Student.find(params[:id])
@@ -57,6 +65,7 @@ class CoursesController < ApplicationController
   end
 
   # get student list for group
+  #
   # Created by Jeb Alawi 7/24/18
   def get_group_students
     @course = Course.find(params[:course_id])
@@ -65,6 +74,7 @@ class CoursesController < ApplicationController
   end
 
   # Get all of the groups in the course
+  #
   # Created by Bin Chen 7/23/18
   def get_groups
     @course = Course.find(params[:course_id])
@@ -73,6 +83,7 @@ class CoursesController < ApplicationController
   end
 
   # Get all of the courses from one professor
+  #
   # Created by Bin Chen 7/23/18
   def get_courses
     @prof = Professor.find(params[:pro_id])
@@ -81,6 +92,7 @@ class CoursesController < ApplicationController
   end
 
   # Get all of the students in the course
+  #
   # Created by Bin Chen 7/23/18
   def get_students
     @course = Course.find(params[:course_id])
@@ -88,6 +100,8 @@ class CoursesController < ApplicationController
     render json: @course.students
   end
 
+  # get course information
+  #
   # Created by Bin Chen 7/23/18
   def show
     @course = Course.find(params[:id])
@@ -95,6 +109,8 @@ class CoursesController < ApplicationController
     render json: @course
   end
 
+  # add student to course
+  #
   # Created by Bin Chen 7/24/18
   def add_std
     @pro = Professor.find(params[:pro_id])
@@ -121,7 +137,8 @@ class CoursesController < ApplicationController
 
     render json: @std
   end
-
+  # delete a student from a group
+  #
   # Created by Bin Chen 7/24/18
   def delete_std
     @pro = Professor.find(params[:pro_id])
@@ -138,6 +155,8 @@ class CoursesController < ApplicationController
     render json: @course.students
   end
 
+  # delete a course from professor profile page
+  #
   # Created by Jeb Alawi 7/21/18
   def destroy
     if current_professor
