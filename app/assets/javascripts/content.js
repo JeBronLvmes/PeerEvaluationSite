@@ -85,13 +85,10 @@ app.controller('courseCon', function($scope, $http) {
     // Other Controller Functions
 
     $scope.getGroupStudents = function (id) {
-        var students;
         $http.get('courses/'+$scope.curCourseId+'/groups/'+ id +'/students')
             .then(function (response){
-                students = response.data.length;
-                console.log(students);
+                $scope.groupStudents = response.data;
             });
-        return students;
     };
 
     $scope.switchState = function () {
