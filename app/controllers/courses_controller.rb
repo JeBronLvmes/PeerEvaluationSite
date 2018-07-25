@@ -49,6 +49,24 @@ class CoursesController < ApplicationController
     render :json => @course.groups
   end
 
+  def delete_group_student
+    @group = Group.find(params[:group_id])
+    @student = Student.find(params[:id])
+    @group.students.delete @student
+    render json: @group.students
+  end
+
+  # add student to group
+  # Created by Jeb Alawi 7/24/18
+  def add_group_student
+    @group = Group.find(params[:group_id])
+    @student = Student.find(params[:id])
+    @group.students << @student unless @group.students.include? @student
+    render json: @student
+  end
+
+  # get student list for group
+  # Created by Jeb Alawi 7/24/18
   def get_group_students
     @course = Course.find(params[:course_id])
     @group = Group.find(params[:group_id])
