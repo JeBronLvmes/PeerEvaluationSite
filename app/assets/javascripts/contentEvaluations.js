@@ -91,6 +91,15 @@ app.controller('evaluationCon', function($scope, $http) {
         $scope.updateView();
     };
 
+ 	$scope.addEvaluation = function () {
+		$http({
+                url: "/professors/" + $scope.curProfId + "/professor_forms/new/",
+                method: "GET"
+        }).then(function(response) {
+				window.location.href = "/professors/" + $scope.curProfId + "/professor_forms/new/";
+		});
+	};
+
     $scope.addGroup = function () {
         $http({
             url: 'courses/' + $scope.curCourseId + '/group',
