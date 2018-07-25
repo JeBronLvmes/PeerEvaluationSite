@@ -1,6 +1,5 @@
 var app = angular.module('courseApp', []);
 
-
 app.controller('courseCon', function($scope, $http) {
 
     $scope.init = function (prof_id) {
@@ -50,10 +49,15 @@ app.controller('courseCon', function($scope, $http) {
     };
 
     $scope.updateCurGroupView = function () {
+        $scope.groupStudents = [];
         $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/groups")
             .then(function (response) {
                 $scope.groups = response.data;
+
+                $scope.getGroupStudents();
             });
+
+        console.log($scope.groupStudents);
     };
 
     $scope.updateCurProfFormView = function () {
@@ -92,9 +96,9 @@ app.controller('courseCon', function($scope, $http) {
                 url: 'courses/' + $scope.curCourseId + '/groups/' + group_id + '/students/' + student_id,
                 method: 'DELETE'
             })
-                .then(function (response) {
-                    $scope.updateCurGroupView();
-                });
+            .then(function (response) {
+                $scope.updateCurGroupView();
+            });
         }
     };
 
@@ -113,16 +117,19 @@ app.controller('courseCon', function($scope, $http) {
     };
 
     //gets student list for group
-    $scope.getGroupStudents = function (id) {
-        $http.get('courses/'+$scope.curCourseId+'/groups/'+ id +'/students')
-            .then(function (response){
-                $scope.groupStudents = response.data;
-            });
+    $scope.getGroupStudents = function () {
+        for (let i = 0; i < $scope.groups.length; ++i) {
+            $http.get('courses/' + $scope.curCourseId + '/groups/' + $scope.groups[i].id + '/students')
+                .then(function (response) {
+                    $scope.groupStudents[i] = response.data;
+                });
+        }
     };
 
     $scope.switchState = function () {
         $scope.isGroup = !$scope.isGroup;
         $scope.isGroupTemp = $scope.isGroup;
+        $scope.studentsFind = null;
         $scope.updateView();
     };
 

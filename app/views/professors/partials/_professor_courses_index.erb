@@ -74,7 +74,7 @@
             <!-- Repeat Group Tables -->
             <div class="container-fluid mb-5" ng-repeat="g in groups">
               <span class="h1 mr-auto">{{ g.name }}</span> <button class="btn btn-danger float-right" ng-click="deleteGroup(g.id)">Delete</button>
-              <table ng-init="getGroupStudents(g.id)" class="table table-sm">
+              <table class="table table-sm">
                 <thead>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -83,7 +83,7 @@
                 <th />
                 <th />
                 </thead>
-                <tr ng-repeat="s in groupStudents">
+                <tr ng-repeat="s in groupStudents[$index]">
                   <td>{{ s.first_name }}</td>
                   <td>{{ s.last_name }}</td>
                   <td>{{ s.dot_number }}</td>
