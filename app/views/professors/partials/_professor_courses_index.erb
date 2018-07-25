@@ -73,7 +73,7 @@
 
             <!-- Repeat Group Tables -->
             <div class="container-fluid mb-5" ng-repeat="g in groups">
-              <span class="h1 mr-auto">{{ g.name }}</span> <button class="btn btn-danger float-right" ng-click="deleteGroup(g.id)">Delete</button>
+              <span class="h1 mr-auto">{{ g.name }}</span> <button class="btn btn-danger float-right" ng-click="deleteGroup(g.id)">Delete Group</button>
               <table class="table table-sm">
                 <thead>
                 <th>First Name</th>
@@ -88,7 +88,7 @@
                   <td>{{ s.last_name }}</td>
                   <td>{{ s.dot_number }}</td>
                   <td>{{ s.email }}</td>
-                  <td> <button class="btn btn-danger" ng-click="deleteStudentFromGroup(g.id, s.id)">Delete</button> </td>
+                  <td> <button class="btn btn-primary" ng-click="deleteStudentFromGroup(g.id, s.id)">Delete</button> </td>
                 </tr>
               </table>
 
@@ -97,7 +97,7 @@
                 <select ng-model="selectedStd[g.id]">
                   <option ng-repeat="s in students" value="{{s.id}}">{{s.first_name + " " + s.last_name + "." + s.dot_number}}</option>
                 </select>
-                <td> <button class="btn btn-success" ng-click="addStdToGroup(g.id)">Add</button> </td>
+                <td> <button class="btn btn-success" ng-click="addStdToGroup(g.id)">Add Student</button> </td>
               </div>
 
             </div>
