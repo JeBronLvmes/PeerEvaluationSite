@@ -18,11 +18,22 @@ app.controller('courseCon', function($scope, $http) {
 
     // Functions that Update View
 
+    /**
+     * Show or hide the course form.
+     *
+     * @author Jeb Alawi
+     */
     $scope.toggleAddCourseForm = function() {
         $scope.showAddCourseForm = !$scope.showAddCourseForm;
     };
 
-    // shows the information on the class
+    /**
+     * shows the detailed information of the class.
+     *
+     * @param {number} course_id        The id of the course
+     *
+     * @author Bin Chen
+     */
     $scope.showDetail = function (course_id, course_name) {
         if (course_id != null) {
             $scope.clickedClass = true;
@@ -41,6 +52,11 @@ app.controller('courseCon', function($scope, $http) {
         $scope.updateView();
     };
 
+    /**
+     * get data from server and show all the courses from the professor.
+     *
+     * @author Bin Chen
+     */
     $scope.showCourses = function () {
         $http({
             url: '/professors/' + $scope.curProfId + '/get_courses',
@@ -51,10 +67,20 @@ app.controller('courseCon', function($scope, $http) {
         });
     };
 
+    /**
+     * Update the query student part's view.
+     *
+     * @author Jeb Alawi
+     */
     $scope.updateQueryStdView = function (response) {
         $scope.studentsFind = response.data;
     };
 
+    /**
+     * Update the view about groups and the students in the groups.
+     *
+     * @author Bin Chen
+     */
     $scope.updateCurGroupView = function () {
         $scope.groupStudents = [];
         $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/groups")
@@ -67,6 +93,11 @@ app.controller('courseCon', function($scope, $http) {
         console.log($scope.groupStudents);
     };
 
+    /**
+     * Update the view about current professor's form.
+     *
+     * @author Josh Wright
+     */
     $scope.updateCurProfFormView = function () {
         $http.get("/professors/" + $scope.curProfId  + "/professor_forms/" + $scope.curCourseId)
             .then(function (response) {
@@ -74,6 +105,11 @@ app.controller('courseCon', function($scope, $http) {
             });
     };
 
+    /**
+     * Update the view about current students in the course.
+     *
+     * @author Bin Chen
+     */
     $scope.updateCurStdView = function () {
         $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/students")
             .then(function (response) {
@@ -81,6 +117,11 @@ app.controller('courseCon', function($scope, $http) {
             });
     };
 
+    /**
+     * Update the whole view.
+     *
+     * @author Bin Chen
+     */
     $scope.updateView = function () {
         if ($scope.curCourseId != null) {
             if ($scope.isGroup) {
@@ -97,6 +138,14 @@ app.controller('courseCon', function($scope, $http) {
 
     // Other Controller Functions
 
+    /**
+     * Delete student from a group.
+     *
+     * @param {number} group_id        The id of the group
+     * @param {number} student_id        The id of the student
+     *
+     * @author Bin Chen
+     */
     $scope.deleteStudentFromGroup = function(group_id, student_id) {
         if(window.confirm('Remove this student?')) {
             $http({
@@ -109,6 +158,11 @@ app.controller('courseCon', function($scope, $http) {
         }
     };
 
+    /**
+     * Get all of the students that currently enroll in the class.
+     *
+     * @author Bin Chen
+     */
     $scope.getCurStudents = function () {
         $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/students")
             .then(function (response) {
@@ -116,6 +170,14 @@ app.controller('courseCon', function($scope, $http) {
             });
     };
 
+    /**
+     * Add student to a group.
+     *
+     * @param {number} group_id        The id of the group
+     * @param {number} student_id        The id of the student
+     *
+     * @author Bin Chen
+     */
     $scope.addStudentToGroup = function(group_id, student_id) {
         $http({
             url: 'courses/'+$scope.curCourseId+'/groups/'+ group_id +'/students/' + student_id,
@@ -130,7 +192,11 @@ app.controller('courseCon', function($scope, $http) {
             });
     };
 
-    //gets student list for group
+    /**
+     * Gets all of the students that is in the group.
+     *
+     * @author Bin Chen
+     */
     $scope.getGroupStudents = function () {
         for (let i = 0; i < $scope.groups.length; ++i) {
             $http.get('courses/' + $scope.curCourseId + '/groups/' + $scope.groups[i].id + '/students')
@@ -140,6 +206,11 @@ app.controller('courseCon', function($scope, $http) {
         }
     };
 
+    /**
+     * Switch the view of page between group view and students view.
+     *
+     * @author Bin Chen, Jeb Alawi
+     */
     $scope.switchState = function () {
         $scope.isGroup = !$scope.isGroup;
         $scope.isGroupTemp = $scope.isGroup;
@@ -152,7 +223,11 @@ app.controller('courseCon', function($scope, $http) {
         }
     };
 
-    // adds a group to the class
+    /**
+     * Adds a group to a class.
+     *
+     * @author Jeb Alawi
+     */
     $scope.addGroup = function () {
         $http({
             url: 'courses/' + $scope.curCourseId + '/group',
@@ -169,7 +244,11 @@ app.controller('courseCon', function($scope, $http) {
 
     };
 
-    // deletes a group from the class
+    /**
+     * Deletes a group from a class.
+     *
+     * @author Jeb Alawi
+     */
     $scope.deleteGroup = function(id) {
       if(window.confirm('Delete this group?')) {
           $http({
@@ -183,6 +262,11 @@ app.controller('courseCon', function($scope, $http) {
       }
     };
 
+    /**
+     * Delete a course to the professor course list.
+     *
+     * @author Jeb Alawi
+     */
     $scope.deleteCourse = function(id) {
         if(window.confirm('Delete '+ $scope.curCourseName +'?')) {
             $http({
@@ -198,7 +282,11 @@ app.controller('courseCon', function($scope, $http) {
         }
     };
 
-    // adds a course to the professor course list
+    /**
+     * Adds a course to the professor course list.
+     *
+     * @author Jeb Alawi
+     */
     $scope.addCourse = function () {
 
         $http({
@@ -252,6 +340,13 @@ app.controller('courseCon', function($scope, $http) {
         }
     };
 
+    /**
+     * Add a student to the a class.
+     *
+     * @param {number} id      The student id
+     *
+     * @author Bin Chen
+     */
     $scope.addStudent = function (id) {
         if (window.confirm('Do you want to add this student?')) {
             $scope.processing = true;
@@ -275,6 +370,11 @@ app.controller('courseCon', function($scope, $http) {
         }
     };
 
+    /**
+     * Submit a query to find students.
+     *
+     * @author Bin Chen
+     */
     $scope.submitQuery = function () {
         var queryUrl = '/studentSearch?';
         var check = false;
@@ -311,6 +411,11 @@ app.controller('courseCon', function($scope, $http) {
             });
     };
 
+    /**
+     * Delete a student from a course.
+     *
+     * @author Bin Chen
+     */
     $scope.deleteStudent = function (id) {
         if (window.confirm('Do you want to delete this student?')) {
             $http({
