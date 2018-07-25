@@ -109,13 +109,38 @@ app.controller('evaluationCon', function($scope, $http) {
         $scope.updateView();
     };
 
+ 	$scope.toggleAddEvaluationForm = function() {
+        $scope.showAddEvaluationForm = !$scope.showAddEvaluationForm;
+    };
+
+    $scope.showEvaluations = function () {
+        $http({
+            url: '/professors/' + $scope.curProfId + '/professor_forms/' + '2' + '/get_forms',
+            method: 'GET'
+        })
+        .then(function (response) {
+            $scope.forms = response.data;
+        });
+    };
+
  	$scope.addEvaluation = function () {
-		$http({
-                url: "/professors/" + $scope.curProfId + "/professor_forms/new/",
-                method: "GET"
-        }).then(function(response) {
-				window.location.href = "/professors/" + $scope.curProfId + "/professor_forms/new/";
-		});
+ 		$http({
+            url: "",
+            method: 'POST',
+            data: {
+                'title': $scope.new_evaluation_name,
+                'due_date': $scope.due_date,
+                'submission_date': $scope.submission_date,
+				'course_id': $scope.course_id,
+                'html_form': $scope.new_form
+            },
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(function (response) {
+            $scope.showEvaluations();
+        });
+
+        $scope.toggleAddEvaluationForm();
 	};
 
     $scope.addGroup = function () {

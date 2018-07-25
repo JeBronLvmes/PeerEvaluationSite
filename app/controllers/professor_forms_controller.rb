@@ -27,7 +27,7 @@ class ProfessorFormsController < ApplicationController
     if current_professor
       @professor_form = ProfessorForm.new(professor_form_params)
       if @professor_form.save
-        redirect_to current_professor
+        redirect_to '/professor_forms'
       else
         render 'new'
       end
