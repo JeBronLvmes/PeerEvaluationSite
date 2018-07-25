@@ -137,13 +137,14 @@
               <th>Last Name</th>
               <th>Dot #</th>
               <th>e-mail</th>
+              <th />
               </thead>
               <tr ng-repeat="s in studentsFind">
                 <td>{{ s.first_name }}</td>
                 <td>{{ s.last_name }}</td>
                 <td>{{ s.dot_number }}</td>
                 <td>{{ s.email }}</td>
-                <td> <button class="btn btn-primary" ng-disable="processing" ng-click="addStudent(s.id)">Add</button> </td>
+                <td> <button class="btn btn-success" ng-disable="processing" ng-click="addStudent(s.id)">Add</button> </td>
               </tr>
             </table>
           </div>

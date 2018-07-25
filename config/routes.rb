@@ -21,7 +21,15 @@ Rails.application.routes.draw do
   get 'login/professor'
   get 'evaluations/new'
 
+  #delete student from group
+  delete 'professors/:professor_id/courses/:course_id/groups/:group_id/students/:id',
+         to: 'courses#delete_group_student'
 
+  # add student to group
+  post 'professors/:professor_id/courses/:course_id/groups/:group_id/students/:id',
+       to: 'courses#add_group_student'
+
+  # get group student list
   get 'professors/:professor_id/courses/:course_id/groups/:group_id/students',
       to: 'courses#get_group_students'
 

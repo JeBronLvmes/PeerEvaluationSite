@@ -1,6 +1,5 @@
 var app = angular.module('courseApp', []);
 
-
 app.controller('courseCon', function($scope, $http) {
 
     $scope.init = function (prof_id) {
@@ -29,7 +28,7 @@ app.controller('courseCon', function($scope, $http) {
             .then(function(response) {
                 $scope.course_name = response.data.dept + ' ' +
                     response.data.number + ' - ' + response.data.name +
-               ' (section ' + response.data.section + ')';
+               ' (Section: ' + response.data.section + ')';
             });
 
         $scope.updateView();
@@ -50,10 +49,15 @@ app.controller('courseCon', function($scope, $http) {
     };
 
     $scope.updateCurGroupView = function () {
+        $scope.groupStudents = [];
         $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/groups")
             .then(function (response) {
                 $scope.groups = response.data;
+
+                $scope.getGroupStudents();
             });
+
+        console.log($scope.groupStudents);
     };
 
     $scope.updateCurProfFormView = function () {
@@ -86,17 +90,46 @@ app.controller('courseCon', function($scope, $http) {
 
     // Other Controller Functions
 
-    //gets student list for group
-    $scope.getGroupStudents = function (id) {
-        $http.get('courses/'+$scope.curCourseId+'/groups/'+ id +'/students')
-            .then(function (response){
-                $scope.groupStudents = response.data;
+    $scope.deleteStudentFromGroup = function(group_id, student_id) {
+        if(window.confirm('Remove this student?')) {
+            $http({
+                url: 'courses/' + $scope.curCourseId + '/groups/' + group_id + '/students/' + student_id,
+                method: 'DELETE'
+            })
+            .then(function (response) {
+                $scope.updateCurGroupView();
             });
+        }
+    };
+
+    $scope.addStudentToGroup = function(group_id, student_id) {
+        $http({
+            url: 'courses/'+$scope.curCourseId+'/groups/'+ group_id +'/students/' + student_id,
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(function(response) {
+                $scope.updateCurGroupView();
+            },
+            function(response) {
+                window.alert("fail");
+            });
+    };
+
+    //gets student list for group
+    $scope.getGroupStudents = function () {
+        for (let i = 0; i < $scope.groups.length; ++i) {
+            $http.get('courses/' + $scope.curCourseId + '/groups/' + $scope.groups[i].id + '/students')
+                .then(function (response) {
+                    $scope.groupStudents[i] = response.data;
+                });
+        }
     };
 
     $scope.switchState = function () {
         $scope.isGroup = !$scope.isGroup;
         $scope.isGroupTemp = $scope.isGroup;
+        $scope.studentsFind = null;
         $scope.updateView();
     };
 

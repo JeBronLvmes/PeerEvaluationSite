@@ -28,7 +28,7 @@ app.controller('evaluationCon', function($scope, $http) {
             .then(function(response) {
                 $scope.course_name = response.data.dept + ' ' +
                     response.data.number + ' - ' + response.data.name +
-                    ' (section ' + response.data.section + ')';
+                    ' (Section: ' + response.data.section + ')';
             });
 
         $scope.updateView();
