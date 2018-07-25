@@ -19,7 +19,7 @@ app.controller('courseCon', function($scope, $http) {
     //
     $scope.showDetail = function (course_id) {
         if (course_id != null) {
-            $scope.isGroupTemp = $scope.isProfessorForm;
+            $scope.isGroupTemp = $scope.isGroup;
             $scope.curCourseId = course_id;
         }
 
@@ -70,7 +70,7 @@ app.controller('courseCon', function($scope, $http) {
 
     $scope.updateView = function () {
         if ($scope.curCourseId != null) {
-            if ($scope.isProfessorForm) {
+            if ($scope.isGroup) {
                 $scope.students = null;
 
                 $scope.updateCurGroupView();
@@ -84,6 +84,7 @@ app.controller('courseCon', function($scope, $http) {
 
     // Other Controller Functions
 
+    //gets student list for group
     $scope.getGroupStudents = function (id) {
         $http.get('courses/'+$scope.curCourseId+'/groups/'+ id +'/students')
             .then(function (response){
@@ -92,8 +93,8 @@ app.controller('courseCon', function($scope, $http) {
     };
 
     $scope.switchState = function () {
-        $scope.isProfessorForm = !$scope.isProfessorForm;
-        $scope.isGroupTemp = $scope.isProfessorForm;
+        $scope.isGroup = !$scope.isGroup;
+        $scope.isGroupTemp = $scope.isGroup;
         $scope.updateView();
     };
 
