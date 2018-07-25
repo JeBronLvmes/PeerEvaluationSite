@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'professors/:pro_id/professor_forms/new', to: 'professor_forms#new'
   get 'professors/:pro_id/professor_forms/:course_id', to: 'professor_forms#get_forms'
+  get 'professors/:pro_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
+  post 'professors/:pro_id/professor_forms/:course_id/form/:form_id/evaluation/:id', to: 'evaluations#new'
   resources :students do
     resources :courses_student
   end
@@ -70,6 +72,18 @@ Rails.application.routes.draw do
 
   # get all of the groups in the course
   get 'professors/:pro_id/courses/:course_id/groups', to: 'courses#get_groups'
+
+  # add a student to a group
+  post 'professors/:pro_id/courses/:course_id/add_group_student', to: 'courses#add_group_student'
+
+  # get all of the courses in the student
+  get 'students/:id/get_courses', to: 'students#get_courses'
+
+  # get all of the groups in the student
+  get 'students/:id/get_groups', to: 'students#get_groups'
+
+  # get all of the evaluations in the student
+  get 'students/:id/get_evaluations', to: 'students#get_evaluations'
 
   # add a student to a course
   post 'professors/:pro_id/courses/:course_id/add_std', to: 'courses#add_std'

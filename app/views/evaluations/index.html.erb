@@ -13,7 +13,9 @@
   <tbody>
   <% @evaluations.each do |eval| %>
     <tr>
-      <td><%= eval.title %></td>
+      <td><%= eval.student_id %></td>
+      <td><%= eval.professor_form_id %></td>
+      <td><%= eval.isCompleted %></td>
     </tr>
   <% end %>
   </tbody>

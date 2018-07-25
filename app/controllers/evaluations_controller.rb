@@ -1,17 +1,24 @@
 # Created by Jeb Alawi 7/19/18
 class EvaluationsController < ApplicationController
-  before_action :authenticate_student!
+  skip_before_action :verify_authenticity_token
   def index
     @evaluations = Evaluation.all
   end
 
   def new
     @evaluation = Evaluation.new
+    @evaluation.student_id = params[:id];
+    @evaluation.isCompleted = false;
+    @evaluation.professor_form_id = params[:form_id]
+    if @evaluation.save
+      redirect_to evaluations_path
+    else
+      render 'new'
+    end
   end
 
   def create
-    @evaluation = Evaluation.new(evaluation_params)
-    @evaluation.student_id = current_student.id
+    @evaluation = Evaluation.new
     if @evaluation.save
       redirect_to evaluations_path
     else
@@ -21,7 +28,7 @@ class EvaluationsController < ApplicationController
 
   private
     def evaluation_params
-      params.require(:evaluation).permit(:title, :due_date, :submission_date, :form, :student_id)
+      params.require(:evaluation).permit(:professor_form_id, :student_id, :isCompleted)
     end
 
 end

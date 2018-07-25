@@ -95,6 +95,25 @@ class ProfessorFormsController < ApplicationController
     end
   end
 
+  def show_individual_form
+    @professor = current_professor
+    @course = Course.find(params[:course_id])
+    if current_professor
+      @form = ProfessorForm.find(params[:id])
+      render json: @form
+    end
+  end
+
+  # add evaluation to Student
+  # Created by Josh Wright 7/24/18
+  def add_evaluaiton_to_student
+    @evaluation = Evaluation.new
+    @evaluation.student_id = :student_id
+    @student = Student.find(params[:id])
+    @student.evaluation << @student unless @group.students.include? @student
+    render json: @evaluation
+  end
+
   # Created by Josh Wright 7/22/18
   private
   def set_professor_form

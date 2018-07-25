@@ -54,6 +54,7 @@
       </div>
     </div>
 
+    <!-- all of the page content to the right of the class list navigation bar -->
     <div id ="pageContent" class="col bg-light px-5 pb-5">
       <!-- Course Title -->
       <div class="text-center">
@@ -73,17 +74,28 @@
               <th>Due Date</th>
               <th>Creation Date</th>
               <th>Course ID</th>
+              <th>View Form</th>
               </thead>
               <tr ng-repeat="form in forms">
                 <td>{{form.title}}</td>
                 <td>{{form.due_date}}</td>
                 <td>{{form.submission_date}} </td>
                 <td>{{form.course_id}} </td>
-
+                <td><button id="new_evaluation" class="btn btn-secondary" ng-click="showForm(form.id)">
+                  View Form
+                </button></td>
+                <td><button id="assign_evaluation" class="btn btn-secondary" ng-click="assignForm(form.id,form.course_id)">
+                  Assign Form
+                </button></td>
               </tr>
             </table>
+            <div class="formContent" id="formContent" style="display: none;" >
+              <h1>{{form.title}}</h1>
+              <p>{{"Due Date: " + form.due_date}}</p>
+              <p>{{"Submission: " + form.submisison_date}}</p>
+              <p>{{"Form Data: " + form.html_form}}</p>
+            </div>
           </div>
-
           <!-- Evaluation Students View -->
           <div ng-switch-when="false">
 
