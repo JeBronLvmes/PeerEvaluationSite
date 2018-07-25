@@ -2,11 +2,17 @@ var app = angular.module('courseApp', []);
 
 app.controller('courseCon', function($scope, $http) {
 
+    /**
+     * Initialize the controller.
+     *
+     * @author Bin Chen
+     */
     $scope.init = function (prof_id) {
         $scope.clickedClass = false; //false until a class is clicked on, to disable groups from being clicked before a class is
         $scope.curProfId = prof_id;
         $scope.processing = false;
         $scope.isGroup = false;
+        $scope.selectedStd = [];
         $scope.showCourses();
     };
 
@@ -17,11 +23,12 @@ app.controller('courseCon', function($scope, $http) {
     };
 
     // shows the information on the class
-    $scope.showDetail = function (course_id) {
+    $scope.showDetail = function (course_id, course_name) {
         if (course_id != null) {
             $scope.clickedClass = true;
             $scope.isGroupTemp = $scope.isGroup;
             $scope.curCourseId = course_id;
+            $scope.curCourseName = course_name;
         }
 
         $http.get("/professors/" + $scope.curProfId  + "/courses/" + course_id)
@@ -102,6 +109,13 @@ app.controller('courseCon', function($scope, $http) {
         }
     };
 
+    $scope.getCurStudents = function () {
+        $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/students")
+            .then(function (response) {
+                $scope.students = response.data;
+            });
+    };
+
     $scope.addStudentToGroup = function(group_id, student_id) {
         $http({
             url: 'courses/'+$scope.curCourseId+'/groups/'+ group_id +'/students/' + student_id,
@@ -131,6 +145,11 @@ app.controller('courseCon', function($scope, $http) {
         $scope.isGroupTemp = $scope.isGroup;
         $scope.studentsFind = null;
         $scope.updateView();
+
+        if ($scope.isGroupTemp) {
+            $scope.getCurStudents();
+            $scope.selectedStd = [];
+        }
     };
 
     // adds a group to the class
@@ -164,6 +183,21 @@ app.controller('courseCon', function($scope, $http) {
       }
     };
 
+    $scope.deleteCourse = function(id) {
+        if(window.confirm('Delete '+ $scope.curCourseName +'?')) {
+            $http({
+                url: 'destroy/' + id,
+                method: 'DELETE'
+
+            })
+            .then(function (response) {
+                $scope.init();
+                $scope.showCourses();
+                $scope.updateView();
+            });
+        }
+    };
+
     // adds a course to the professor course list
     $scope.addCourse = function () {
 
@@ -183,6 +217,39 @@ app.controller('courseCon', function($scope, $http) {
         });
 
         $scope.toggleAddCourseForm();
+    };
+
+    /**
+     * Add the student user choose to the specific group.
+     *
+     * @param {number} groupId      The group id
+     *
+     * @author Bin Chen
+     */
+    $scope.addStdToGroup = function (groupId) {
+        console.log($scope.selectedStd[groupId]);
+
+        if (window.confirm('Do you want to add this student?')) {
+            $http({
+                url: '/professors/' + $scope.curProfId + '/courses/' + $scope.curCourseId + '/add_group_student',
+                method: "POST",
+                data: {
+                    'std_id': parseInt($scope.selectedStd[groupId]),
+                    'group_id': groupId
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(function (response) {
+                    window.alert("success");
+                    $scope.updateCurGroupView();
+                },
+                function (response) {
+                    window.alert("fail");
+                });
+        }
     };
 
     $scope.addStudent = function (id) {

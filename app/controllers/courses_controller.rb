@@ -56,15 +56,6 @@ class CoursesController < ApplicationController
     render json: @group.students
   end
 
-  # add student to group
-  # Created by Jeb Alawi 7/24/18
-  def add_group_student
-    @group = Group.find(params[:group_id])
-    @student = Student.find(params[:id])
-    @group.students << @student unless @group.students.include? @student
-    render json: @student
-  end
-
   # get student list for group
   # Created by Jeb Alawi 7/24/18
   def get_group_students
@@ -116,11 +107,31 @@ class CoursesController < ApplicationController
     render json: @std
   end
 
+  # Add a student to a group
+  #
+  # Created by Bin Chen 7/25/18
+  def add_group_student
+    @pro = Professor.find(params[:pro_id])
+    @course = @pro.courses.find(params[:course_id])
+    @group = @course.groups.find(params[:group_id])
+    @std = Student.find(params[:std_id])
+
+    # add students into group only if the student does not exists in the group already
+    @group.students << @std unless @group.students.include? @std
+
+    render json: @std
+  end
+
   # Created by Bin Chen 7/24/18
   def delete_std
     @pro = Professor.find(params[:pro_id])
     @course = @pro.courses.find(params[:course_id])
     @std = Student.find(params[:std_id])
+
+    # manually delete this students from all the gourps they attend
+    @course.groups.each do |group|
+      group.students.delete(@std) if group.students.include? @std
+    end
 
     @course.students.delete @std
 
@@ -131,9 +142,7 @@ class CoursesController < ApplicationController
   def destroy
     if current_professor
       @course.destroy
-      if current_professor
-        redirect_to professor_path(current_professor.id), notice: 'Course was successfully deleted.'
-      end
+      redirect_to professor_path(current_professor.id), notice: 'Course was successfully deleted.'
     end
   end
 

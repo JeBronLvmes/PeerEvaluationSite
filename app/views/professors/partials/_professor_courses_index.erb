@@ -94,41 +94,10 @@
 
               <!-- Query/Add Student to Group -->
               <div>
-                <span class="h2 mr-auto">Query/Add Students:</span>
-                <form ng-submit="submitQuery()">
-                  <div class="row">
-                    <div class="col-3">
-                      First Name: <br><input class="form-control" type="text" name="student_id" ng-model="$parent.std_fname" />
-                    </div>
-                    <div class="col-3">
-                      Last Name: <br><input class="form-control" type="text" name="student_id" ng-model="$parent.std_lname" />
-                    </div>
-                    <div class="col-3">
-                      Dot Number: <br><input class="form-control" type="text" name="student_dot" ng-model="$parent.std_dot" />
-                    </div>
-                    <div class="col-3">
-                      <button class="btn btn-primary mt-4" type="submit">Query Students</button>
-                    </div>
-                  </div>
-                </form>
-                <br />
-                <table class="table table-hover table-sm">
-                  <thead>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Dot #</th>
-                  <th>e-mail</th>
-                  <th />
-                  </thead>
-                  <tr ng-repeat="s in studentsFind">
-                    <td>{{ s.first_name }}</td>
-                    <td>{{ s.last_name }}</td>
-                    <td>{{ s.dot_number }}</td>
-                    <td>{{ s.email }}</td>
-                    <td> <button class="btn btn-success" ng-disable="processing" ng-click="addStudentToGroup(g.id, s.id)">Add</button> </td>
-                  </tr>
-                </table>
-
+                <select ng-model="selectedStd[g.id]">
+                  <option ng-repeat="s in students" value="{{s.id}}">{{s.first_name + " " + s.last_name + "." + s.dot_number}}</option>
+                </select>
+                <td> <button class="btn btn-success" ng-click="addStdToGroup(g.id)">Add</button> </td>
               </div>
 
             </div>

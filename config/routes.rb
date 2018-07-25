@@ -9,8 +9,7 @@ Rails.application.routes.draw do
   get 'students/:student_id/evaluations/completed', to: 'students#completed_evaluations_list'
   get 'students/:student_id/evaluations/incomplete', to: 'students#incomplete_evaluations_list'
   resources :students do
-    resources :courses_student, :courses
-    get 'groups'
+    resources :courses_student
   end
 
   resources :professors do
@@ -23,6 +22,31 @@ Rails.application.routes.draw do
   get 'login/student'
   get 'login/professor'
   get 'evaluations/new'
+
+
+  ###### Students
+  # get all of the courses in the student
+  get 'students/:id/get_courses', to: 'students#get_courses'
+
+  # get all of the groups in the student
+  get 'students/:id/get_groups', to: 'students#get_groups'
+
+  # get all of the evaluations in the student
+  get 'students/:id/get_evaluations', to: 'students#get_evaluations'
+
+  # get student's course list
+  get 'students/:student_id/courses/', to: 'students#get_course_list'
+
+  # get specific course info
+  get 'students/:student_id/courses/:course_id', to: 'students#show_course'
+
+  # get course specific group for student
+  get 'students/:student_id/courses/:course_id/group/', to: 'students#show_group'
+
+  ###### Professors
+
+  #delete course and render json
+  delete 'professors/:professor_id/destroy/:course_id', to: 'courses#delete_course'
 
   #delete student from group
   delete 'professors/:professor_id/courses/:course_id/groups/:group_id/students/:id',
@@ -50,6 +74,9 @@ Rails.application.routes.draw do
 
   # get all of the groups in the course
   get 'professors/:pro_id/courses/:course_id/groups', to: 'courses#get_groups'
+
+  # add a student to a group
+  post 'professors/:pro_id/courses/:course_id/add_group_student', to: 'courses#add_group_student'
 
   # get all of the courses in the student
   get 'students/:id/get_courses', to: 'students#get_courses'
