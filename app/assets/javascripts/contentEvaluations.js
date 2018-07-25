@@ -113,15 +113,6 @@ app.controller('evaluationCon', function($scope, $http) {
         $scope.showAddEvaluationForm = !$scope.showAddEvaluationForm;
     };
 
-    $scope.showEvaluations = function () {
-        $http({
-            url: '/professors/' + $scope.curProfId + '/professor_forms/' + '2' + '/get_forms',
-            method: 'GET'
-        })
-        .then(function (response) {
-            $scope.forms = response.data;
-        });
-    };
 
  	$scope.addEvaluation = function () {
  		$http({
@@ -135,9 +126,6 @@ app.controller('evaluationCon', function($scope, $http) {
                 'html_form': $scope.new_form
             },
             headers: {'Content-Type': 'application/json'}
-        })
-        .then(function (response) {
-            $scope.showEvaluations();
         });
 
         $scope.toggleAddEvaluationForm();
