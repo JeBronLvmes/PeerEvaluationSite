@@ -95,6 +95,14 @@ class ProfessorFormsController < ApplicationController
     end
   end
 
+  def show_individual_form
+    @professor = current_professor
+    @course = Course.find(params[:course_id])
+    if current_professor
+      @form = ProfessorForm.find(params[:id])
+    end
+  end
+
   # Created by Josh Wright 7/22/18
   private
   def set_professor_form

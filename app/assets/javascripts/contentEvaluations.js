@@ -44,6 +44,8 @@ app.controller('evaluationCon', function($scope, $http) {
             });
     };
 
+
+
     $scope.updateQueryStdView = function (response) {
         $scope.studentsFind = response.data;
     };
@@ -210,5 +212,14 @@ app.controller('evaluationCon', function($scope, $http) {
                         window.alert("fail");
                     });
         }
+    };
+
+    $scope.showForm = function (id) {
+        $http({
+            url: "/professors/" + $scope.curProfId + "/professor_forms/"+ $scope.curCourseId + "/form/"+ id,
+            method: "GET"
+        }).then(function(response) {
+            window.location.href = "/professors/" + $scope.curProfId + "/professor_forms/"+ $scope.curCourseId + "/form/"+ id;
+        });
     };
 });

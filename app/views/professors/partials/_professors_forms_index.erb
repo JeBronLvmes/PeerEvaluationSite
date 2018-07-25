@@ -73,12 +73,16 @@
               <th>Due Date</th>
               <th>Creation Date</th>
               <th>Course ID</th>
+              <th>View Form</th>
               </thead>
               <tr ng-repeat="form in forms">
                 <td>{{form.title}}</td>
                 <td>{{form.due_date}}</td>
                 <td>{{form.submission_date}} </td>
                 <td>{{form.course_id}} </td>
+                <td><button id="new_evaluation" class="btn btn-secondary" ng-click="showForm(form.id)">
+                  View Form
+                </button></td>
               </tr>
             </table>
           </div>
