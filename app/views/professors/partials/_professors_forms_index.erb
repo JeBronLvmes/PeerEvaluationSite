@@ -2,18 +2,19 @@
 
   <div class = "row">
     <h1 class="mr-auto"><%= title %>
-			<span>
+			<!-- "+" icon -->
+      <span>
 				<button id="new_evaluation" class="btn btn-secondary" ng-click="addEvaluation()">
 					<i class="fa fa-plus fa-2x"></i>
 				</button>
 			</span>
     </h1>
 
-
-    <span>
-      <button ng-click="switchState()" ng-disabled="!isProfessorForm">Student Forms</button>
-      <button ng-click="switchState()" ng-disabled="isProfessorForm">Professor Forms</button>
-    </span>
+    <!-- toggle buttons -->
+    <div id="buttonToggle" class="btn-group btn-group-toggle h-50 mt-2 mr-1" data-toggle="buttons">
+      <button class="btn btn-primary" type="radio" ng-click="switchState()" ng-disabled="!isProfessorForm">Student Forms</button>
+      <button class="btn btn-primary" type="radio" ng-click="switchState()" ng-disabled="isProfessorForm || !clickedClass">Professor Forms</button>
+    </div>
 
   </div>
 
@@ -53,7 +54,7 @@
       </div>
     </div>
 
-    <div id ="pageContent" class="col bg-light px-5 py-5">
+    <div id ="pageContent" class="col bg-light px-5 pb-5">
       <!-- Course Title -->
       <div class="text-center">
         <h1>{{course_name}}</h1>
