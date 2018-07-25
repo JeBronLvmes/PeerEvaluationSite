@@ -29,7 +29,7 @@ app.controller('courseCon', function($scope, $http) {
             .then(function(response) {
                 $scope.course_name = response.data.dept + ' ' +
                     response.data.number + ' - ' + response.data.name +
-               ' (section ' + response.data.section + ')';
+               ' (Section: ' + response.data.section + ')';
             });
 
         $scope.updateView();
@@ -85,6 +85,32 @@ app.controller('courseCon', function($scope, $http) {
     };
 
     // Other Controller Functions
+
+    $scope.deleteStudentFromGroup = function(group_id, student_id) {
+        if(window.confirm('Remove this student?')) {
+            $http({
+                url: 'courses/' + $scope.curCourseId + '/groups/' + group_id + '/students/' + student_id,
+                method: 'DELETE'
+            })
+                .then(function (response) {
+                    $scope.updateCurGroupView();
+                });
+        }
+    };
+
+    $scope.addStudentToGroup = function(group_id, student_id) {
+        $http({
+            url: 'courses/'+$scope.curCourseId+'/groups/'+ group_id +'/students/' + student_id,
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(function(response) {
+                $scope.updateCurGroupView();
+            },
+            function(response) {
+                window.alert("fail");
+            });
+    };
 
     //gets student list for group
     $scope.getGroupStudents = function (id) {
