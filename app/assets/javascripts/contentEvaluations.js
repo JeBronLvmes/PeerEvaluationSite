@@ -44,6 +44,8 @@ app.controller('evaluationCon', function($scope, $http) {
             });
     };
 
+
+
     $scope.updateQueryStdView = function (response) {
         $scope.studentsFind = response.data;
     };
@@ -59,6 +61,8 @@ app.controller('evaluationCon', function($scope, $http) {
         $http.get("/professors/" + $scope.curProfId  + "/professor_forms/" + $scope.curCourseId)
             .then(function (response) {
                 $scope.forms = response.data;
+                $scope.selection = $scope.forms[0];
+
             });
     };
 
@@ -81,6 +85,8 @@ app.controller('evaluationCon', function($scope, $http) {
                 $scope.updateCurStdView();
             }
         }
+        var div = document.getElementById("formContent")
+        div.style.display = "none";
     };
 
     // Other Controller Functions
@@ -211,4 +217,35 @@ app.controller('evaluationCon', function($scope, $http) {
                     });
         }
     };
+
+    $scope.showForm = function (id) {
+        var div = document.getElementById("formContent")
+        div.style.display = "block";
+        $http({
+            url: "/professors/" + $scope.curProfId + "/professor_forms/"+ $scope.curCourseId + "/form/"+ id,
+            method: "GET"
+        }).then(function(response) {
+            $scope.form = response.data;
+        });
+
+    };
+
+    $scope.assignForm = function (form_id){
+        $http({
+            url: "/professors/" + $scope.curProfId + "/courses/"+ $scope.curCourseId + "/students",
+            method: "GET"
+        }).then(function(response) {
+            $scope.students = response.data;
+            for(var i =0;i<$scope.students.length;i++){
+                $http({
+                    url:'/professors/'+$scope.curProfId+'/professor_forms/'+$scope.curCourseId +'/form/'+form_id+'/evaluation/'+ $scope.students[i].id,
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'}
+                })
+            }
+        });
+    }
+
 });
+
+
