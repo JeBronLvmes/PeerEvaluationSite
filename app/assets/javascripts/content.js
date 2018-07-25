@@ -4,6 +4,7 @@ var app = angular.module('courseApp', []);
 app.controller('courseCon', function($scope, $http) {
 
     $scope.init = function (prof_id) {
+        $scope.clickedClass = false; //false until a class is clicked on, to disable groups from being clicked before a class is
         $scope.curProfId = prof_id;
         $scope.processing = false;
         $scope.isGroup = false;
@@ -16,9 +17,10 @@ app.controller('courseCon', function($scope, $http) {
         $scope.showAddCourseForm = !$scope.showAddCourseForm;
     };
 
-    //
+    // shows the information on the class
     $scope.showDetail = function (course_id) {
         if (course_id != null) {
+            $scope.clickedClass = true;
             $scope.isGroupTemp = $scope.isGroup;
             $scope.curCourseId = course_id;
         }
