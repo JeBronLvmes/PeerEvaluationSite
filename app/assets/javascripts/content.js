@@ -2,6 +2,7 @@ var app = angular.module('courseApp', []);
 
 app.controller('courseCon', function($scope, $http) {
 
+
     $scope.init = function (prof_id) {
         $scope.clickedClass = false; //false until a class is clicked on, to disable groups from being clicked before a class is
         $scope.curProfId = prof_id;
@@ -17,11 +18,12 @@ app.controller('courseCon', function($scope, $http) {
     };
 
     // shows the information on the class
-    $scope.showDetail = function (course_id) {
+    $scope.showDetail = function (course_id, course_name) {
         if (course_id != null) {
             $scope.clickedClass = true;
             $scope.isGroupTemp = $scope.isGroup;
             $scope.curCourseId = course_id;
+            $scope.curCourseName = course_name;
         }
 
         $http.get("/professors/" + $scope.curProfId  + "/courses/" + course_id)
@@ -162,6 +164,21 @@ app.controller('courseCon', function($scope, $http) {
                   $scope.updateCurGroupView();
           });
       }
+    };
+
+    $scope.deleteCourse = function(id) {
+        if(window.confirm('Delete '+ $scope.curCourseName +'?')) {
+            $http({
+                url: 'destroy/' + id,
+                method: 'DELETE'
+
+            })
+            .then(function (response) {
+                $scope.init();
+                $scope.showCourses();
+                $scope.updateView();
+            });
+        }
     };
 
     // adds a course to the professor course list

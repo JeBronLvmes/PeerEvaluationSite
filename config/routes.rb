@@ -5,8 +5,7 @@ Rails.application.routes.draw do
   get 'professors/:pro_id/professor_forms/new', to: 'professor_forms#new'
   get 'professors/:pro_id/professor_forms/:course_id', to: 'professor_forms#get_forms'
   resources :students do
-    resources :courses_student, :courses
-    get 'groups'
+    resources :courses_student
   end
 
   resources :professors do
@@ -19,6 +18,31 @@ Rails.application.routes.draw do
   get 'login/student'
   get 'login/professor'
   get 'evaluations/new'
+
+
+  ###### Students
+  # get all of the courses in the student
+  get 'students/:id/get_courses', to: 'students#get_courses'
+
+  # get all of the groups in the student
+  get 'students/:id/get_groups', to: 'students#get_groups'
+
+  # get all of the evaluations in the student
+  get 'students/:id/get_evaluations', to: 'students#get_evaluations'
+
+  # get student's course list
+  get 'students/:student_id/courses/', to: 'students#get_course_list'
+
+  # get specific course info
+  get 'students/:student_id/courses/:course_id', to: 'students#show_course'
+
+  # get course specific group for student
+  get 'students/:student_id/courses/:course_id/group/', to: 'students#show_group'
+
+  ###### Professors
+
+  #delete course and render json
+  delete 'professors/:professor_id/destroy/:course_id', to: 'courses#delete_course'
 
   #delete student from group
   delete 'professors/:professor_id/courses/:course_id/groups/:group_id/students/:id',
@@ -46,15 +70,6 @@ Rails.application.routes.draw do
 
   # get all of the groups in the course
   get 'professors/:pro_id/courses/:course_id/groups', to: 'courses#get_groups'
-
-  # get all of the courses in the student
-  get 'students/:id/get_courses', to: 'students#get_courses'
-
-  # get all of the groups in the student
-  get 'students/:id/get_groups', to: 'students#get_groups'
-
-  # get all of the evaluations in the student
-  get 'students/:id/get_evaluations', to: 'students#get_evaluations'
 
   # add a student to a course
   post 'professors/:pro_id/courses/:course_id/add_std', to: 'courses#add_std'

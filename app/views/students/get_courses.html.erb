@@ -1,52 +1,120 @@
 <%if current_student != nil and current_student.id.to_s == params[:id].to_s%>
 
-<div class="container bg-light py-5 px-5">
+<div class="container-fluid" ng-app="studentCourseApp" ng-controller="studentCon" ng-init="init(<%= @student.id %>)">
 
-    <h1>Courses</h1>
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">Course Name</th>
-        <th scope="col">Department</th>
-        <th scope="col">Number</th>
-        <th scope="col">Section</th>
-        <th scope="col">course_id</th>
-        <th scope="col">Professor</th>
-        <th />
-      </tr>
-      </thead>
-      <tbody>
-        <% @courses_student_list = CoursesStudent.where("student_id = #{@student.id}")%>
-        <!-- list student courses -->
-        <% @course_list = @student.courses %>
-          <% @course_list.each do |course| %>
-          <tr>
-            <td><%= course.name %></td>
-            <td><%= course.dept %></td>
-            <td><%= course.number %></td>
-            <td><%= course.section %></td>
-            <td><%= course.id %></td>
-            
-<% if false %>
-            <% courses_student_ref = CoursesStudent.where("student_id = #{@student.id} and course_id = #{course.id}").first %>
-            <td><%= link_to 'Drop', courses_student_ref, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-<% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    
-<%else%>
-  <div class="container">
-    <div class="jumbotron vertical-center my-5 py-5">
-      <div class="container text-center">
-        <h1 class="display-4">Whoops!</h1>
-        <p class="lead">You don't belong here!</p>
-        page id = <%= params[:id]%>
-        student id = <%#= current_student.id %>
-        *these are for testing purposes*
+  <div class = "row">
+    <!-- heading -->
+    <h1 class="mr-auto ml-1">Courses</h1>
+  </div>
+  <div class="row">
+    <div class="col-2 px-0 mx-0">
+      <div>
+
+        <!-- List of Courses On The left -->
+        <div id="courseList" class="list-group list-group-flush" role="tablist">
+          <a class="list-group-item list-group-item-action" id="list-tab" name="course" ng-repeat="c in courses" ng-click="showDetail(c.id, c.name)"
+             data-toggle="list" href="#list-home" role="tab" aria-controls="home"> {{c.name}} </a>
+        </div>
       </div>
     </div>
 
+    <div id ="pageContent" class="col bg-light px-5 pb-5" ng-show="showContent">
+      <!-- Course Title -->
+      <div class="text-center">
+        <h1>{{course_name}}</h1>
+      </div>
+
+      <div class="row">
+        <h2>{{ group_name }}</h2>
+        <table class="table table-sm table-hover">
+          <thead>
+            <th>Evaluation</th>
+            <th>Link</th>
+          </thead>
+          <tbody>
+            <tr></tr>
+            <tr></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Hidden -->
+<div class="container bg-light py-5 px-5" style="display: none;">
+
+  <h1>Courses</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Course Name</th>
+      <th scope="col">Department</th>
+      <th scope="col">Number</th>
+      <th scope="col">Section</th>
+      <th scope="col">course_id</th>
+      <th scope="col">Professor</th>
+      <th />
+    </tr>
+    </thead>
+    <tbody>
+      <% @courses_student_list = CoursesStudent.where("student_id = #{@student.id}")%>
+      <!-- list student courses -->
+      <% @course_list = @student.courses %>
+        <% @course_list.each do |course| %>
+        <tr>
+          <td><%= course.name %></td>
+          <td><%= course.dept %></td>
+          <td><%= course.number %></td>
+          <td><%= course.section %></td>
+          <td><%= course.id %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+  <%= javascript_include_tag 'content' %>
+  <%= javascript_include_tag 'student' %>
+
+<%else%>
+<div class="container">
+  <div class="jumbotron vertical-center my-5 py-5">
+    <div class="container text-center">
+      <h1 class="display-4">Whoops!</h1>
+      <p class="lead">You don't belong here!</p>
+      page id = <%= params[:id]%>
+      student id = <%#= current_student.id %>
+      *these are for testing purposes*
+    </div>
+  </div>
+</div>
 <%end%>

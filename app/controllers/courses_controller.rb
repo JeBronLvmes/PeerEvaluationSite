@@ -131,9 +131,7 @@ class CoursesController < ApplicationController
   def destroy
     if current_professor
       @course.destroy
-      if current_professor
-        redirect_to professor_path(current_professor.id), notice: 'Course was successfully deleted.'
-      end
+      redirect_to professor_path(current_professor.id), notice: 'Course was successfully deleted.'
     end
   end
 

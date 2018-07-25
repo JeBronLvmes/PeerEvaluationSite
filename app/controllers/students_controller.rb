@@ -1,5 +1,26 @@
 class StudentsController < ApplicationController
 
+	#get list of students
+	# created by Jeb Alawi 7/25/18
+	def get_course_list
+		@student = Student.find(params[:student_id])
+		render json: @student.courses
+	end
+
+	#get specific course
+	# Created by Jeb Alawi
+	def show_course
+		@course = Course.find(params[:course_id])
+		render json: @course
+	end
+
+	#get course specific group
+	# Created by Jeb Alwai 7/25/18
+	def show_group
+		@student = Student.find(params[:student_id])
+		render json: @student.groups.find_by(course_id: params[:course_id])
+	end
+
   def index
 		@students = Student.all
   end
