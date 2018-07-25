@@ -116,6 +116,21 @@ class CoursesController < ApplicationController
     render json: @std
   end
 
+  # Add a student to a group
+  #
+  # Created by Bin Chen 7/25/18
+  def add_group_student
+    @pro = Professor.find(params[:pro_id])
+    @course = @pro.courses.find(params[:course_id])
+    @group = @course.groups.find(params[:group_id])
+    @std = Student.find(params[:std_id])
+
+    # add students into group only if the student does not exists in the group already
+    @group.students << @std unless @group.students.include? @std
+
+    render json: @std
+  end
+
   # Created by Bin Chen 7/24/18
   def delete_std
     @pro = Professor.find(params[:pro_id])
