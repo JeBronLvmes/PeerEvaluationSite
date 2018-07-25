@@ -87,6 +87,8 @@ app.controller('evaluationCon', function($scope, $http) {
         }
         var div = document.getElementById("formContent")
         div.style.display = "none";
+        div = document.getElementById("studentEvaluations");
+        div.style.display = "block";
     };
 
     // Other Controller Functions
@@ -230,19 +232,23 @@ app.controller('evaluationCon', function($scope, $http) {
 
     };
 
-    $scope.assignForm = function (form_id){
+
+    $scope.viewEvaluations = function (student_id){
+        var div = document.getElementById("studentEvaluations");
+        div.style.display = "block";
+
         $http({
-            url: "/professors/" + $scope.curProfId + "/courses/"+ $scope.curCourseId + "/students",
+            url: "/students/" + student_id + "/evaluations/completed",
             method: "GET"
         }).then(function(response) {
-            $scope.students = response.data;
-            for(var i =0;i<$scope.students.length;i++){
-                $http({
-                    url:'/professors/'+$scope.curProfId+'/professor_forms/'+$scope.curCourseId +'/form/'+form_id+'/evaluation/'+ $scope.students[i].id,
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'}
-                })
-            }
+            $scope.completedEvaluations = response.data;
+        });
+
+        $http({
+            url: "/students/" + student_id + "/evaluations/incomplete",
+            method: "GET"
+        }).then(function(response) {
+            $scope.incompleteEvaluations = response.data;
         });
     }
 
