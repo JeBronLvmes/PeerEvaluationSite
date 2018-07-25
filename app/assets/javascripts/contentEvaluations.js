@@ -74,10 +74,6 @@ app.controller('evaluationCon', function($scope, $http) {
     };
 
     $scope.updateView = function () {
-
-        var div = document.getElementById("formContent")
-        div.style.display = "none";
-        
         if ($scope.curCourseId != null) {
             if ($scope.isProfessorForm) {
                 $scope.students = null;
@@ -89,6 +85,8 @@ app.controller('evaluationCon', function($scope, $http) {
                 $scope.updateCurStdView();
             }
         }
+        var div = document.getElementById("formContent")
+        div.style.display = "none";
     };
 
     // Other Controller Functions
@@ -231,6 +229,22 @@ app.controller('evaluationCon', function($scope, $http) {
         });
 
     };
+
+    $scope.assignForm = function (form_id){
+        $http({
+            url: "/professors/" + $scope.curProfId + "/courses/"+ $scope.curCourseId + "/students",
+            method: "GET"
+        }).then(function(response) {
+            $scope.students = response.data;
+            for(var i =0;i<$scope.students.length;i++){
+                $http({
+                    url:'/professors/'+$scope.curProfId+'/professor_forms/'+$scope.curCourseId +'/form/'+form_id+'/evaluation/'+ $scope.students[i].id,
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'}
+                })
+            }
+        });
+    }
 
 });
 

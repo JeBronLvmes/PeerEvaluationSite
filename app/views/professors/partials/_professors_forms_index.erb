@@ -84,6 +84,9 @@
                 <td><button id="new_evaluation" class="btn btn-secondary" ng-click="showForm(form.id)">
                   View Form
                 </button></td>
+                <td><button id="assign_evaluation" class="btn btn-secondary" ng-click="assignForm(form.id,form.course_id)">
+                  Assign Form
+                </button></td>
               </tr>
             </table>
             <div class="formContent" id="formContent" style="display: none;" >
@@ -91,7 +94,6 @@
               <p>{{"Due Date: " + form.due_date}}</p>
               <p>{{"Submission: " + form.submisison_date}}</p>
               <p>{{"Form Data: " + form.html_form}}</p>
-
             </div>
           </div>
           <!-- Evaluation Students View -->

@@ -104,6 +104,16 @@ class ProfessorFormsController < ApplicationController
     end
   end
 
+  # add evaluation to Student
+  # Created by Josh Wright 7/24/18
+  def add_evaluaiton_to_student
+    @evaluation = Evaluation.new
+    @evaluation.student_id = :student_id
+    @student = Student.find(params[:id])
+    @student.evaluation << @student unless @group.students.include? @student
+    render json: @evaluation
+  end
+
   # Created by Josh Wright 7/22/18
   private
   def set_professor_form
