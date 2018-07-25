@@ -1,6 +1,14 @@
+// Created by Jeb Alawi 7/25/18
 var app = angular.module('studentCourseApp', []);
 
 app.controller('studentCon', function($scope, $http) {
+    /**
+     * Initializes the controller
+     *
+     * @param student_id {number}    the student's id
+     *
+     * @author Jeb Alawi
+     */
     $scope.init = function (student_id) {
         $scope.curStdId = student_id;
         $scope.processing = false;
@@ -8,7 +16,14 @@ app.controller('studentCon', function($scope, $http) {
         $scope.showCourses();
     };
 
-    // sets courses variable to course list
+    /**
+     *
+     * Shows course info when the course is clicked on
+     *
+     * @author Bin Chen
+     *
+     * @modified_by Jeb Alawi
+     */
     $scope.showCourses = function () {
         $http({
             url: "/students/" + $scope.curStdId  + "/courses/",
@@ -39,13 +54,7 @@ app.controller('studentCon', function($scope, $http) {
                 $scope.group_name = response.data.name
             });
 
-        $scope.updateView();
     };
 
-    $scope.updateView = function () {
-        if ($scope.curCourseId != null) {
-
-        }
-    };
 
 });

@@ -19,7 +19,7 @@ app.controller('courseCon', function($scope, $http) {
     // Functions that Update View
 
     /**
-     * Show or hide the course form.
+     * Shows or hides the Add Course form.
      *
      * @author Jeb Alawi
      */
@@ -230,6 +230,7 @@ app.controller('courseCon', function($scope, $http) {
      * Adds a group to a class.
      *
      * @author Jeb Alawi
+     * @modified_by Bin Chen
      */
     $scope.addGroup = function () {
         if(window.confirm('Create the group ' + $scope.group_name + '?')) {
@@ -250,7 +251,9 @@ app.controller('courseCon', function($scope, $http) {
     };
 
     /**
-     * Deletes a group from a class.
+     * Deletes a group from the class
+     *
+     * @param id {number}   the id of the group to be deleted
      *
      * @author Jeb Alawi
      */

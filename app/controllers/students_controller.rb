@@ -1,13 +1,15 @@
 class StudentsController < ApplicationController
 
-	#get list of students
+	# get list of students
+	#
 	# created by Jeb Alawi 7/25/18
 	def get_course_list
 		@student = Student.find(params[:student_id])
 		render json: @student.courses
 	end
 
-	#get specific course
+	# get specific course data
+	#
 	# Created by Jeb Alawi
 	def show_course
 		@course = Course.find(params[:course_id])
@@ -15,6 +17,7 @@ class StudentsController < ApplicationController
 	end
 
 	#get course specific group
+	#
 	# Created by Jeb Alwai 7/25/18
 	def show_group
 		@student = Student.find(params[:student_id])
@@ -55,10 +58,6 @@ class StudentsController < ApplicationController
   	else
     	render 'edit'
   	end
-#		@student.courses << Course.find(params[:student][:course_id])
-#		if @student.save
-#			redirect_to @student
-#		end
 	end
 
 	def profile
