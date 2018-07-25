@@ -154,6 +154,7 @@ app.controller('courseCon', function($scope, $http) {
             })
             .then(function (response) {
                 $scope.updateCurGroupView();
+                window.alert("success");
             });
         }
     };
@@ -179,17 +180,19 @@ app.controller('courseCon', function($scope, $http) {
      * @author Bin Chen
      */
     $scope.addStudentToGroup = function(group_id, student_id) {
-        $http({
-            url: 'courses/'+$scope.curCourseId+'/groups/'+ group_id +'/students/' + student_id,
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(function(response) {
-                $scope.updateCurGroupView();
-            },
-            function(response) {
-                window.alert("fail");
-            });
+        if(window.confirm('Add this student to the group?')) {
+            $http({
+                url: 'courses/' + $scope.curCourseId + '/groups/' + group_id + '/students/' + student_id,
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'}
+            })
+                .then(function (response) {
+                        $scope.updateCurGroupView();
+                    },
+                    function (response) {
+                        window.alert("fail");
+                    });
+        }
     };
 
     /**
@@ -229,19 +232,21 @@ app.controller('courseCon', function($scope, $http) {
      * @author Jeb Alawi
      */
     $scope.addGroup = function () {
-        $http({
-            url: 'courses/' + $scope.curCourseId + '/group',
-            method: 'POST',
-            data: { 'name': $scope.group_name },
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(function(response) {
-                $scope.updateCurGroupView();
-            },
-            function(response) {
-                window.alert("fail");
-            });
-
+        if(window.confirm('Create the group ' + $scope.group_name + '?')) {
+            $http({
+                url: 'courses/' + $scope.curCourseId + '/group',
+                method: 'POST',
+                data: {'name': $scope.group_name},
+                headers: {'Content-Type': 'application/json'}
+            })
+                .then(function (response) {
+                        $scope.updateCurGroupView();
+                        window.alert("success");
+                    },
+                    function (response) {
+                        window.alert("fail");
+                    });
+        }
     };
 
     /**
@@ -257,7 +262,11 @@ app.controller('courseCon', function($scope, $http) {
 
           })
           .then(function (response) {
-                  $scope.updateCurGroupView();
+              window.alert("success");
+              $scope.updateCurGroupView();
+          },
+          function (response) {
+              window.alert("fail");
           });
       }
     };
