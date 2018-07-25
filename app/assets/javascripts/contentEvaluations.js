@@ -79,17 +79,27 @@ app.controller('evaluationCon', function($scope, $http) {
                 $scope.students = null;
 
                 $scope.updateCurProfFormView();
+                $scope.updateProfessorFormsView();
             } else {
                 $scope.groups = null;
 
                 $scope.updateCurStdView();
+                $scope.updateStudentEvaluationsView();
             }
         }
-        var div = document.getElementById("formContent")
-        div.style.display = "none";
-        div = document.getElementById("studentEvaluations");
-        div.style.display = "block";
+
+
+
     };
+
+    $scope.updateStudentEvaluationsView = function (){
+        var divEvals = document.getElementById("studentEvaluations");
+        divEvals.style.display = "none";
+    }
+    $scope.updateProfessorFormsView = function (){
+        var div = document.getElementById("formContent");
+        div.style.display = "none";
+    }
 
     // Other Controller Functions
 
