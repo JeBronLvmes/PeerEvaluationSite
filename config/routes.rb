@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'professors/:pro_id/professor_forms/:course_id', to: 'professor_forms#get_forms'
   get 'professors/:pro_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
   post 'professors/:pro_id/professor_forms/:course_id/form/:form_id/evaluation/:id', to: 'evaluations#new'
+  get 'students/:student_id/evaluations/completed', to: 'students#completed_evaluations_list'
+  get 'students/:student_id/evaluations/incomplete', to: 'students#incomplete_evaluations_list'
   resources :students do
     resources :courses_student, :courses
     get 'groups'

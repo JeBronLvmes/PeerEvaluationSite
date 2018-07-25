@@ -88,6 +88,29 @@ class StudentsController < ApplicationController
 		render 'get_evaluations'
 	end
 
+	def incomplete_evaluations_list
+		@student = Student.find(params[:student_id])
+		@evaluations = []
+		for evaluation in @student.evaluations
+			if !evaluation.isCompleted
+				@evaluations << evaluation
+			end
+		end
+
+		render json: @evaluations
+	end
+
+	def completed_evaluations_list
+		@student = Student.find(params[:student_id])
+		@evaluations = []
+		for evaluation in @student.evaluations
+			if evaluation.isCompleted
+				@evaluations << evaluation
+			end
+		end
+		render json: @evaluations
+	end
+
 	private
 
 		def student_params
