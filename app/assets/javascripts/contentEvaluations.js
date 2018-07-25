@@ -61,6 +61,8 @@ app.controller('evaluationCon', function($scope, $http) {
         $http.get("/professors/" + $scope.curProfId  + "/professor_forms/" + $scope.curCourseId)
             .then(function (response) {
                 $scope.forms = response.data;
+                $scope.selection = $scope.forms[0];
+
             });
     };
 
@@ -72,6 +74,10 @@ app.controller('evaluationCon', function($scope, $http) {
     };
 
     $scope.updateView = function () {
+
+        var div = document.getElementById("formContent")
+        div.style.display = "none";
+        
         if ($scope.curCourseId != null) {
             if ($scope.isProfessorForm) {
                 $scope.students = null;
@@ -215,11 +221,17 @@ app.controller('evaluationCon', function($scope, $http) {
     };
 
     $scope.showForm = function (id) {
+        var div = document.getElementById("formContent")
+        div.style.display = "block";
         $http({
             url: "/professors/" + $scope.curProfId + "/professor_forms/"+ $scope.curCourseId + "/form/"+ id,
             method: "GET"
         }).then(function(response) {
-            window.location.href = "/professors/" + $scope.curProfId + "/professor_forms/"+ $scope.curCourseId + "/form/"+ id;
+            $scope.form = response.data;
         });
+
     };
+
 });
+
+
