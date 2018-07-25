@@ -21,7 +21,7 @@
         <% @course_list = @student.courses %>
           <% @course_list.each do |course| %>
           <tr>
-            <th scope="row"><%= course.name %></th>
+            <td><%= course.name %></td>
             <td><%= course.dept %></td>
             <td><%= course.number %></td>
             <td><%= course.section %></td>
