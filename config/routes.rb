@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'professors/:pro_id/professor_forms/new', to: 'professor_forms#new'
   get 'professors/:pro_id/professor_forms/:course_id', to: 'professor_forms#get_forms'
   get 'professors/:pro_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
-  post 'professors/:pro_id/professor_forms/:course_id/form/:form_id/evaluation/:id', to: 'evaluations#new'
+  post 'professors/:pro_id/professor_forms/:course_id/form/:form_id/post_evaluation', to: 'evaluations#create_evaluation'
   get 'students/:student_id/evaluations_completed', to: 'students#completed_evaluations_list'
   get 'students/:student_id/evaluations_incomplete', to: 'students#incomplete_evaluations_list'
 
