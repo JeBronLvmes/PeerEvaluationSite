@@ -11,14 +11,39 @@
       <div>
 
         <!-- List of Courses On The left -->
-        <div id="courseList" class="list-group list-group-flush" role="tablist">
+        <div id="courseList" class="list-group list-group-flush" role="tablist" ng-hide="showForm" >
           <a class="list-group-item list-group-item-action" id="list-tab" name="course" ng-repeat="c in courses" ng-click="showDetail(c.id, c.name)"
              data-toggle="list" href="#list-home" role="tab" aria-controls="home"> {{c.name}} </a>
         </div>
       </div>
     </div>
 
-    <div id ="pageContent" class="col bg-light px-5 pb-5" ng-show="showContent">
+    <!-- Complete evaluation form -->
+    <div class="container-fluid" ng-show="showForm">
+      <form name="evaluationForm" ng-submit="submitEvaluation()">
+        <div class="form-group">
+          <p id="stdFormTitle">
+            Title: {{form_title}}
+          </p>
+        </div>
+        <div class="form-group">
+          <p ng-model="$parent.form_questions" id="stdFormQuestions">
+            Questions: {{ form_questions }}
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="form_answers">Answers</label>
+          <input ng-model="$parent.form_answers" id="stdFormAnswers"/>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button ng-click="toggleEvaluationForm()" class="btn btn-success">Cancel</button>
+      </form>
+    </div>
+
+
+    <div id ="pageContent" class="col bg-light px-5 pb-5" ng-show="showContent && !showForm">
       <!-- Course Title -->
       <h1>{{course_name}} - {{ group_name }}</h1>
 
@@ -37,21 +62,20 @@
           <tbody>
 
           <!-- list student evaluations -->
-          <% @evaluations.each do |evaluation| %>
-            <% if !evaluation.isCompleted%>
-              <tr>
-                <td><%= evaluation.title %></td>
-                <td><%= evaluation.due_date %></td>
-                <td><%= evaluation.posted_date %></td>
-                <td><%= evaluation.isCompleted %></td>
-                <td><button id="complete_evaluation" class="btn btn-secondary" ng-click="completeEvaluation(evaluation.id)">
-                  Complete Evaluation
-                </button></td>
-              </tr>
-            <%end%>
-          <% end %>
+            <tr ng-repeat="e in evaluations">
+              <td>{{ e.title }}</td>
+              <td>{{ e.due_date }}</td>
+              <td>{{ e.posted_date }}</td>
+              <td>{{ e.isCompleted }}</td>
+              <td><button id="complete_evaluation" class="btn btn-secondary" ng-click="completeEvaluation(e.id)">
+                Complete Evaluation
+              </button></td>
+            </tr>
+
           </tbody>
         </table>
+
+
       </div>
     </div>
   </div>

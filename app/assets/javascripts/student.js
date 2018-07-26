@@ -21,7 +21,94 @@ app.controller('studentCon', function($scope, $http) {
         $scope.curStdId = student_id;
         $scope.processing = false;
         $scope.showContent = false;
+        $scope.showForm = false;
+        $scope.evaluation = null;
+        $scope.form_title = null;
+        $scope.form_questions = null;
+        $scope.evaluationId = null;
         $scope.showCourses();
+    };
+
+    /**
+     * Show or hide the form to complete evaluations
+     *
+     * @author Jeb Alawi 7/26/18
+     */
+    $scope.toggleEvaluationForm = function () {
+        $scope.showForm = !$scope.showForm;
+    };
+
+    /**
+     * Brings up form to complete the evaluation
+     *
+     * @param {number} id   the id of the evaluation form
+     *
+     * @author Jeb Alawi 7/26/18
+     */
+    $scope.completeEvaluation = function(id){
+        $scope.showForm = true;
+        $http({
+            url: '/students/' + $scope.curStdId  + '/courses/' + $scope.curCourseId + '/eval/' + id,
+            method: 'GET'
+        })
+            .then(function (response) {
+                $scope.evaluation = response.data;
+                $scope.form_title = response.data.title;
+                $scope.form_questions = response.data.professor_form_info;
+                $scope.evaluationId = response.data.id;
+                console.log($scope.evaluation);
+                console.log($scope.form_title);
+                console.log($scope.form_questions);
+            });
+
+    };
+
+    /**
+     * submits student's answers to evaluation
+     *
+     * @author Jeb Alawi 7/26/18
+     */
+    $scope.submitEvaluation = function(){
+        console.log($scope.form_answers);
+        //post answer and isCompleted => true
+        if ($scope.evaluationId != null) {
+            $http({
+                url: '/students/' + $scope.curStdId + '/courses/' + $scope.curCourseId + '/eval/' + $scope.evaluationId,
+                method: 'POST',
+                data: {
+                    'student_form_info': $scope.form_answers,
+                    'isCompleted': true,
+                },
+                headers: {'Content-Type': 'application/json'}
+            })
+                .then(function (response) {
+                    $scope.toggleEvaluationForm();
+                    $scope.evaluation = null;
+                    $scope.form_title = null;
+                    $scope.form_questions = null;
+                    $scope.evaluationId = null;
+                    $scope.updateFormsView();
+                });
+        } else{
+            window.alert("Oops a problem occurred.")
+        }
+    };
+
+    /**
+     * Gets the list of incomplete evaluations
+     *
+     * @author Jeb Alawi 7/26/18
+     */
+    $scope.updateFormsView = function () {
+      // 'students/:student_id/evaluations_incomplete'
+        $http({
+            url: '/students/' + $scope.curStdId + '/evaluations_incomplete',
+            method: 'GET'
+        })
+            .then(function (response) {
+                $scope.evaluations = response.data;
+                console.log($scope.evaluations);
+            });
     };
 
     /**
@@ -55,6 +142,7 @@ app.controller('studentCon', function($scope, $http) {
             $scope.curCourseId = course_id;
             $scope.curCourseName = course_name;
             $scope.showContent = true;
+            $scope.updateFormsView();
         }
 
         // get course name and set variable "course_name"
@@ -66,7 +154,7 @@ app.controller('studentCon', function($scope, $http) {
             });
         $http.get('/students/' + $scope.curStdId + '/courses/' + course_id + '/group/')
             .then(function(response) {
-                $scope.group_name = response.data.name
+                $scope.group_name = response.data.name;
             });
 
     };

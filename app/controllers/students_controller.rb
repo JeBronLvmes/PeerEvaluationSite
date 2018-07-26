@@ -28,7 +28,7 @@ class StudentsController < ApplicationController
 		@students = Student.all
   end
 
-	# craeted by Bin Chen 7/19/18
+	# created by Bin Chen 7/19/18
 	def new
 		@student = Student.new
 	end
@@ -39,7 +39,7 @@ class StudentsController < ApplicationController
 
 	def show
 		@student = Student.find(params[:id])
-		@courses_student_list = CoursesStudent.where("student_id = #{@student.id}")
+		@courses_student_list = @student.courses
 
 	end
 
@@ -67,6 +67,9 @@ class StudentsController < ApplicationController
 		redirect_to @student
 	end
 
+	# delete a student account
+	#
+	# Created by Houyi Fan 7/23/18
 	def destroy
 		@student = Student.find(params[:id])
 		@student.destroy
@@ -75,6 +78,7 @@ class StudentsController < ApplicationController
 	end
 
 	# searches for a student
+	#
 	# created by Bin Chen 7/24/18
 	def search
 		query_str = ""
@@ -116,6 +120,15 @@ class StudentsController < ApplicationController
 		render 'get_evaluations'
 	end
 
+	# get a specific evaluation for a student
+	#
+	# Created by Jeb Alawi 7/26/18
+	def get_eval
+		@student = Student.find(params[:student_id])
+		@evaluation = @student.evaluations.find(params[:eval_id])
+		render json: @evaluation
+	end
+
 	# Created by Josh Wright 7/24/18
 	def incomplete_evaluations_list
 		@student = Student.find(params[:student_id])
@@ -144,7 +157,7 @@ class StudentsController < ApplicationController
 	private
 
 		def student_params
-			params.require(:student).permit(:first_name, :last_name, :dot_number, :email)
+			params.require(:student).permit(:first_name, :last_name, :dot_number, :email, :answer)
     end
 
 end

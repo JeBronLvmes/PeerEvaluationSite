@@ -32,6 +32,20 @@ class EvaluationsController < ApplicationController
     end
   end
 
+  # update an evaluation with a student's answer
+  #
+  # Created by Jeb Alawi 7/26/18
+  def post_answer
+    @evaluation = Evaluation.find(params[:eval_id])
+    @evaluation.student_form_info = params[:student_form_info]
+    @evaluation.isCompleted = params[:isCompleted]
+    if @evaluation.save
+      render json: @evaluation
+    else
+      render json: @evaluation.errors
+    end
+  end
+
   def create
     @evaluation = Evaluation.new
     if @evaluation.save
@@ -43,7 +57,7 @@ class EvaluationsController < ApplicationController
 
   private
     def evaluation_params
-      params.require(:evaluation).permit(:professor_form_id, :student_id, :isCompleted)
+      params.require(:evaluation).permit(:professor_form_id, :student_id, :isCompleted, :student_form_info)
     end
 
 end

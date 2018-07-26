@@ -27,6 +27,12 @@ Rails.application.routes.draw do
 
 
   ###### Students
+  # post student's answers to evaluation
+  post 'students/:student_id/courses/:course_id/eval/:eval_id', to: 'evaluations#post_answer'
+
+  # get specific evaluation for students to complete
+  get 'students/:student_id/courses/:course_id/eval/:eval_id', to: 'students#get_eval'
+
   # get all evaluations
   get 'students/:student_id/courses/:course_id/eval/', to: 'students#get_evals'
 
