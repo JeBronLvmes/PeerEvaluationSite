@@ -124,22 +124,23 @@ app.controller('evaluationCon', function($scope, $http) {
     };
 
  	$scope.addEvaluation = function () {
-        $http({
-            url: "/professors/" + $scope.curProfId + "/create_professor_forms",
-            method: 'POST',
-            data: {
-                'title': $scope.new_evaluation_name,
-                'due_date': $scope.due_date,
-                'submission_date': $scope.submission_date,
-                'course_id': $scope.course_id,
-                'html_form': $scope.new_form
-            },
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(function (response) {
-            window.alert("success");
-        });
-
+        if(window.confirm('Create the form?')) {
+            $http({
+                url: "/professors/" + $scope.curProfId + "/create_professor_forms",
+                method: 'POST',
+                data: {
+                    'title': $scope.new_evaluation_name,
+                    'due_date': $scope.due_date,
+                    'submission_date': $scope.submission_date,
+                    'course_id': $scope.course_id,
+                    'html_form': $scope.new_form
+                },
+                headers: {'Content-Type': 'application/json'}
+            })
+                .then(function (response) {
+                    window.alert("success");
+                });
+        }
         $scope.toggleAddEvaluationForm();
 	};
 
