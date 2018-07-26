@@ -93,11 +93,13 @@
               </table>
 
               <!-- Query/Add Student to Group -->
-              <div>
-                <select ng-model="selectedStd[g.id]">
-                  <option ng-repeat="s in students" value="{{s.id}}">{{s.first_name + " " + s.last_name + "." + s.dot_number}}</option>
-                </select>
-                <td> <button class="btn btn-success btn-sm" ng-click="addStdToGroup(g.id)">Add Student</button> </td>
+              <div class="form-row align-items-center">
+                <div class="col-auto">
+                  <select class="custom-select" ng-model="selectedStd[g.id]">
+                    <option ng-repeat="s in students" value="{{s.id}}">{{s.first_name + " " + s.last_name + "." + s.dot_number}}</option>
+                  </select>
+                </div>
+                <button class="btn btn-success btn-sm" ng-click="addStdToGroup(g.id)">Add Student</button>
               </div>
 
             </div>

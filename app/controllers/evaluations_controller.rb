@@ -17,19 +17,24 @@ class EvaluationsController < ApplicationController
 
   def create_evaluation_to_student
     @form = ProfessorForm.find(params[:form_id])
-    @evaluation = Evaluation.new
-    @evaluation.due_date = @form.due_date
-    @evaluation.posted_date = @form.submission_date
-    @evaluation.professor_form_info = @form.html_form
-    @evaluation.title = @form.title
-    @evaluation.student_id = params[:id];
-    @evaluation.isCompleted = false;
-    @evaluation.professor_form_id = params[:form_id]
-    if @evaluation.save
-      render json: @evaluation
-    else
-      render json: @evaluation.errors
+    @prof = Professor.find params[:pro_id]
+    @course = @prof.courses.find params[:course_id]
+
+    @course.groups.each do |group|
+      group.students.each do |std|
+        @evaluation = Evaluation.new
+        @evaluation.due_date = @form.due_date
+        @evaluation.posted_date = @form.submission_date
+        @evaluation.professor_form_info = @form.html_form
+        @evaluation.title = @form.title
+        @evaluation.student_id = std.id
+        @evaluation.isCompleted = false
+        @evaluation.professor_form_id = params[:form_id]
+        @evaluation.save
+      end
     end
+
+    render json: @course
   end
 
   # update an evaluation with a student's answer

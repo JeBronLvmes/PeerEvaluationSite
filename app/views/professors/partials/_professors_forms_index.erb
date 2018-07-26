@@ -52,10 +52,13 @@
         	<textarea ng-model="$parent.submission_date" id="professor_form_submission_date" name="professor_form[submission_date]" class="form-control" placeholder=""></textarea>
         </div>
 
-        <div>
-          <select ng-model="selectedCourse">
-            <option ng-repeat="c in courses" value="{{c.id}}">{{c.dept + " " + c.number}}</option>
-          </select>
+        <div class="form-row align-items-center mb-3">
+          <div class="col-auto">
+            <label for="classSelect">Class</label>
+            <select id="classSelect" class="custom-select" ng-model="selectedCourse">
+              <option ng-repeat="c in courses" value="{{c.id}}">{{c.dept + " " + c.number}}</option>
+            </select>
+          </div>
         </div>
 
         <div class="form-group">
