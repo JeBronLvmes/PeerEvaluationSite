@@ -109,6 +109,7 @@ class StudentsController < ApplicationController
 	# Created by Josh Wright 7/24/18
 	def get_evaluations
 		@student = Student.find(params[:id])
+		@evaluations = @student.evaluations
 		render 'get_evaluations'
 	end
 
