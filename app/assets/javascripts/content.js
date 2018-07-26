@@ -130,9 +130,9 @@ app.controller('courseCon', function($scope, $http) {
                 $scope.updateCurGroupView();
             } else {
                 $scope.groups = null;
-
-                $scope.updateCurStdView();
             }
+
+            $scope.updateCurStdView();
         }
     };
 
