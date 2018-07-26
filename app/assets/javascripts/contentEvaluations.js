@@ -259,7 +259,7 @@ app.controller('evaluationCon', function($scope, $http) {
      * @author Josh Wright on 7/24/2018
      */
     $scope.showForm = function (id) {
-        $scope.formCont = !$scope.formCont;
+        $scope.formCont = false;
 
         $http({
             url: "/professors/" + $scope.curProfId + "/professor_forms/"+ $scope.curCourseId + "/form/"+ id,
@@ -277,7 +277,7 @@ app.controller('evaluationCon', function($scope, $http) {
      * @author Josh Wright on 7/24/2018
      */
     $scope.viewEvaluations = function (student_id){
-        $scope.studentEval = !$scope.studentEval;
+        $scope.studentEval = false;
 
         $http({
             url: "/students/" + student_id + "/evaluations/completed",
