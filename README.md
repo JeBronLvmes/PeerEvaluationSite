@@ -22,9 +22,10 @@
         * Partial located at `\app\views\professors\partials\_professor_courses_index.erb`.
 * Professor Profile Page
     * Here a professor can delete courses as well as edit their profile.
-    * The view communicates directly with the rails controller `professor#show`
+    * The view communicates directly with rails controllers, mainly `professor#show`
     * Makes calls to other controllers through links
     * Source located at `\app\views\professors\show.html.erb`
+    * Edit Profile source page at `app\views\professors\edit.html.erb`
 * Professor Evaluations Page
     * Angular javascript controller `contentEvaluations.js` handles API calls to the rails controller.
         * located at `\app\assets\javascripts\`
@@ -37,6 +38,12 @@
     * Here a student can view their Courses, Groups and the evaluations that need to be filled.
     * The angular javascript controller `student.js` handles API calls to the rails controller
     * Page source located at `\app\views\students\get_courses.html.erb`
+* Students Profile Page
+    * Here a student can view the link to edit or cancel their account and view and drop courses.
+    * The view communicates directly with rails controllers, mainly `student#show`
+    * Source located at `\app\views\students\show.html.erb`
+    * Edit Profile source page at `app\views\students\edit.html.erb`
+
 
 ### Roles
 * Overall Project Manager: Josh Wright
@@ -55,6 +62,6 @@ Implemented some custom routes and contentEvaluation javascript file.
 
 Jeb Alawi - Wrote controller code for creating and adding courses to a professor, 
 adding a group to a class, deleting groups, deleting students from groups, grabbing the list of
-students for a group, deleting a course from the professor profile page. Implemented styling of pages
-Implemented Add Course button and form on Professor Course page. Set up Students Course page.
-Set up relations and majority of the model.
+students for a group, deleting a course from the professor profile page, students dropping classes.
+Implemented styling of pages. Implemented Add Course button and form on Professor Course page. 
+Set up relations and majority of the model. Did work on students profile page.

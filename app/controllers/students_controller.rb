@@ -39,6 +39,8 @@ class StudentsController < ApplicationController
 
 	def show
 		@student = Student.find(params[:id])
+		@courses_student_list = CoursesStudent.where("student_id = #{@student.id}")
+
 	end
 
 	def create

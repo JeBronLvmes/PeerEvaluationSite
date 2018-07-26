@@ -21,9 +21,14 @@ class CoursesStudentController < ApplicationController
   end
 
   def destroy
-    @courses_student = set_courses_student
+    @student = Student.find(params[:student_id])
+    if(current_student.id == @student.id)
+      @course = Course.find(params[:id])
+      if @student.courses.delete @course
+        redirect_to student_path @student, notice: 'Course was successfully dropped.'
+      end
+    end
 
-    @courses_student.destroy
   end
 
 
