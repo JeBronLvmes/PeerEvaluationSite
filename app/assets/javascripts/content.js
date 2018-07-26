@@ -1,3 +1,12 @@
+// Created by Bin Chen on
+// Modified by Jeb Alawi on 7/23/18 - add courses, add groups
+
+/**
+ * @description
+ *      Controller for angularjs. This controller makes api calls to the rails controller.
+ *      The controller also handles dynamic changes to web pages, mainly the professor courses
+ *      page.
+ */
 var app = angular.module('courseApp', []);
 
 app.controller('courseCon', function($scope, $http) {
