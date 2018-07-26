@@ -1,4 +1,12 @@
-// Created by Jeb Alawi 7/25/18
+/**
+ * Created by Jeb Alawi on 7/25/18
+ *
+ * @description
+ *      Controller for angularjs. This controller makes api calls to the rails controller.
+ *      The controller also handles dynamic changes to web pages, mainly the student courses
+ *      page.
+ */
+
 var app = angular.module('studentCourseApp', []);
 
 app.controller('studentCon', function($scope, $http) {
@@ -34,7 +42,12 @@ app.controller('studentCon', function($scope, $http) {
             });
     };
 
-    // shows the information on the class
+    /**
+     * Displays course information (group/evaluations)
+     *
+     * @param {number} course_id    the id of the course whose info is to be displayed
+     * @param {number} course_name  the name of the course to be displayed
+     */
     $scope.showDetail = function (course_id, course_name) {
         if (course_id != null) {
             $scope.curCourseId = course_id;

@@ -1,7 +1,6 @@
 # Created by Jeb Alawi 7/19/18
+# description: Manages operations from Professor Course page. Adding/deleting students, courses and groups.
 class CoursesController < ApplicationController
-  # sets @course for destory method
-  before_action :set_course, only: [:destroy]
   protect_from_forgery with: :null_session
 
   # Created by Jeb Alawi 7/19/18
@@ -160,15 +159,14 @@ class CoursesController < ApplicationController
   # Created by Jeb Alawi 7/21/18
   def destroy
     if current_professor
+      @course = Course.find(params[:id])
       @course.destroy
       redirect_to professor_path(current_professor.id), notice: 'Course was successfully deleted.'
     end
   end
 
   private
-  def set_course
-    @course = Course.find(params[:id])
-  end
+
   def course_params
     params.require(:course).permit(:dept, :number, :section, :name, :professor_id, :group_name)
   end

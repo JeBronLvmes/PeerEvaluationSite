@@ -25,6 +25,9 @@ Rails.application.routes.draw do
 
 
   ###### Students
+  # get all evaluations
+  get 'students/:student_id/courses/:course_id/eval/', to: 'students#get_evals'
+
   # get all of the courses in the student
   get 'students/:id/get_courses', to: 'students#get_courses'
 

@@ -64,7 +64,7 @@ class ProfessorFormsController < ApplicationController
     render json: @course.students
   end
 
-  # Get a students in the course
+  # Get a student in the course
   # Created by Josh Wright 7/24/18
   def get_student
     @student = Student.find(params[:std_id])

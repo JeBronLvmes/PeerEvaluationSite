@@ -1,3 +1,12 @@
+/**
+ * Created by Josh Wright on 7/24/18
+ *
+ * @description
+ *      Controller for angularjs. This controller makes api calls to the rails controller.
+ *      The controller also handles dynamic changes to professor forms page.
+ *
+ */
+
 var app = angular.module('evaluationApp', []);
 
 
@@ -95,11 +104,11 @@ app.controller('evaluationCon', function($scope, $http) {
     $scope.updateStudentEvaluationsView = function (){
         var divEvals = document.getElementById("studentEvaluations");
         divEvals.style.display = "none";
-    }
+    };
     $scope.updateProfessorFormsView = function (){
         var div = document.getElementById("formContent");
         div.style.display = "none";
-    }
+    };
 
     // Other Controller Functions
 
@@ -112,7 +121,6 @@ app.controller('evaluationCon', function($scope, $http) {
  	$scope.toggleAddEvaluationForm = function() {
         $scope.showAddEvaluationForm = !$scope.showAddEvaluationForm;
     };
-
 
  	$scope.addEvaluation = function () {
  		$http({
@@ -149,7 +157,6 @@ app.controller('evaluationCon', function($scope, $http) {
     };
 
     $scope.addCourse = function () {
-
         $http({
             url: 'courses/',
             method: 'POST',
@@ -227,6 +234,7 @@ app.controller('evaluationCon', function($scope, $http) {
                 });
     };
 
+
     $scope.deleteStudent = function (id) {
         if (window.confirm('Do you want to delete this student?')) {
             $http({
@@ -243,6 +251,12 @@ app.controller('evaluationCon', function($scope, $http) {
         }
     };
 
+    /**
+     *
+     * @param id
+     *
+     * @author Josh Wright on 7/24/2018
+     */
     $scope.showForm = function (id) {
         var div = document.getElementById("formContent")
         div.style.display = "block";
@@ -255,7 +269,12 @@ app.controller('evaluationCon', function($scope, $http) {
 
     };
 
-
+    /**
+     *
+     * @param student_id
+     *
+     * @author Josh Wright on 7/24/2018
+     */
     $scope.viewEvaluations = function (student_id){
         var div = document.getElementById("studentEvaluations");
         div.style.display = "block";
@@ -273,7 +292,14 @@ app.controller('evaluationCon', function($scope, $http) {
         }).then(function(response) {
             $scope.incompleteEvaluations = response.data;
         });
-    }
+    };
+
+    /**
+     *
+     * @param form_id
+     *
+     * @author Josh Wright on 7/24/2018
+     */
     $scope.assignForm = function (form_id){
                 $http({
                         url: "/professors/" + $scope.curProfId + "/courses/"+ $scope.curCourseId + "/students",
