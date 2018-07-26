@@ -1,3 +1,5 @@
+
+<%= javascript_include_tag 'contentEvaluations' %>
 <div class="container-fluid bg-white" ng-app="evaluationApp" ng-controller="evaluationCon" ng-init="init(<%= professor.id %>)">
 
   <div class = "row my-2">
@@ -24,7 +26,7 @@
       <div>
         <div id="courseList" class="list-group list-group-flush">
           <a id="list-tab" class="list-group-item list-group-item-action" role="tablist" name="course" ng-repeat="c in courses" ng-click="showDetail(c.id)"
-             data-toggle="list" href="#list-home" role="tab" aria-controls="home"> {{c.name}} </a>
+             data-toggle="list" href="#list-home" role="tab" aria-controls="home" ng-cloak> {{c.name}} </a>
         </div>
         <%#= link_to 'Add Course', new_professor_course_path(professor), :class => 'btn'%>
 
@@ -33,7 +35,7 @@
 
     <!-- all of the page content to the right of the class list navigation bar -->
     <!-- Add professors form -->
-    <div class="container-fluid bg-light px-5 py-5 mx-5" name="addEvaluationForm" ng-show="showAddEvaluationForm">
+    <div class="container-fluid bg-light px-5 py-5 mx-5" name="addEvaluationForm" ng-show="showAddEvaluationForm" ng-cloak>
         <h3>Professor Form:</h3>
         <br/>
 				<div class="form-group">
@@ -67,13 +69,13 @@
     </div>
     <div id ="pageContent" class="col bg-light px-5 py-4">
       <!-- Course Title -->
-      <div class="text-center">
+      <div class="text-center" ng-cloak>
         <h1>{{course_name}}</h1>
       </div>
 
       <div class="row px-1 mt-5">
         <!-- Evaluation Forms View -->
-        <div class="col" ng-switch on="isGroupTemp">
+        <div class="col" ng-switch on="isGroupTemp" ng-cloak>
           <div ng-switch-when="true">
             <hr/>
             <br />
@@ -108,7 +110,7 @@
             </div>
           </div>
           <!-- Evaluation Students View -->
-          <div ng-switch-when="false">
+          <div ng-switch-when="false" ng-cloak>
             <hr/>
             <!-- Current Students Table -->
             <span class="h3 mr-auto">Current Students:</span>
@@ -159,5 +161,4 @@
   </div>
 </div>
 
-<%= javascript_include_tag 'contentEvaluations' %>
 

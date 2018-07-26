@@ -41,3 +41,7 @@ div#courseList:last-child{
 
 div#courseList a{
     border-right: 1px solid gainsboro;}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
