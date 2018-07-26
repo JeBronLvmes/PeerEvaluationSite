@@ -1,5 +1,4 @@
 class CoursesStudentController < ApplicationController
-  before_action :set_courses_student, only: [:destroy]
   protect_from_forgery with: :null_session
 
   def index
@@ -33,10 +32,6 @@ class CoursesStudentController < ApplicationController
 
 
   private
-  def set_courses_student
-    @courses_student = CoursesStudent.find(params[:id])
-  end
-
   def courses_student_params
     params.require(:courses_student).permit(:course_id, :student_id)
   end
