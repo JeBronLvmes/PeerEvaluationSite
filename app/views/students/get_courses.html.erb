@@ -20,17 +20,15 @@
     </div>
 
     <!-- Complete evaluation form -->
-    <div class="container-fluid" ng-show="showForm">
+    <div class="container-fluid col mx-5 my-5" ng-show="showForm">
       <form name="evaluationForm" ng-submit="submitEvaluation()">
         <div class="form-group">
-          <p id="stdFormTitle">
-            Title: {{form_title}}
-          </p>
+          <h1 id="stdFormTitle" >Title: {{form_title}}</h1>
         </div>
         <div class="form-group">
-          <p ng-model="$parent.form_questions" id="stdFormQuestions">
+          <h3 ng-model="$parent.form_questions" id="stdFormQuestions">
             Questions: {{ form_questions }}
-          </p>
+          </h3>
         </div>
 
         <div class="form-group">
