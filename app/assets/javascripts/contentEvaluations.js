@@ -17,6 +17,8 @@ app.controller('evaluationCon', function($scope, $http) {
         $scope.curProfId = prof_id;
         $scope.processing = false;
         $scope.isProfessorForm = false;
+        $scope.studentEval = true;
+        $scope.formCont = true;
         $scope.showCourses();
     };
 
@@ -102,12 +104,11 @@ app.controller('evaluationCon', function($scope, $http) {
     };
 
     $scope.updateStudentEvaluationsView = function (){
-        var divEvals = document.getElementById("studentEvaluations");
-        divEvals.style.display = "none";
+        $scope.studentEval = true;
     };
+
     $scope.updateProfessorFormsView = function (){
-        var div = document.getElementById("formContent");
-        div.style.display = "none";
+        $scope.formCont = true;
     };
 
     // Other Controller Functions
@@ -258,8 +259,8 @@ app.controller('evaluationCon', function($scope, $http) {
      * @author Josh Wright on 7/24/2018
      */
     $scope.showForm = function (id) {
-        var div = document.getElementById("formContent")
-        div.style.display = "block";
+        $scope.formCont = !$scope.formCont;
+
         $http({
             url: "/professors/" + $scope.curProfId + "/professor_forms/"+ $scope.curCourseId + "/form/"+ id,
             method: "GET"
@@ -276,8 +277,7 @@ app.controller('evaluationCon', function($scope, $http) {
      * @author Josh Wright on 7/24/2018
      */
     $scope.viewEvaluations = function (student_id){
-        var div = document.getElementById("studentEvaluations");
-        div.style.display = "block";
+        $scope.studentEval = !$scope.studentEval;
 
         $http({
             url: "/students/" + student_id + "/evaluations/completed",
