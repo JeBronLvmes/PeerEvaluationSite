@@ -24,6 +24,7 @@ class EvaluationsController < ApplicationController
       group.students.each do |std|
         @evaluation = Evaluation.new
         @evaluation.due_date = @form.due_date
+        @evaluation.course_id = @form.course_id
         @evaluation.posted_date = @form.submission_date
         @evaluation.professor_form_info = @form.html_form
         @evaluation.title = @form.title
