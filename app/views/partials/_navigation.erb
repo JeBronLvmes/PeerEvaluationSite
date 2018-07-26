@@ -30,12 +30,8 @@
       <li class="nav-item">
         <%= link_to 'Groups', '/students/' + current_student.id.to_s + '/get_groups', :class => "nav-link" %>
       </li>
-      <li class="nav-item dropdown">
-        <%= link_to 'Evaluations', '/students/' + current_student.id.to_s + '/get_evaluations', :class => "nav-link dropdown-toggle" %>
-        <div class="dropdown-menu mt-0">
-          <%= link_to 'Need Completed', evaluations_path, :class => "dropdown-item" %>
-          <%= link_to 'Completed', evaluations_path, :class => "dropdown-item" %>
-        </div>
+      <li class="nav-item">
+        <%= link_to 'Evaluations', '/students/' + current_student.id.to_s + '/get_evaluations', :class => "nav-link" %>
       </li>
     </ul>
     <%= link_to "Sign Out", destroy_student_session_path, {:method => :delete, class: 'text-dark nav-link'} %>
