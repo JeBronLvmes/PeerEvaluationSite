@@ -22,15 +22,12 @@
 <% elsif current_student%>
   <!-- navbar to traverse the site -->
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-primary" >
-    <%= link_to 'Student Profile', '/students/'+current_student.id.to_s, :class => "navbar-brand" %>
+    <a href="<%= '/students/'+current_student.id.to_s %>" class="navbar-brand"><%= current_student.first_name + " " + current_student.last_name %></a>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <%= link_to 'Courses', '/students/' + current_student.id.to_s + '/get_courses', :class => "nav-link" %>
       </li>
 
-      <li class="nav-item">
-        <%= link_to 'Groups', '/students/' + current_student.id.to_s + '/get_groups', :class => "nav-link" %>
-      </li>
       <li class="nav-item">
         <%= link_to 'Evaluations', '/students/' + current_student.id.to_s + '/get_evaluations', :class => "nav-link" %>
       </li>
