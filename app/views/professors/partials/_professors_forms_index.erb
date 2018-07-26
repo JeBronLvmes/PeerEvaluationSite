@@ -1,7 +1,7 @@
 <div class="container-fluid bg-white" ng-app="evaluationApp" ng-controller="evaluationCon" ng-init="init(<%= professor.id %>)">
 
   <div class = "row my-2">
-    <h1 class="mr-auto pl-4"><%= title %>
+    <h1 class="mr-auto pl4"><%= title %>
 			<!-- "+" icon -->
       <span class="mx-4">
 				<button id="new_evaluation" class="btn btn-secondary" ng-click="toggleAddEvaluationForm()">
@@ -33,10 +33,7 @@
 
     <!-- all of the page content to the right of the class list navigation bar -->
     <!-- Add professors form -->
-    <div class="container-fluid" name="addEvaluationForm" ng-submit="addEvaluation()" ng-show="showAddEvaluationForm">
-      <div>
-        <%= form_with(model: @professor_form, local: true) do |form| %>
-
+    <div class="container-fluid" name="addEvaluationForm" ng-show="showAddEvaluationForm">
 				<div class="form-group">
           <label for="professor_form_title">Title</label>
         	<input ng-model="$parent.new_evaluation_name" id="professor_form_title" type="text" name="professor_form[title]" class="form-control" placeholder=""/>
@@ -51,10 +48,11 @@
         	<textarea ng-model="$parent.submission_date" id="professor_form_submission_date" name="professor_form[submission_date]" class="form-control" placeholder=""></textarea>
         </div>
 
-          <p>
-            <%= form.label :course_id %><br>
-            <%= collection_select(:professor_form, :course_id, @professor.courses, :id, :name) %>
-          </p>
+        <div>
+          <select ng-model="selectedCourse">
+            <option ng-repeat="c in courses" value="{{c.id}}">{{c.dept + " " + c.number}}</option>
+          </select>
+        </div>
 
         <div class="form-group">
           <label for="professor_form_html_form">Html form</label>
@@ -62,10 +60,9 @@
         </div>
 
           <p>
-            <button type="submit" class="btn btn-success btn-sm">Submit</button>
+            <button type="submit" ng-click="addEvaluation()" class="btn btn-success btn-sm">Submit</button>
           </p>
 
-        <% end %>
       </div>
     </div>
     <div id ="pageContent" class="col bg-light px-5 py-4">

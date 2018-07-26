@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'professors/:pro_id/professor_forms/new', to: 'professor_forms#new'
   post 'professors/:pro_id/create_professor_forms', to: 'professor_forms#create_evaluation'
-  get 'professors/:pro_id/professor_forms/:course_id', to: 'professor_forms#get_forms'
+  get 'professors/:pro_id/get_professor_forms/:course_id', to: 'professor_forms#get_forms'
   get 'professors/:pro_id/professor_forms/:course_id/form/:id', to: 'professor_forms#show_individual_form'
   post 'professors/:pro_id/professor_forms/:course_id/form/:form_id/post_evaluation', to: 'evaluations#create_evaluation_to_student'
   get 'students/:student_id/evaluations_completed', to: 'students#completed_evaluations_list'
