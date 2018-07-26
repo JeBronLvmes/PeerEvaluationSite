@@ -28,11 +28,12 @@ class StudentsController < ApplicationController
 		@students = Student.all
   end
 
-	# craeted by Bin Chen 7/19/18
+	# created by Bin Chen 7/19/18
 	def new
 		@student = Student.new
 	end
 
+	# Created by Houyi Fan 7/22/18
 	def edit
 		@student = Student.find(params[:id])
 	end
@@ -43,6 +44,7 @@ class StudentsController < ApplicationController
 
 	end
 
+	# Modified by Houyi Fan 7/19/18
 	def create
 		@student = Student.new(student_params)
 		if @student.save
@@ -52,6 +54,7 @@ class StudentsController < ApplicationController
 		end
 	end
 
+	# Created by Houyi Fan 7/22/18
 	def update
 		@student = Student.find(params[:id])
 
@@ -67,6 +70,7 @@ class StudentsController < ApplicationController
 		redirect_to @student
 	end
 
+	# Created by Houyi Fan 7/22/18
 	def destroy
 		@student = Student.find(params[:id])
 		@student.destroy
@@ -96,20 +100,22 @@ class StudentsController < ApplicationController
 		render json: Student.where(query_str, *val_list)
 	end
 
-	# Created by Josh Wright 7/24/18
+	# Created by Houyi Fan 7/24/18
+	# Modified by Josh Wright 7/25/18
 	def get_courses
 		@student = Student.find(params[:id])
 		@evaluations = @student.evaluations
 		render 'get_courses'
 	end
 
-	# Created by Josh Wright 7/24/18
+	# Created by Houyi Fan 7/24/18
 	def get_groups
 		@student = Student.find(params[:id])
 		render 'get_groups'
 	end
 
-	# Created by Josh Wright 7/24/18
+	# Created by Houyi Fan 7/24/18
+	# Modified by Josh Wright 7/25/18
 	def get_evaluations
 		@student = Student.find(params[:id])
 		@evaluations = @student.evaluations

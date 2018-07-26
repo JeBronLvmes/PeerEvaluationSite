@@ -1,5 +1,6 @@
 /**
  * Created by Josh Wright on 7/24/18
+ * Modified by Houyi Fan on 7/25/18
  *
  * @description
  *      Controller for angularjs. This controller makes api calls to the rails controller.

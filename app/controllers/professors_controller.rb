@@ -10,6 +10,7 @@ class ProfessorsController < ApplicationController
     end
   end
 
+  # Created by Houyi Fan on 7/23/18
 	def show
     @professor = Professor.find(params[:id])
   end
@@ -18,6 +19,7 @@ class ProfessorsController < ApplicationController
     @professor = Professor.new
   end
 
+  # Created by Houyi Fan on 7/23/18
 	def edit
 		@professor = Professor.find(params[:id])
 	end
@@ -32,7 +34,7 @@ class ProfessorsController < ApplicationController
     end
   end
 
-  # Created by Houyi Fan on 7/24/18
+  # Created by Houyi Fan on 7/23/18
 	def update
 		@professor = Professor.find(params[:id])
 
@@ -43,6 +45,7 @@ class ProfessorsController < ApplicationController
 		end
 	end
 
+  # Created by Houyi Fan on 7/23/18
 	def destroy
 		@professor = Professor.find(params[:id])
 		@professor.destroy
