@@ -314,6 +314,7 @@ app.controller('evaluationCon', function($scope, $http) {
                     headers: {'Content-Type': 'application/json'}
                 })
             }
+            window.alert("success");
         });
     }
 

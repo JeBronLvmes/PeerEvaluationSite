@@ -3,7 +3,7 @@
 
     <div class="container bg-light py-5 px-5">
 
-      <div id="evaluationCompleteForm">
+      <div ng-hide="evaluationCompleteForm">
         <h3> Title: {{evaluation.title}}</h3>
       </div>
 
@@ -29,7 +29,7 @@
               <td><%= evaluation.due_date %></td>
               <td><%= evaluation.posted_date %></td>
               <td><%= evaluation.isCompleted %></td>
-              <td><button id="complete_evaluation" class="btn btn-secondary" ng-click="completeEvaluation(evaluation.id)">
+              <td><button id="complete_evaluation" class="btn btn-secondary" ng-click="completeEvaluation(<%=evaluation.id%>)">
                 Complete Evaluation
               </button></td>
             </tr>
