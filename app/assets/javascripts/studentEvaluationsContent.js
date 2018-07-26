@@ -9,4 +9,4 @@ app.controller('studentEvaluationCon', function($scope, $http) {
 
     }
 
-}
+});
