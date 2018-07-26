@@ -52,3 +52,4 @@ Jeb Alawi - Wrote controller code for creating and adding courses to a professor
 adding a group to a class, deleting groups, deleting students from groups, grabbing the list of
 students for a group, deleting a course from the professor profile page. Implemented styling of pages
 Implemented Add Course button and form on Professor Course page. Set up Students Course page.
+Set up relations and majority of the model.

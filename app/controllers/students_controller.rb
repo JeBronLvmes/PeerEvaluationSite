@@ -72,6 +72,7 @@ class StudentsController < ApplicationController
 		redirect_to students_path
 	end
 
+	# searches for a student
 	# created by Bin Chen 7/24/18
 	def search
 		query_str = ""
@@ -93,21 +94,25 @@ class StudentsController < ApplicationController
 		render json: Student.where(query_str, *val_list)
 	end
 
+	# Created by Josh Wright 7/24/18
 	def get_courses
 		@student = Student.find(params[:id])
 		render 'get_courses'
 	end
 
+	# Created by Josh Wright 7/24/18
 	def get_groups
 		@student = Student.find(params[:id])
 		render 'get_groups'
 	end
 
+	# Created by Josh Wright 7/24/18
 	def get_evaluations
 		@student = Student.find(params[:id])
 		render 'get_evaluations'
 	end
 
+	# Created by Josh Wright 7/24/18
 	def incomplete_evaluations_list
 		@student = Student.find(params[:student_id])
 		@evaluations = []
@@ -120,6 +125,7 @@ class StudentsController < ApplicationController
 		render json: @evaluations
 	end
 
+	# Created by Josh Wright 7/24/18
 	def completed_evaluations_list
 		@student = Student.find(params[:student_id])
 		@evaluations = []

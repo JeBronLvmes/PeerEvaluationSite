@@ -1,4 +1,5 @@
 # Created by Jeb Alawi on 7/22/18
+# description: to create, destroy and update professors
 class ProfessorsController < ApplicationController
 
   # Created by Jeb Alawi on 7/22/18
@@ -7,8 +8,6 @@ class ProfessorsController < ApplicationController
     if current_professor
       @professor = current_professor
     end
-#		@professors = Professor.all
-
   end
 
 	def show
@@ -23,9 +22,9 @@ class ProfessorsController < ApplicationController
 		@professor = Professor.find(params[:id])
 	end
 
+  # Created by Josh Wright on 7/23/18
   def create
     @professor = Professor.new(professor_params)
-
     if @professor.save
       redirect_to @professor
     else
@@ -33,6 +32,7 @@ class ProfessorsController < ApplicationController
     end
   end
 
+  # Created by Houyi Fan on 7/24/18
 	def update
 		@professor = Professor.find(params[:id])
 
