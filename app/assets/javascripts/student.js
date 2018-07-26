@@ -15,7 +15,7 @@ app.controller('studentCon', function($scope, $http) {
      *
      * @param student_id {number}    the student's id
      *
-     * @author Jeb Alawi
+     * @author Bin Chen
      */
     $scope.init = function (student_id) {
         $scope.curStdId = student_id;
@@ -47,6 +47,8 @@ app.controller('studentCon', function($scope, $http) {
      *
      * @param {number} course_id    the id of the course whose info is to be displayed
      * @param {number} course_name  the name of the course to be displayed
+     *
+     * @author Bin Chen
      */
     $scope.showDetail = function (course_id, course_name) {
         if (course_id != null) {

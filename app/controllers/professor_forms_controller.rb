@@ -22,24 +22,19 @@ class ProfessorFormsController < ApplicationController
     end
   end
 
-  # Created by Josh Wright 7/22/18
-  # Modified by Houyi Fan on 7/25/18
   def create
-    if current_professor
-      @professor_form = ProfessorForm.new(professor_form_params)
-      if @professor_form.save
-        redirect_to '/professor_forms'
-      else
-        render 'new'
-      end
-    end
+    @professor_form = ProfessorForm.new(professor_form_params)
   end
 
-  # Created by Bin Chen 7/23/18
-  def show
-    @form = ProfessorForm.find(params[:id])
-
-    render json: @form
+  # Created by Josh Wright 7/22/18
+  # Modified by Houyi Fan on 7/25/18
+  def create_evaluation
+      @professor_form = ProfessorForm.new(professor_form_params)
+      if @professor_form.save
+        render json: @professor_form
+      else
+        render json: @professor_form.errors
+      end
   end
 
   # Get all of the groups in the course
@@ -77,13 +72,6 @@ class ProfessorFormsController < ApplicationController
     @form = ProfessorForm.find(params[:id])
 
     render json: @form
-  end
-
-  def get_forms
-    @course = Course.find(params[:course_id])
-    @forms = @course.professor_forms
-
-    render json: @forms
   end
 
   # Created by Jeb Alawi 7/21/18

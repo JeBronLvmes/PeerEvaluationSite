@@ -15,7 +15,7 @@ class EvaluationsController < ApplicationController
     @evaluation = Evaluation.new
   end
 
-  def create_evaluation
+  def create_evaluation_to_student
     @form = ProfessorForm.find(params[:form_id])
     @evaluation = Evaluation.new
     @evaluation.due_date = @form.due_date

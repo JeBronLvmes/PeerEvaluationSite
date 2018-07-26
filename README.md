@@ -65,3 +65,5 @@ adding a group to a class, deleting groups, deleting students from groups, grabb
 students for a group, deleting a course from the professor profile page, students dropping classes.
 Implemented styling of pages. Implemented Add Course button and form on Professor Course page. 
 Set up relations and majority of the model. Did work on students profile page.
+
+Bin Chen - Wrote 7 controller method include query method for courses, wrote lots of ajax code in content.js

@@ -4,7 +4,7 @@
     <h1 class="mr-auto"><%= title %>
 			<!-- "+" icon -->
       <span>
-				<button id="new_evaluation" class="btn btn-secondary" ng-click="addEvaluation()">
+				<button id="new_evaluation" class="btn btn-secondary" ng-click="toggleAddEvaluationForm()">
 					<i class="fa fa-plus fa-2x"></i>
 				</button>
 			</span>
@@ -20,7 +20,7 @@
 
   <div class="row">
     <!-- List of Courses On The left -->
-    <div class="col-3 px-0 mx-0 bg-white" style="min-height:600px;">
+    <div class="col-3 px-0 mx-0 bg-white" style="min-height:600px;" ng-hide="showAddEvaluationForm">
       <div>
         <div id="courseList" class="list-group list-group-flush">
           <a id="list-tab" class="list-group-item list-group-item-action" role="tablist" name="course" ng-repeat="c in courses" ng-click="showDetail(c.id)"
@@ -33,7 +33,7 @@
 
     <!-- all of the page content to the right of the class list navigation bar -->
     <!-- Add professors form -->
-    <div class="container" name="addEvaluationForm" ng-submit="addEvaluation()" ng-show="showAddEvaluationForm">
+    <div class="container-fluid" name="addEvaluationForm" ng-submit="addEvaluation()" ng-show="showAddEvaluationForm">
       <div>
         <%= form_with(model: @professor_form, local: true) do |form| %>
 
