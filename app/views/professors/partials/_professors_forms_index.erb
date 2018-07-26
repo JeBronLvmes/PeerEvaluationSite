@@ -102,7 +102,7 @@
                 </button></td>
               </tr>
             </table>
-            <div class="formContent" id="formContent" style="display:none;">
+            <div class="formContent" ng-hide="formCont">
               <h1>{{form.title}}</h1>
               <p>{{"Due Date: " + form.due_date}}</p>
               <p>{{"Submission: " + form.submission_date}}</p>
@@ -132,7 +132,7 @@
             </table>
             <br />
             <hr />
-            <div id="studentEvaluations" style="display:none;">
+            <div ng-hide="studentEval">
               <h3> Incomplete forms</h3>
               <table class="table table-lg">
                 <thead>
