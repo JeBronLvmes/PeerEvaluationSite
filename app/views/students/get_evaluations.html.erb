@@ -5,11 +5,11 @@
     <div class="container bg-light py-5 px-5">
 
       <div ng-hide="evaluationCompleteForm">
-        <h3> Title: {{evaluation.title}}</h3>
+        <h3> {{evaluation.title}}</h3>
       </div>
 
       <h1>Evaluations</h1>
-      <table class="table">
+      <table class="table table-sm">
         <thead>
         <tr>
           <th scope="col">Evaluation Name</th>
@@ -39,7 +39,7 @@
         </tbody>
       </table>
 
-      <table class="table">
+      <table class="table table-sm">
         <thead>
         <tr>
           <th scope="col">Evaluation Name</th>
@@ -71,9 +71,6 @@
         <div class="container text-center">
           <h1 class="display-4">Whoops!</h1>
           <p class="lead">You don't belong here!</p>
-          page id = <%= params[:id]%>
-          student id = <%#= current_student.id %>
-          *these are for testing purposes*
         </div>
       </div>
 

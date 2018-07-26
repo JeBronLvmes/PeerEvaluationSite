@@ -18,6 +18,7 @@ app.controller('evaluationCon', function($scope, $http) {
         $scope.curProfId = prof_id;
         $scope.processing = false;
         $scope.isProfessorForm = false;
+        $scope.selectedCourse = null;
         $scope.studentEval = true;
         $scope.formCont = true;
         $scope.showCourses();
@@ -70,11 +71,10 @@ app.controller('evaluationCon', function($scope, $http) {
     };
 
     $scope.updateCurProfFormView = function () {
-        $http.get("/professors/" + $scope.curProfId  + "/professor_forms/" + $scope.curCourseId)
+        $http.get("/professors/" + $scope.curProfId  + "/get_professor_forms/" + $scope.curCourseId)
             .then(function (response) {
                 $scope.forms = response.data;
                 $scope.selection = $scope.forms[0];
-
             });
     };
 
@@ -143,7 +143,7 @@ app.controller('evaluationCon', function($scope, $http) {
                     'title': $scope.new_evaluation_name,
                     'due_date': $scope.due_date,
                     'submission_date': $scope.submission_date,
-                    'course_id': $scope.course_id,
+                    'course_id': $scope.selectedCourse,
                     'html_form': $scope.new_form
                 },
                 headers: {'Content-Type': 'application/json'}

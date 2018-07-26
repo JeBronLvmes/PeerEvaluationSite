@@ -1,1 +1,11 @@
-<%= render :partial => "professors/partials/professors_forms_index", :locals => {:title => 'Evaluations', :professor => @professor } %>
+<%if current_professor != nil and current_professor.id.to_s == params[:professor_id].to_s%>
+  <%= render :partial => "professors/partials/professors_forms_index", :locals => {:title => 'Evaluations', :professor => @professor } %><%else %>
+  <div class="container">
+    <div class="jumbotron vertical-center my-5 py-5">
+      <div class="container text-center">
+        <h1 class="display-4">Whoops!</h1>
+        <p class="lead">You don't belong here!</p>
+      </div>
+    </div>
+  </div>
+<%end%>

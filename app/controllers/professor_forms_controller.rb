@@ -49,7 +49,7 @@ class ProfessorFormsController < ApplicationController
   def get_forms
     @course = Course.find(params[:course_id])
     @forms = @course.professor_forms
-    render json: @course.groups
+    render json: @forms
   end
 
   # Get all of the students in the course

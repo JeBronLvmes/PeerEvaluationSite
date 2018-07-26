@@ -1,14 +1,14 @@
 <!-- Created by Houyi Fan 7/24/18 -->
 <%if current_student != nil and current_student.id.to_s == params[:id].to_s%>
 
-<div class="container-fluid" ng-app="studentCourseApp" ng-controller="studentCon" ng-init="init(<%= @student.id %>)">
+<div class="container-fluid bg-white" ng-app="studentCourseApp" ng-controller="studentCon" ng-init="init(<%= @student.id %>)">
 
-  <div class = "row">
+  <div class = "row my-2">
     <!-- heading -->
-    <h1 class="mr-auto ml-1">Courses</h1>
+    <h1 class="mr-auto pl-4">Courses</h1>
   </div>
-  <div class="row">
-    <div class="col-2 px-0 mx-0">
+  <div class="row bg-light">
+    <div class="col-3 px-0 mx-0 bg-white" style="min-height:600px;">
       <div>
 
         <!-- List of Courses On The left -->
@@ -44,13 +44,15 @@
     </div>
 
 
-    <div id ="pageContent" class="col bg-light px-5 pb-5" ng-show="showContent && !showForm">
+    <div id ="pageContent" class="col bg-light px-5 py-4" ng-show="showContent && !showForm">
       <!-- Course Title -->
-      <h1>{{course_name}} - {{ group_name }}</h1>
+      <div class="text-center">
+        <h3 >{{course_name}} - {{ group_name }}</h3>
+      </div>
 
-      <div class="row">
-        <h1>Incomplete Evaluations</h1>
-        <table class="table">
+      <div class="row px-1 mt-5">
+        <h3>Incomplete Evaluations</h3>
+        <table class="table table-sm">
           <thead>
           <tr>
             <th scope="col">Evaluation Name</th>
@@ -82,35 +84,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   <!-- Hidden -->
 <div class="container bg-light py-5 px-5" style="display: none;">
@@ -153,9 +126,6 @@
     <div class="container text-center">
       <h1 class="display-4">Whoops!</h1>
       <p class="lead">You don't belong here!</p>
-      page id = <%= params[:id]%>
-      student id = <%#= current_student.id %>
-      *these are for testing purposes*
     </div>
   </div>
 </div>
