@@ -301,20 +301,22 @@ app.controller('evaluationCon', function($scope, $http) {
      * @author Josh Wright on 7/24/2018
      */
     $scope.assignForm = function (form_id){
+        $http({
+            url: "/professors/" + $scope.curProfId + "/courses/"+ $scope.curCourseId + "/students",
+            method: "GET"
+        }).then(function(response) {
+            $scope.students = response.data;
+            for(var i =0;i<$scope.students.length;i++){
                 $http({
-                        url: "/professors/" + $scope.curProfId + "/courses/"+ $scope.curCourseId + "/students",
-                        method: "GET"
-                }).then(function(response) {
-                        $scope.students = response.data;
-                        for(var i =0;i<$scope.students.length;i++){
-                                $http({
-                                        url:'/professors/'+$scope.curProfId+'/professor_forms/'+$scope.curCourseId +'/form/'+form_id+'/evaluation/'+ $scope.students[i].id,
-                                        method: 'POST',
-                                        headers: {'Content-Type': 'application/json'}
-                                })
-                            }
-                    });
+                    url:'/professors/'+$scope.curProfId+'/professor_forms/'+$scope.curCourseId +'/form/'+form_id+'/post_evaluation',
+                    method: 'POST',
+                    data: {'id': $scope.students[i].id },
+                    headers: {'Content-Type': 'application/json'}
+                })
             }
+            window.alert("success");
+        });
+    }
 
 });
 

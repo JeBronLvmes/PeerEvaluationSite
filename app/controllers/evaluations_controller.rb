@@ -12,6 +12,10 @@ class EvaluationsController < ApplicationController
   #
   # Created by Josh Wright on 7/24/18
   def new
+    @evaluation = Evaluation.new
+  end
+
+  def create_evaluation
     @form = ProfessorForm.find(params[:form_id])
     @evaluation = Evaluation.new
     @evaluation.due_date = @form.due_date
@@ -22,9 +26,9 @@ class EvaluationsController < ApplicationController
     @evaluation.isCompleted = false;
     @evaluation.professor_form_id = params[:form_id]
     if @evaluation.save
-      redirect_to evaluations_path
+      render json: @evaluation
     else
-      render 'new'
+      render json: @evaluation.errors
     end
   end
 
