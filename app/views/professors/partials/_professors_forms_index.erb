@@ -33,7 +33,9 @@
 
     <!-- all of the page content to the right of the class list navigation bar -->
     <!-- Add professors form -->
-    <div class="container-fluid bg-light" name="addEvaluationForm" ng-show="showAddEvaluationForm">
+    <div class="container-fluid bg-light px-5 py-5 mx-5" name="addEvaluationForm" ng-show="showAddEvaluationForm">
+        <h3>Professor Form:</h3>
+        <br/>
 				<div class="form-group">
           <label for="professor_form_title">Title</label>
         	<input ng-model="$parent.new_evaluation_name" id="professor_form_title" type="text" name="professor_form[title]" class="form-control" placeholder=""/>
