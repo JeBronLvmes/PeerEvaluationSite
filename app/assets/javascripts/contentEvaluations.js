@@ -1,3 +1,12 @@
+/**
+ * Created by Josh Wright on 7/24/18
+ *
+ * @description
+ *      Controller for angularjs. This controller makes api calls to the rails controller.
+ *      The controller also handles dynamic changes to professor forms page.
+ *
+ */
+
 var app = angular.module('evaluationApp', []);
 
 
@@ -100,7 +109,7 @@ app.controller('evaluationCon', function($scope, $http) {
 
     $scope.updateProfessorFormsView = function (){
         $scope.formCont = true;
-    }
+    };
 
     // Other Controller Functions
 
@@ -113,7 +122,6 @@ app.controller('evaluationCon', function($scope, $http) {
  	$scope.toggleAddEvaluationForm = function() {
         $scope.showAddEvaluationForm = !$scope.showAddEvaluationForm;
     };
-
 
  	$scope.addEvaluation = function () {
  		$http({
@@ -150,7 +158,6 @@ app.controller('evaluationCon', function($scope, $http) {
     };
 
     $scope.addCourse = function () {
-
         $http({
             url: 'courses/',
             method: 'POST',
@@ -228,6 +235,7 @@ app.controller('evaluationCon', function($scope, $http) {
                 });
     };
 
+
     $scope.deleteStudent = function (id) {
         if (window.confirm('Do you want to delete this student?')) {
             $http({
@@ -244,6 +252,12 @@ app.controller('evaluationCon', function($scope, $http) {
         }
     };
 
+    /**
+     *
+     * @param id
+     *
+     * @author Josh Wright on 7/24/2018
+     */
     $scope.showForm = function (id) {
         $scope.formCont = !$scope.formCont;
 
@@ -256,7 +270,12 @@ app.controller('evaluationCon', function($scope, $http) {
 
     };
 
-
+    /**
+     *
+     * @param student_id
+     *
+     * @author Josh Wright on 7/24/2018
+     */
     $scope.viewEvaluations = function (student_id){
         $scope.studentEval = !$scope.studentEval;
 
@@ -273,7 +292,14 @@ app.controller('evaluationCon', function($scope, $http) {
         }).then(function(response) {
             $scope.incompleteEvaluations = response.data;
         });
-    }
+    };
+
+    /**
+     *
+     * @param form_id
+     *
+     * @author Josh Wright on 7/24/2018
+     */
     $scope.assignForm = function (form_id){
                 $http({
                         url: "/professors/" + $scope.curProfId + "/courses/"+ $scope.curCourseId + "/students",

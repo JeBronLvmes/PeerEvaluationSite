@@ -1,10 +1,14 @@
 # Created by Jeb Alawi 7/19/18
+# description: manage evaluations
 class EvaluationsController < ApplicationController
   skip_before_action :verify_authenticity_token
   def index
     @evaluations = Evaluation.all
   end
 
+  # create a new evaluation
+  #
+  # Created by Josh Wright on 7/24/18
   def new
     @form = ProfessorForm.find(params[:form_id])
     @evaluation = Evaluation.new
