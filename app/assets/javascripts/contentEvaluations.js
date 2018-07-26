@@ -1,5 +1,6 @@
 /**
  * Created by Josh Wright on 7/24/18
+ * Modified by Houyi Fan on 7/25/18
  *
  * @description
  *      Controller for angularjs. This controller makes api calls to the rails controller.
@@ -119,27 +120,38 @@ app.controller('evaluationCon', function($scope, $http) {
         $scope.updateView();
     };
 
+    /**
+     * Show/Hide the new evaluation form when clicking the Add Form button
+     *
+     * @author Houyi Fan
+     */
  	$scope.toggleAddEvaluationForm = function() {
         $scope.showAddEvaluationForm = !$scope.showAddEvaluationForm;
     };
 
+    /**
+     * Get data in the form and create a new evaluation form (professor form)
+     *
+     * @author Houyi Fan
+     */
  	$scope.addEvaluation = function () {
-        $http({
-            url: "/professors/" + $scope.curProfId + "/create_professor_forms",
-            method: 'POST',
-            data: {
-                'title': $scope.new_evaluation_name,
-                'due_date': $scope.due_date,
-                'submission_date': $scope.submission_date,
-                'course_id': $scope.course_id,
-                'html_form': $scope.new_form
-            },
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(function (response) {
-            window.alert("success");
-        });
-
+        if(window.confirm('Create the form?')) {
+            $http({
+                url: "/professors/" + $scope.curProfId + "/create_professor_forms",
+                method: 'POST',
+                data: {
+                    'title': $scope.new_evaluation_name,
+                    'due_date': $scope.due_date,
+                    'submission_date': $scope.submission_date,
+                    'course_id': $scope.course_id,
+                    'html_form': $scope.new_form
+                },
+                headers: {'Content-Type': 'application/json'}
+            })
+                .then(function (response) {
+                    window.alert("success");
+                });
+        }
         $scope.toggleAddEvaluationForm();
 	};
 

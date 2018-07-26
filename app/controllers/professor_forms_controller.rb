@@ -27,6 +27,7 @@ class ProfessorFormsController < ApplicationController
   end
 
   # Created by Josh Wright 7/22/18
+  # Modified by Houyi Fan on 7/25/18
   def create_evaluation
       @professor_form = ProfessorForm.new(professor_form_params)
       if @professor_form.save
