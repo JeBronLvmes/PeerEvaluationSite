@@ -6,13 +6,11 @@ class CoursesStudentController < ApplicationController
   end
 
   def new
-    # if(current_professor)
-      @courses_student = CoursesStudent.new
+    @courses_student = CoursesStudent.new
   end
 
-  # supposed to call by ajax so no redirection
   # created by Jeb Alawi 7/23/2018
-  # modified by Bin Chen 7/24/2018
+  # modified by Bin Chen 7/24/2018 - supposed to call by ajax so no redirection
   def create
     @courses_student = CoursesStudent.new courses_student_params
 
@@ -27,7 +25,6 @@ class CoursesStudentController < ApplicationController
         redirect_to student_path @student, notice: 'Course was successfully dropped.'
       end
     end
-
   end
 
 
