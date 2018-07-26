@@ -3,7 +3,6 @@
 
 <div class="container bg-light py-5 px-5">
   <h1> Profile</h1>
-  <%@professor = Professor.find(current_professor.id) %>
   <h4> Name: <%=@professor.first_name.capitalize + " " + @professor.last_name.capitalize%>  </h4>
   <h4> Dot Number: <%= @professor.dot_number %> </h4>
 	<%= link_to 'Edit Profile', edit_professor_path(@professor) %> |
