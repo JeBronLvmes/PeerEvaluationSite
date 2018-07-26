@@ -280,14 +280,14 @@ app.controller('evaluationCon', function($scope, $http) {
         $scope.studentEval = false;
 
         $http({
-            url: "/students/" + student_id + "/evaluations/completed",
+            url: "/students/" + student_id + "/evaluations_completed",
             method: "GET"
         }).then(function(response) {
             $scope.completedEvaluations = response.data;
         });
 
         $http({
-            url: "/students/" + student_id + "/evaluations/incomplete",
+            url: "/students/" + student_id + "/evaluations_incomplete",
             method: "GET"
         }).then(function(response) {
             $scope.incompleteEvaluations = response.data;
