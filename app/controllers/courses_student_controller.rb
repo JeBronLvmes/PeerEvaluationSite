@@ -1,5 +1,4 @@
 class CoursesStudentController < ApplicationController
-  before_action :set_courses_student, only: [:destroy]
   protect_from_forgery with: :null_session
 
   def index
@@ -21,17 +20,18 @@ class CoursesStudentController < ApplicationController
   end
 
   def destroy
-    @courses_student = set_courses_student
+    @student = Student.find(params[:student_id])
+    if(current_student.id == @student.id)
+      @course = Course.find(params[:id])
+      if @student.courses.delete @course
+        redirect_to student_path @student, notice: 'Course was successfully dropped.'
+      end
+    end
 
-    @courses_student.destroy
   end
 
 
   private
-  def set_courses_student
-    @courses_student = CoursesStudent.find(params[:id])
-  end
-
   def courses_student_params
     params.require(:courses_student).permit(:course_id, :student_id)
   end
