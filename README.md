@@ -68,4 +68,4 @@ Set up relations and majority of the model. Did work on students profile page.
 
 Bin Chen - Wrote 7 controller method include query method for courses, wrote lots of ajax code in content.js
 
-Houyi Fan - Wrote following controller method for student and professor: get_courses, get_groups, get_evaluations, edit, create, update, destroy for student_controller; show, edit, update, destroy for professor_controller. Created and implemented views for student pages. Implemented Add Evaluation button in professor's evaluation page. Added "edit profile" and "cancel account" choices in student and professor's profile page.
+Houyi Fan - Wrote following controller method for student and professor: get_courses, get_groups, get_evaluations, edit, create, update, destroy for student_controller; show, edit, update, destroy for professor_controller. Created and implemented views for student pages. Implemented Add Form button in professor's evaluation page. Added "edit profile" and "cancel account" choices in student and professor's profile page.

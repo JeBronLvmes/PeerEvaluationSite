@@ -120,10 +120,20 @@ app.controller('evaluationCon', function($scope, $http) {
         $scope.updateView();
     };
 
+    /**
+     * Show/Hide the new evaluation form when clicking the Add Form button
+     *
+     * @author Houyi Fan
+     */
  	$scope.toggleAddEvaluationForm = function() {
         $scope.showAddEvaluationForm = !$scope.showAddEvaluationForm;
     };
 
+    /**
+     * Get data in the form and create a new evaluation form (professor form)
+     *
+     * @author Houyi Fan
+     */
  	$scope.addEvaluation = function () {
         if(window.confirm('Create the form?')) {
             $http({
