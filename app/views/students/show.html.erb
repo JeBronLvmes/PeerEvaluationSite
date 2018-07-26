@@ -36,15 +36,10 @@
             <td><%= course.number %></td>
             <td><%= course.section %></td>
             <td><%= course.id %></td>
-<% if false %>
-            <% courses_student_ref = CoursesStudent.where("student_id = #{@student.id} and course_id = #{course.id}").first %>
-            <td><%= link_to 'Drop', courses_student_ref, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-<% end %>
           </tr>
         <% end %>
       </tbody>
     </table>
-
   </div>
 
 <%else%>
