@@ -274,6 +274,21 @@ app.controller('evaluationCon', function($scope, $http) {
             $scope.incompleteEvaluations = response.data;
         });
     }
+    $scope.assignForm = function (form_id){
+                $http({
+                        url: "/professors/" + $scope.curProfId + "/courses/"+ $scope.curCourseId + "/students",
+                        method: "GET"
+                }).then(function(response) {
+                        $scope.students = response.data;
+                        for(var i =0;i<$scope.students.length;i++){
+                                $http({
+                                        url:'/professors/'+$scope.curProfId+'/professor_forms/'+$scope.curCourseId +'/form/'+form_id+'/evaluation/'+ $scope.students[i].id,
+                                        method: 'POST',
+                                        headers: {'Content-Type': 'application/json'}
+                                })
+                            }
+                    });
+            }
 
 });
 

@@ -120,12 +120,12 @@
                 <td><button id="new_evaluation" class="btn btn-secondary" ng-click="showForm(form.id)">
                   View Form
                 </button></td>
-                <td><button id="assign_evaluation" class="btn btn-secondary" ng-click="assignForm(form.id,form.course_id)">
+                <td><button id="assign_evaluation" class="btn btn-secondary" ng-click="assignForm(form.id)">
                   Assign Form
                 </button></td>
               </tr>
             </table>
-            <div class="formContent" id="formContent" style="display: none;" >
+            <div class="formContent" id="formContent" >
               <h1>{{form.title}}</h1>
               <p>{{"Due Date: " + form.due_date}}</p>
               <p>{{"Submission: " + form.submission_date}}</p>
@@ -155,7 +155,7 @@
             </table>
             <br />
             <hr />
-            <div id="studentEvaluations" style="display:none">
+            <div id="studentEvaluations">
               <h3> Incomplete forms</h3>
               <table class="table table-lg">
                 <thead>
