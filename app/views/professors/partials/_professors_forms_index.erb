@@ -125,7 +125,7 @@
                 </button></td>
               </tr>
             </table>
-            <div class="formContent" id="formContent" >
+            <div class="formContent" id="formContent" style="display:none;">
               <h1>{{form.title}}</h1>
               <p>{{"Due Date: " + form.due_date}}</p>
               <p>{{"Submission: " + form.submission_date}}</p>
@@ -155,19 +155,25 @@
             </table>
             <br />
             <hr />
-            <div id="studentEvaluations">
+            <div id="studentEvaluations" style="display:none;">
               <h3> Incomplete forms</h3>
               <table class="table table-lg">
                 <thead>
-                <th>Eval ID</th>
-                <th>Student ID</th>
-                <th>Professor Form ID</th>
+                <th>Title</th>
                 <th />
                 </thead>
                 <tr ng-repeat="evaluation in incompleteEvaluations">
-                  <td>{{evaluation.id}}</td>
-                  <td>{{ evaluation.student_id }}</td>
-                  <td>{{ evaluation.professor_form_id }}</td>
+                  <td>{{evaluation.title}}</td>
+                </tr>
+              </table>
+              <h3> Completed forms</h3>
+              <table class="table table-lg">
+                <thead>
+                <th>Title</th>
+                <th />
+                </thead>
+                <tr ng-repeat="evaluation in completedEvaluations">
+                  <td>{{evaluation.title}}</td>
                 </tr>
               </table>
             </div>
