@@ -1,20 +1,20 @@
 <!-- Modified by Jeb Alawi on 7/23/18 List Groups and Students -->
 
-<div class="container-fluid" ng-app="courseApp" ng-controller="courseCon" ng-init="init(<%= professor.id %>)">
+<div class="container-fluid bg-white" ng-app="courseApp" ng-controller="courseCon" ng-init="init(<%= professor.id %>)">
 
-  <div class = "row">
+  <div class = "row my-2">
     <!-- heading -->
-    <h1 class="mr-auto ml-1"><%= title %></h1>
+    <h1 class="mr-auto pl-4"><%= title %></h1>
 
     <!-- toggle buttons -->
-    <div id="buttonToggle" class="btn-group btn-group-toggle h-50 mt-2 mr-1" data-toggle="buttons">
+    <div id="buttonToggle" class="btn-group btn-group-toggle h-50 mt-2 mr-3" data-toggle="buttons">
       <button class="btn btn-primary" type="radio" ng-click="switchState()" ng-disabled="!isGroup" checked>Students</button>
       <button class="btn btn-primary" type="radio" ng-click="switchState()" ng-disabled="isGroup || !clickedClass">Groups</button>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-2 px-0 mx-0">
+    <div class="col-3 px-0 mx-0 bg-white" style="min-height:600px;">
       <div>
 
         <!-- List of Courses On The left -->
@@ -26,7 +26,7 @@
         <a class="list-group-item list-group-item-action text-success text-center" name="addCourse" ng-click="toggleAddCourseForm()">Add Course</a>
 
         <!-- Add courses form -->
-        <div class="container py-3 bg-light">
+        <div class="container py-3 bg-white">
           <form name="addCourseForm" ng-submit="addCourse()" ng-show="showAddCourseForm">
             <div class="form-group">
               <label for="dept">Department</label>
@@ -50,16 +50,16 @@
       </div>
     </div>
 
-    <div id ="pageContent" class="col bg-light px-5 pb-5">
+    <div id ="pageContent" class="col bg-light px-5 py-4">
       <!-- Course Title -->
       <div class="text-center">
         <h1>{{course_name}}</h1>
       </div>
-
-      <div class="row">
-        <div ng-switch on="isGroupTemp">
+      <div class="row px-1 mt-5">
+        <div class="col" ng-switch on="isGroupTemp">
           <!-- Course Groups View -->
           <div ng-switch-when="true">
+            <hr/>
             <br />
             <h2>Groups:</h2>
 
@@ -68,12 +68,12 @@
               <div class="form-group">
                 <input ng-model="$parent.group_name" type="text" class="form-control mr-1" placeholder="Group Name" required/>
               </div>
-              <button type="submit" class="btn btn-success">Add Group</button>
+              <button type="submit" class="btn btn-success btn-sm">Add Group</button>
             </form>
 
             <!-- Repeat Group Tables -->
             <div class="container-fluid mb-5" ng-repeat="g in groups">
-              <span class="h1 mr-auto">{{ g.name }}</span> <button class="btn btn-danger float-right" ng-click="deleteGroup(g.id)">Delete Group</button>
+              <span class="h1 mr-auto">{{ g.name }}</span> <button class="btn btn-danger float-right btn-sm" ng-click="deleteGroup(g.id)">Delete Group</button>
               <table class="table table-sm">
                 <thead>
                 <th>First Name</th>
@@ -88,7 +88,7 @@
                   <td>{{ s.last_name }}</td>
                   <td>{{ s.dot_number }}</td>
                   <td>{{ s.email }}</td>
-                  <td> <button class="btn btn-primary" ng-click="deleteStudentFromGroup(g.id, s.id)">Delete</button> </td>
+                  <td> <button class="btn btn-primary btn-sm" ng-click="deleteStudentFromGroup(g.id, s.id)">Delete</button> </td>
                 </tr>
               </table>
 
@@ -97,7 +97,7 @@
                 <select ng-model="selectedStd[g.id]">
                   <option ng-repeat="s in students" value="{{s.id}}">{{s.first_name + " " + s.last_name + "." + s.dot_number}}</option>
                 </select>
-                <td> <button class="btn btn-success" ng-click="addStdToGroup(g.id)">Add Student</button> </td>
+                <td> <button class="btn btn-success btn-sm" ng-click="addStdToGroup(g.id)">Add Student</button> </td>
               </div>
 
             </div>
@@ -105,8 +105,8 @@
           </div>
 
           <!-- Course Students View -->
-          <div ng-switch-when="false">
-
+          <div class=" rounded px-3 py-3" ng-switch-when="false">
+            <hr/>
             <!-- Current Students Table -->
             <span class="h2 mr-auto">Current Students:</span>
             <table class="table table-hover table-sm">
@@ -122,7 +122,7 @@
                 <td>{{ s.last_name }}</td>
                 <td>{{ s.dot_number }}</td>
                 <td>{{ s.email }}</td>
-                <td> <button class="btn btn-danger" ng-click="deleteStudent(s.id)">Delete</button> </td>
+                <td> <button class="btn btn-danger btn-sm" ng-click="deleteStudent(s.id)">Delete</button> </td>
               </tr>
             </table>
             <br />
@@ -142,7 +142,7 @@
                   Dot Number: <br><input class="form-control" type="text" name="student_dot" ng-model="$parent.std_dot" />
                 </div>
                 <div class="col-3">
-                  <button class="btn btn-primary mt-4" type="submit">Query Students</button>
+                  <button class="btn btn-primary mt-4 btn-sm" type="submit">Query Students</button>
                 </div>
               </div>
             </form>
@@ -161,7 +161,7 @@
                 <td>{{ s.last_name }}</td>
                 <td>{{ s.dot_number }}</td>
                 <td>{{ s.email }}</td>
-                <td> <button class="btn btn-success" ng-disable="processing" ng-click="addStudent(s.id)">Add</button> </td>
+                <td> <button class="btn btn-success btn-sm" ng-disable="processing" ng-click="addStudent(s.id)">Add</button> </td>
               </tr>
             </table>
           </div>

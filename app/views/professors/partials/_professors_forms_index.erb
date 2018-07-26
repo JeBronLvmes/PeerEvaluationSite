@@ -1,9 +1,9 @@
 <div class="container-fluid bg-white" ng-app="evaluationApp" ng-controller="evaluationCon" ng-init="init(<%= professor.id %>)">
 
   <div class = "row my-2">
-    <h1 class="mr-auto"><%= title %>
+    <h1 class="mr-auto pl-4"><%= title %>
 			<!-- "+" icon -->
-      <span>
+      <span class="mx-4">
 				<button id="new_evaluation" class="btn btn-secondary" ng-click="toggleAddEvaluationForm()">
 					<i class="fa fa-plus fa-2x"></i>
 				</button>
@@ -11,7 +11,7 @@
     </h1>
 
     <!-- toggle buttons -->
-    <div id="buttonToggle" class="btn-group btn-group-toggle h-50 mt-2 mr-1" data-toggle="buttons">
+    <div id="buttonToggle" class="btn-group btn-group-toggle h-50 mt-2 mr-3" data-toggle="buttons">
       <button class="btn btn-primary" type="radio" ng-click="switchState()" ng-disabled="!isProfessorForm">Student Forms</button>
       <button class="btn btn-primary" type="radio" ng-click="switchState()" ng-disabled="isProfessorForm || !clickedClass">Professor Forms</button>
     </div>
@@ -62,24 +62,25 @@
         </div>
 
           <p>
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success btn-sm">Submit</button>
           </p>
 
         <% end %>
       </div>
     </div>
-    <div id ="pageContent" class="col bg-light px-5 pb-5">
+    <div id ="pageContent" class="col bg-light px-5 py-4">
       <!-- Course Title -->
       <div class="text-center">
         <h1>{{course_name}}</h1>
       </div>
 
-      <div class="row">
+      <div class="row px-1 mt-5">
         <!-- Evaluation Forms View -->
-        <div ng-switch on="isGroupTemp">
+        <div class="col" ng-switch on="isGroupTemp">
           <div ng-switch-when="true">
+            <hr/>
             <br />
-            <h2>Forms:</h2>
+            <h3>Forms:</h3>
 
             <table class="table table-sm">
               <thead>
@@ -94,10 +95,10 @@
                 <td>{{form.due_date}}</td>
                 <td>{{form.submission_date}} </td>
                 <td>{{form.course_id}} </td>
-                <td><button id="new_evaluation" class="btn btn-secondary" ng-click="showForm(form.id)">
+                <td><button id="new_evaluation" class="btn btn-secondary btn-sm" ng-click="showForm(form.id)">
                   View Form
                 </button></td>
-                <td><button id="assign_evaluation" class="btn btn-secondary" ng-click="assignForm(form.id)">
+                <td><button id="assign_evaluation" class="btn btn-secondary btn-sm" ng-click="assignForm(form.id)">
                   Assign Form
                 </button></td>
               </tr>
@@ -111,10 +112,10 @@
           </div>
           <!-- Evaluation Students View -->
           <div ng-switch-when="false">
-
+            <hr/>
             <!-- Current Students Table -->
-            <span class="h2 mr-auto">Current Students:</span>
-            <table class="table table-lg">
+            <span class="h3 mr-auto">Current Students:</span>
+            <table class="table table-sm">
               <thead>
               <th>First Name</th>
               <th>Last Name</th>
@@ -127,14 +128,14 @@
                 <td>{{ s.last_name }}</td>
                 <td>{{ s.dot_number }}</td>
                 <td>{{ s.email }}</td>
-                <td> <button class="btn btn-primary" ng-click="viewEvaluations(s.id)">View Evaluations</button> </td>
+                <td> <button class="btn btn-primary btn-sm" ng-click="viewEvaluations(s.id)">View Evaluations</button> </td>
               </tr>
             </table>
             <br />
-            <hr />
             <div ng-hide="studentEval">
+              <hr />
               <h3> Incomplete forms</h3>
-              <table class="table table-lg">
+              <table class="table table-sm">
                 <thead>
                 <th>Title</th>
                 <th />
@@ -144,7 +145,7 @@
                 </tr>
               </table>
               <h3> Completed forms</h3>
-              <table class="table table-lg">
+              <table class="table table-sm">
                 <thead>
                 <th>Title</th>
                 <th />

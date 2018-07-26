@@ -1,5 +1,4 @@
 class StudentsController < ApplicationController
-
 	# get list of students
 	#
 	# created by Jeb Alawi 7/25/18
@@ -106,22 +105,28 @@ class StudentsController < ApplicationController
 	# Created by Houyi Fan 7/24/18
 	# Modified by Josh Wright 7/25/18
 	def get_courses
-		@student = Student.find(params[:id])
-		@evaluations = @student.evaluations
+		if current_student.id.to_i == params[:id].to_i
+			@student = Student.find(params[:id])
+			@evaluations = @student.evaluations
+		end
 		render 'get_courses'
 	end
 
 	# Created by Houyi Fan 7/24/18
 	def get_groups
-		@student = Student.find(params[:id])
+		if current_student.id.to_i == params[:id].to_i
+			@student = Student.find(params[:id])
+		end
 		render 'get_groups'
 	end
 
 	# Created by Houyi Fan 7/24/18
 	# Modified by Josh Wright 7/25/18
 	def get_evaluations
-		@student = Student.find(params[:id])
-		@evaluations = @student.evaluations
+		if current_student.id.to_i == params[:id].to_i
+			@student = Student.find(params[:id])
+			@evaluations = @student.evaluations
+		end
 		render 'get_evaluations'
 	end
 

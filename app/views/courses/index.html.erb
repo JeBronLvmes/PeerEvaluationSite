@@ -1,2 +1,13 @@
 <!-- Created by Jeb Alawi 7/19/18 -->
-<%= render :partial => "professors/partials/professor_courses_index", :locals => {:title => 'Courses', :professor => @professor } %>
+<%if current_professor != nil and current_professor.id.to_s == params[:professor_id].to_s%>
+  <%= render :partial => "professors/partials/professor_courses_index", :locals => {:title => 'Courses', :professor => @professor } %>
+<%else %>
+  <div class="container">
+    <div class="jumbotron vertical-center my-5 py-5">
+      <div class="container text-center">
+        <h1 class="display-4">Whoops!</h1>
+        <p class="lead">You don't belong here!</p>
+      </div>
+    </div>
+  </div>
+<%end%>

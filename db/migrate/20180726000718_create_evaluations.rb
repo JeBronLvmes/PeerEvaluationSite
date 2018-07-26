@@ -1,5 +1,6 @@
 # Created by Bin Chen 7/19/18
 # Modified by Jeb Alawi 7/19/18 - added belongs_to
+# Modified by Josh Wright 7/25/18 - added additional fields
 class CreateEvaluations < ActiveRecord::Migration[5.2]
   def change
     create_table :evaluations do |t|
