@@ -26,6 +26,7 @@ app.controller('studentCon', function($scope, $http) {
         $scope.form_title = null;
         $scope.form_questions = null;
         $scope.evaluationId = null;
+        $scope.incompleteForms = "";
         $scope.showCourses();
     };
 
@@ -107,6 +108,11 @@ app.controller('studentCon', function($scope, $http) {
         })
             .then(function (response) {
                 $scope.evaluations = response.data;
+                if ($scope.evaluations.length == 0){
+                    $scope.incompleteForms = "No Incomplete Evaluations!";
+                } else{
+                    $scope.incompleteForms = "";
+                }
                 console.log($scope.evaluations);
             });
     };

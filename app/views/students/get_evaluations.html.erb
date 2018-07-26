@@ -16,7 +16,6 @@
           <th scope="col">Due Date</th>
           <th scope="col">Posted Date</th>
           <th scope="col">Completion Status</th>
-          <th scope="col">Complete Form</th>
         </tr>
         </thead>
         <tbody>
@@ -30,9 +29,6 @@
               <td><%= evaluation.due_date %></td>
               <td><%= evaluation.posted_date %></td>
               <td><%= evaluation.isCompleted %></td>
-              <td><button id="complete_evaluation" class="btn btn-secondary" ng-click="completeEvaluation(<%=evaluation.id%>)">
-                Complete Evaluation
-              </button></td>
             </tr>
           <%end%>
         <% end %>

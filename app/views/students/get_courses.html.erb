@@ -76,47 +76,13 @@
 
           </tbody>
         </table>
+        <h4 class="text-secondary">{{ incompleteForms }}</h4>
 
 
       </div>
     </div>
   </div>
 </div>
-
-  <!-- Hidden -->
-<div class="container bg-light py-5 px-5" style="display: none;">
-
-  <h1>Courses</h1>
-  <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">Course Name</th>
-      <th scope="col">Department</th>
-      <th scope="col">Number</th>
-      <th scope="col">Section</th>
-      <th scope="col">course_id</th>
-      <th scope="col">Professor</th>
-      <th />
-    </tr>
-    </thead>
-    <tbody>
-      <% @courses_student_list = CoursesStudent.where("student_id = #{@student.id}")%>
-      <!-- list student courses -->
-      <% @course_list = @student.courses %>
-        <% @course_list.each do |course| %>
-        <tr>
-          <td><%= course.name %></td>
-          <td><%= course.dept %></td>
-          <td><%= course.number %></td>
-          <td><%= course.section %></td>
-          <td><%= course.id %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-  <%= javascript_include_tag 'content' %>
-  <%= javascript_include_tag 'student' %>
 
 <%else%>
 <div class="container">
