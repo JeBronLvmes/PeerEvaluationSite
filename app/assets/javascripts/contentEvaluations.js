@@ -113,15 +113,6 @@ app.controller('evaluationCon', function($scope, $http) {
         $scope.showAddEvaluationForm = !$scope.showAddEvaluationForm;
     };
 
-    $scope.showEvaluations = function () {
-        $http({
-            url: '/professors/' + $scope.curProfId + '/professor_forms/' + '2' + '/get_forms',
-            method: 'GET'
-        })
-        .then(function (response) {
-            $scope.forms = response.data;
-        });
-    };
 
  	$scope.addEvaluation = function () {
  		$http({
@@ -135,9 +126,6 @@ app.controller('evaluationCon', function($scope, $http) {
                 'html_form': $scope.new_form
             },
             headers: {'Content-Type': 'application/json'}
-        })
-        .then(function (response) {
-            $scope.showEvaluations();
         });
 
         $scope.toggleAddEvaluationForm();
@@ -286,6 +274,21 @@ app.controller('evaluationCon', function($scope, $http) {
             $scope.incompleteEvaluations = response.data;
         });
     }
+    $scope.assignForm = function (form_id){
+                $http({
+                        url: "/professors/" + $scope.curProfId + "/courses/"+ $scope.curCourseId + "/students",
+                        method: "GET"
+                }).then(function(response) {
+                        $scope.students = response.data;
+                        for(var i =0;i<$scope.students.length;i++){
+                                $http({
+                                        url:'/professors/'+$scope.curProfId+'/professor_forms/'+$scope.curCourseId +'/form/'+form_id+'/evaluation/'+ $scope.students[i].id,
+                                        method: 'POST',
+                                        headers: {'Content-Type': 'application/json'}
+                                })
+                            }
+                    });
+            }
 
 });
 

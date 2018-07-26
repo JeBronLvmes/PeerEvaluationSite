@@ -6,7 +6,12 @@ class EvaluationsController < ApplicationController
   end
 
   def new
+    @form = ProfessorForm.find(params[:form_id])
     @evaluation = Evaluation.new
+    @evaluation.due_date = @form.due_date
+    @evaluation.posted_date = @form.submission_date
+    @evaluation.professor_form_info = @form.html_form
+    @evaluation.title = @form.title
     @evaluation.student_id = params[:id];
     @evaluation.isCompleted = false;
     @evaluation.professor_form_id = params[:form_id]
