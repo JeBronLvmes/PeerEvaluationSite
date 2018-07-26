@@ -10,7 +10,7 @@ app.controller('studentEvaluationCon', function($scope, $http) {
 
     $scope.completeEvaluation = function (id){
         var div = document.getElementById("evaluationCompleteForm");
-        div.style.display = "block";
+        div.style.display = "none";
         $http({
             url: '/evaluations/' + id,
             method: 'GET'

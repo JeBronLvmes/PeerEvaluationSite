@@ -20,20 +20,36 @@
 
     <div id ="pageContent" class="col bg-light px-5 pb-5" ng-show="showContent">
       <!-- Course Title -->
-      <div class="text-center">
-        <h1>{{course_name}} - {{ group_name }}</h1>
-      </div>
+      <h1>{{course_name}} - {{ group_name }}</h1>
 
       <div class="row">
-        <h2>Incomplete Evaluations</h2>
-        <table class="table table-sm table-hover">
+        <h1>Incomplete Evaluations</h1>
+        <table class="table">
           <thead>
-            <th>Evaluation</th>
-            <th>Link</th>
+          <tr>
+            <th scope="col">Evaluation Name</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Posted Date</th>
+            <th scope="col">Completion Status</th>
+            <th scope="col">Complete Form</th>
+          </tr>
           </thead>
           <tbody>
-            <tr></tr>
-            <tr></tr>
+
+          <!-- list student evaluations -->
+          <% @evaluations.each do |evaluation| %>
+            <% if !evaluation.isCompleted%>
+              <tr>
+                <td><%= evaluation.title %></td>
+                <td><%= evaluation.due_date %></td>
+                <td><%= evaluation.posted_date %></td>
+                <td><%= evaluation.isCompleted %></td>
+                <td><button id="complete_evaluation" class="btn btn-secondary" ng-click="completeEvaluation(evaluation.id)">
+                  Complete Evaluation
+                </button></td>
+              </tr>
+            <%end%>
+          <% end %>
           </tbody>
         </table>
       </div>
