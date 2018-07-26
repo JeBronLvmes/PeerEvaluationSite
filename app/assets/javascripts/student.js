@@ -26,7 +26,6 @@ app.controller('studentCon', function($scope, $http) {
         $scope.form_title = null;
         $scope.form_questions = null;
         $scope.evaluationId = null;
-        $scope.incompleteForms = "";
         $scope.showCourses();
     };
 
@@ -70,28 +69,28 @@ app.controller('studentCon', function($scope, $http) {
      * @author Jeb Alawi 7/26/18
      */
     $scope.submitEvaluation = function(){
-        console.log($scope.form_answers);
-        //post answer and isCompleted => true
-        if ($scope.evaluationId != null) {
-            $http({
-                url: '/students/' + $scope.curStdId + '/courses/' + $scope.curCourseId + '/eval/' + $scope.evaluationId,
-                method: 'POST',
-                data: {
-                    'student_form_info': $scope.form_answers,
-                    'isCompleted': true,
-                },
-                headers: {'Content-Type': 'application/json'}
-            })
-                .then(function (response) {
-                    $scope.toggleEvaluationForm();
-                    $scope.evaluation = null;
-                    $scope.form_title = null;
-                    $scope.form_questions = null;
-                    $scope.evaluationId = null;
-                    $scope.updateFormsView();
-                });
-        } else{
-            window.alert("Oops a problem occurred.")
+        if (window.confirm("Are you sure you want to submit?")) {
+            if ($scope.evaluationId != null) {
+                $http({
+                    url: '/students/' + $scope.curStdId + '/courses/' + $scope.curCourseId + '/eval/' + $scope.evaluationId,
+                    method: 'POST',
+                    data: {
+                        'student_form_info': $scope.form_answers,
+                        'isCompleted': true,
+                    },
+                    headers: {'Content-Type': 'application/json'}
+                })
+                    .then(function (response) {
+                        $scope.toggleEvaluationForm();
+                        $scope.evaluation = null;
+                        $scope.form_title = null;
+                        $scope.form_questions = null;
+                        $scope.evaluationId = null;
+                        $scope.updateFormsView();
+                    });
+            } else {
+                window.alert("Oops a problem occurred.")
+            }
         }
     };
 
@@ -109,9 +108,9 @@ app.controller('studentCon', function($scope, $http) {
             .then(function (response) {
                 $scope.evaluations = response.data;
                 if ($scope.evaluations.length == 0){
-                    $scope.incompleteForms = "No Incomplete Evaluations!";
+                    $scope.incompleteForms = false;
                 } else{
-                    $scope.incompleteForms = "";
+                    $scope.incompleteForms = true;
                 }
                 console.log($scope.evaluations);
             });

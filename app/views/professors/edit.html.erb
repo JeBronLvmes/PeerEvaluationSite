@@ -1,6 +1,5 @@
 <!-- Created by Houyi Fan 7/22/18 -->
-
-<h1>Edit Profile</h1>
+<!-- Modified by Jeb Alawi 7/26/18 - styling -->
 <%= form_with model: @professor, local: true do |form| %>
  
   <% if @professor.errors.any? %>
@@ -16,25 +15,27 @@
       </ul>
     </div>
   <% end %>
- 
-  <p>
-    <%= form.label :first_name %><br>
-    <%= form.text_field :first_name %>
-  </p>
- 
-  <p>
-    <%= form.label :last_name %><br>
-    <%= form.text_field :last_name %>
-  </p>
 
-	<p>
-    <%= form.label :dot_number %><br>
-    <%= form.text_field :dot_number %>
- 
-  <p>
-    <%= form.submit %>
-  </p>
- 
-<% end %>
+  <div class="container ml-1" style="width: 30ex">
+    <h1>Edit Profile</h1>
+    <div class="form-group">
+      <%= form.label :first_name %><br>
+      <%= form.text_field :first_name, :class => "form-control" %>
+    </div>
 
-<%= link_to 'Back', professors_path %>
+    <div class="form-group">
+      <%= form.label :last_name %><br>
+      <%= form.text_field :last_name, :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :dot_number %><br>
+      <%= form.text_field :dot_number, :class => "form-control" %>
+    </div>
+
+    <div class="my-1">
+      <%= form.submit 'Update Professor', :class => "btn btn-success" %>
+    </div>
+
+    <% end %>
+  </div>
