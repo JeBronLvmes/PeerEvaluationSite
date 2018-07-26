@@ -48,6 +48,11 @@
 Please list who did what for each part of the project.
 Also list if people worked together (pair programmed) on a particular section.
 
+
+Josh Wright: Implemented the Devise user login system for professors and students
+Implemented the Evaluations Page. Wrote Professor_form, Evaluations controller code and associated views.
+Implemented some custom routes and contentEvaluation javascript file. 
+
 Jeb Alawi - Wrote controller code for creating and adding courses to a professor, 
 adding a group to a class, deleting groups, deleting students from groups, grabbing the list of
 students for a group, deleting a course from the professor profile page. Implemented styling of pages
