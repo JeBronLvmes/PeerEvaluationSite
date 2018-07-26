@@ -8,11 +8,11 @@
     <h1 class="mr-auto pl-4">Courses</h1>
   </div>
   <div class="row bg-light">
-    <div class="col-3 px-0 mx-0 bg-white" style="min-height:600px;">
+    <div class="col-3 px-0 mx-0 bg-white" style="min-height:600px;" ng-hide="showForm ">
       <div>
 
         <!-- List of Courses On The left -->
-        <div id="courseList" class="list-group list-group-flush" role="tablist" ng-hide="showForm" >
+        <div id="courseList" class="list-group list-group-flush" role="tablist"  >
           <a class="list-group-item list-group-item-action" id="list-tab" name="course" ng-repeat="c in courses" ng-click="showDetail(c.id, c.name)"
              data-toggle="list" href="#list-home" role="tab" aria-controls="home"> {{c.name}} </a>
         </div>
@@ -20,7 +20,7 @@
     </div>
 
     <!-- Complete evaluation form -->
-    <div class="container-fluid col mx-5 my-5" ng-show="showForm">
+    <div class="container-fluid col mx-5 my-5" ng-show="showForm ">
       <form name="evaluationForm" ng-submit="submitEvaluation()">
         <div class="form-group">
           <h1 id="stdFormTitle" >Title: {{form_title}}</h1>
