@@ -124,133 +124,24 @@ app.controller('evaluationCon', function($scope, $http) {
     };
 
  	$scope.addEvaluation = function () {
- 		$http({
-            url: "",
+        $http({
+            url: "/professors/" + $scope.curProfId + "/create_professor_forms",
             method: 'POST',
             data: {
                 'title': $scope.new_evaluation_name,
                 'due_date': $scope.due_date,
                 'submission_date': $scope.submission_date,
-				'course_id': $scope.course_id,
+                'course_id': $scope.course_id,
                 'html_form': $scope.new_form
             },
             headers: {'Content-Type': 'application/json'}
+        })
+        .then(function (response) {
+            window.alert("success");
         });
 
         $scope.toggleAddEvaluationForm();
 	};
-
-    $scope.addGroup = function () {
-        $http({
-            url: 'courses/' + $scope.curCourseId + '/group',
-            method: 'POST',
-            data: { 'name': $scope.group_name },
-            headers: {'Content-Type': 'application/json'}
-        })
-            .then(function(response) {
-                    window.alert("success");
-                    $scope.updateCurStdView();
-                },
-                function(response) {
-                    window.alert("fail");
-                });
-
-    };
-
-    $scope.addCourse = function () {
-        $http({
-            url: 'courses/',
-            method: 'POST',
-            data: {
-                'name': $scope.new_course_name,
-                'dept': $scope.course_dept,
-                'number': $scope.course_number,
-                'section': $scope.course_section
-            },
-            headers: {'Content-Type': 'application/json'}
-        })
-            .then(function (response) {
-                $scope.showCourses();
-            });
-
-        $scope.toggleAddCourseForm();
-    };
-
-    $scope.addStudent = function (id) {
-        if (window.confirm('Do you want to add this student?')) {
-            $scope.processing = true;
-            $http({
-                url: '/professors/' + $scope.curProfId + '/courses/' + $scope.curCourseId + '/add_std',
-                method: "POST",
-                data: {'std_id': parseInt(id)},
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            })
-                .then(function (response) {
-                        window.alert("success");
-                        $scope.processing = false;
-                        $scope.updateView();
-                    },
-                    function (response) {
-                        window.alert("fail");
-                    });
-        }
-    };
-
-    $scope.submitQuery = function () {
-        var queryUrl = '/studentSearch?';
-        var check = false;
-
-        if ($scope.std_fname != null && $scope.std_fname != '') {
-            check = true;
-            queryUrl += 'first_name=' + $scope.std_fname;
-        }
-
-        if ($scope.std_lname != null && $scope.std_lname != '') {
-            if (check)
-                queryUrl += '&';
-
-            check = true;
-            queryUrl += 'last_name=' + $scope.std_lname;
-        }
-
-        if ($scope.std_dot != null && $scope.std_dot != '') {
-            if (check)
-                queryUrl += '&';
-
-            queryUrl += 'dot_number=' + $scope.std_dot;
-        }
-
-        $http({
-            url: queryUrl,
-            method: "GET"
-        })
-            .then(function(response) {
-                    $scope.updateQueryStdView(response);
-                },
-                function(response) {
-                    window.alert("fail");
-                });
-    };
-
-
-    $scope.deleteStudent = function (id) {
-        if (window.confirm('Do you want to delete this student?')) {
-            $http({
-                url: '/professors/' + $scope.curProfId + '/courses/' + $scope.curCourseId + '/del_std/' + id,
-                method: "DELETE"
-            })
-                .then(function(response) {
-                        window.alert("success");
-                        $scope.updateCurStdView();
-                    },
-                    function(response) {
-                        window.alert("fail");
-                    });
-        }
-    };
 
     /**
      *
