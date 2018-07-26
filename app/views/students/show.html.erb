@@ -20,7 +20,6 @@
         <th scope="col">Department</th>
         <th scope="col">Number</th>
         <th scope="col">Section</th>
-        <th scope="col">course_id</th>
         <th />
       </tr>
       </thead>
@@ -35,7 +34,6 @@
             <td><%= course.dept %></td>
             <td><%= course.number %></td>
             <td><%= course.section %></td>
-            <td><%= course.id %></td>
             <td><%= link_to 'Drop', student_courses_student_path(@student, course), method: :delete, data: { confirm: 'Are you sure you want to drop this class?' } %></td>
           </tr>
         <% end %>
