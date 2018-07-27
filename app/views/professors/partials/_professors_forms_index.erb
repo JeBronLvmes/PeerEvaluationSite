@@ -124,10 +124,12 @@
               </tr>
             </table>
             <div class="formContent" ng-hide="formCont">
+              <hr />
               <h1>{{form.title}}</h1>
-              <p>{{"Due Date: " + form.due_date}}</p>
-              <p>{{"Submission: " + form.submission_date}}</p>
-              <p>{{"Form Data: " + form.html_form}}</p>
+              <h6>{{"Due Date: " + form.due_date}}</h6>
+              <h6>{{"Submission: " + form.submission_date}}</h6>
+              <h3 class="">Evaluation:</h3>
+              <p class="">{{form.html_form}}</p>
             </div>
           </div>
           <!-- Evaluation Students View -->
