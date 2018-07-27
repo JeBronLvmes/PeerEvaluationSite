@@ -2,7 +2,7 @@
 <%= javascript_include_tag 'contentEvaluations' %>
 <div class="container-fluid bg-white" ng-app="evaluationApp" ng-controller="evaluationCon" ng-init="init(<%= professor.id %>)">
 
-  <div class = "row my-2">
+  <div class = "row py-2 bg-light border-bottom">
     <h1 class="mr-auto pl-4"><%= title %>
 			<!-- "+" icon -->
       <span class="mx-4">
@@ -35,7 +35,7 @@
 
     <!-- all of the page content to the right of the class list navigation bar -->
     <!-- Add professors form -->
-    <div class="container-fluid bg-light px-5 py-5 mx-5" name="addEvaluationForm" ng-show="showAddEvaluationForm" ng-cloak>
+    <div class="container-fluid bg-light px-5 py-5" name="addEvaluationForm" ng-show="showAddEvaluationForm" ng-cloak>
         <h3>Professor Form:</h3>
         <br/>
 				<div class="form-group">
@@ -70,7 +70,7 @@
             <button type="submit" ng-click="addEvaluation()" class="btn btn-success btn-sm">Submit</button>
           </p>
     </div>
-    <div id ="pageContent" class="col bg-light px-5 py-4">
+    <div id ="pageContent" class="col bg-light px-5 py-4" ng-hide="showAddEvaluationForm">
       <!-- Course Title -->
       <div class="text-center" ng-cloak>
         <h1>{{course_name}}</h1>
