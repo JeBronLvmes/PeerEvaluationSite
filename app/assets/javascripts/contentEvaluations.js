@@ -19,7 +19,6 @@ app.controller('evaluationCon', function($scope, $http) {
         $scope.processing = false;
         $scope.isProfessorForm = false;
         $scope.selectedCourse = null;
-        $scope.studentEval = true;
         $scope.formCont = true;
         $scope.showCourses();
     };
@@ -64,9 +63,15 @@ app.controller('evaluationCon', function($scope, $http) {
     };
 
     $scope.updateCurGroupView = function () {
+        $scope.groupStudents = [];
+        $scope.studentEval = {};
+        $scope.evalData = {};
+
         $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/groups")
             .then(function (response) {
                 $scope.groups = response.data;
+
+                $scope.getGroupStudents();
             });
     };
 
@@ -75,13 +80,6 @@ app.controller('evaluationCon', function($scope, $http) {
             .then(function (response) {
                 $scope.forms = response.data;
                 $scope.selection = $scope.forms[0];
-            });
-    };
-
-    $scope.updateCurStdView = function () {
-        $http.get("/professors/" + $scope.curProfId  + "/courses/" + $scope.curCourseId + "/students")
-            .then(function (response) {
-                $scope.students = response.data;
             });
     };
 
@@ -95,17 +93,9 @@ app.controller('evaluationCon', function($scope, $http) {
             } else {
                 $scope.groups = null;
 
-                $scope.updateCurStdView();
-                $scope.updateStudentEvaluationsView();
+                $scope.updateCurGroupView();
             }
         }
-
-
-
-    };
-
-    $scope.updateStudentEvaluationsView = function (){
-        $scope.studentEval = true;
     };
 
     $scope.updateProfessorFormsView = function (){
@@ -113,6 +103,49 @@ app.controller('evaluationCon', function($scope, $http) {
     };
 
     // Other Controller Functions
+
+    $scope.getGroupStudents = function () {
+        for (let i = 0; i < $scope.groups.length; ++i) {
+            $http.get('courses/' + $scope.curCourseId + '/groups/' + $scope.groups[i].id + '/students')
+                .then(function (response) {
+                    $scope.groupStudents[i] = response.data;
+                    $scope.studentEval[$scope.groups[i].id] = {};
+                    $scope.evalData[$scope.groups[i].id] = {};
+
+                    // Set the visibility of evaluation table for each students
+                    for (let j = 0; j < response.data.length; ++j) {
+                        $scope.studentEval[$scope.groups[i].id][response.data[j].id] = true;
+                        $scope.evalData[$scope.groups[i].id][response.data[j].id] = null;
+                    }
+                });
+        }
+    };
+
+    $scope.showEvaluations = function (groupId, stdId) {
+        var hide = $scope.studentEval[groupId][stdId];
+        console.log($scope.studentEval);
+
+        if (hide && $scope.evalData[groupId][stdId] == null) {
+            $scope.evalData[groupId][stdId] = [];
+
+            $http({
+                url: "/students/" + stdId+ '/courses/' + $scope.curCourseId + '/eval_complete',
+                method: "GET"
+            }).then(function(response) {
+                $scope.evalData[groupId][stdId][0] = response.data;
+            });
+
+            $http({
+                url: "/students/" + stdId+ '/courses/' + $scope.curCourseId + '/eval_incomplete',
+                method: "GET"
+            }).then(function(response) {
+                $scope.evalData[groupId][stdId][1] = response.data;
+            });
+        }
+
+        //console.log($scope.evalData);
+        $scope.studentEval[groupId][stdId] = !hide;
+    };
 
     $scope.switchState = function () {
         $scope.isProfessorForm = !$scope.isProfessorForm;
@@ -172,30 +205,6 @@ app.controller('evaluationCon', function($scope, $http) {
             $scope.form = response.data;
         });
 
-    };
-
-    /**
-     *
-     * @param student_id
-     *
-     * @author Josh Wright on 7/24/2018
-     */
-    $scope.viewEvaluations = function (student_id){
-        $scope.studentEval = false;
-
-        $http({
-            url: "/students/" + student_id + "/evaluations_completed",
-            method: "GET"
-        }).then(function(response) {
-            $scope.completedEvaluations = response.data;
-        });
-
-        $http({
-            url: "/students/" + student_id + "/evaluations_incomplete",
-            method: "GET"
-        }).then(function(response) {
-            $scope.incompleteEvaluations = response.data;
-        });
     };
 
     /**
