@@ -33,6 +33,9 @@ Rails.application.routes.draw do
   # get incomplete evaluations for a specific course
   get 'students/:student_id/courses/:course_id/eval_incomplete', to: 'students#course_incomplete_eval'
 
+  # get incomplete evaluations for a specific course
+  get 'students/:student_id/courses/:course_id/eval_complete', to: 'students#course_complete_eval'
+
   # get specific evaluation for students to complete
   get 'students/:student_id/courses/:course_id/eval/:eval_id', to: 'students#get_eval'
 

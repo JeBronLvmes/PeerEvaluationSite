@@ -162,6 +162,12 @@ app.controller('evaluationCon', function($scope, $http) {
         $scope.showAddEvaluationForm = !$scope.showAddEvaluationForm;
     };
 
+    $scope.getData = function (form) {
+        $scope.tempTitle = form.title;
+        $scope.tempData = form.professor_form_info;
+        console.log(form.professor_form_info);
+    };
+
     /**
      * Get data in the form and create a new evaluation form (professor form)
      *

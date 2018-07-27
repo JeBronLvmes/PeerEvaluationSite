@@ -2,6 +2,25 @@
 
 <div class="container-fluid bg-white" ng-app="evaluationApp" ng-controller="evaluationCon" ng-init="init(<%= professor.id %>)">
 
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{tempTitle}}</h4>
+        </div>
+        <div class="modal-body">
+          <p>{{tempData}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <div class = "row py-2 bg-light border-bottom">
     <h1 class="mr-auto pl-4"><%= title %>
 			<!-- "+" icon -->
@@ -154,8 +173,8 @@
                     <th>Title</th>
                     <th />
                     </thead>
-                    <tr ng-repeat="evaluation in completedEvaluations[g.id][s.id][0]">
-                      <td>{{evaluation.title}}</td>
+                    <tr ng-repeat="evaluation in evalData[g.id][s.id][0]">
+                      <td>{{evaluation.title}} <button data-toggle="modal" data-target="#myModal" ng-click="getData(evaluation)">Show Detail</button></td>
                     </tr>
                   </table>
                 </div>
