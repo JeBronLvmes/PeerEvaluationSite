@@ -152,6 +152,26 @@ class StudentsController < ApplicationController
 		render json: @evaluations
 	end
 
+	# get list of incomplete evals for a student's course
+	#
+	# Created by Jeb Alawi 7/26/18
+	def course_incomplete_eval
+		@student_evals = Student.find(params[:student_id]).evaluations.find_by(course_id: params[:course_id])
+		@evaluations = []
+		if @student_evals != nil
+			if @student_evals.kind_of?(Array)
+				for e in @student_evals
+					if !e.isCompleted
+						@evaluations << e
+					end
+				end
+			else
+				@evaluations << @student_evals
+			end
+		end
+		render json: @evaluations
+	end
+
 	# Created by Josh Wright 7/24/18
 	def completed_evaluations_list
 		@student = Student.find(params[:student_id])

@@ -102,7 +102,7 @@ app.controller('studentCon', function($scope, $http) {
     $scope.updateFormsView = function () {
       // 'students/:student_id/evaluations_incomplete'
         $http({
-            url: '/students/' + $scope.curStdId + '/evaluations_incomplete',
+            url: '/students/' + $scope.curStdId + '/courses/' + $scope.curCourseId + '/eval_incomplete',
             method: 'GET'
         })
             .then(function (response) {
@@ -159,7 +159,11 @@ app.controller('studentCon', function($scope, $http) {
             });
         $http.get('/students/' + $scope.curStdId + '/courses/' + course_id + '/group/')
             .then(function(response) {
+                if (response.data == null){
+                    $scope.group_name = "";
+                }
                 $scope.group_name = response.data.name;
+
             });
 
     };

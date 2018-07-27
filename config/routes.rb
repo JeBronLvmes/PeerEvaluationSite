@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   # post student's answers to evaluation
   post 'students/:student_id/courses/:course_id/eval/:eval_id', to: 'evaluations#post_answer'
 
+  # get incomplete evaluations for a specific course
+  get 'students/:student_id/courses/:course_id/eval_incomplete', to: 'students#course_incomplete_eval'
+
   # get specific evaluation for students to complete
   get 'students/:student_id/courses/:course_id/eval/:eval_id', to: 'students#get_eval'
 
