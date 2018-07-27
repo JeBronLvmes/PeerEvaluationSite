@@ -35,5 +35,6 @@ class ProfessorFlowTest < ActionDispatch::IntegrationTest
      assert_response :success
      assert_select "h1", "Peer Evaluation"
      assert_select "p", "Welcome!"
+     assert_select "h4" , {:count=>3}, "Wrong number of h4 elements"
    end
 end
