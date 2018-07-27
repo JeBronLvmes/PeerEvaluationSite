@@ -161,12 +161,14 @@ class StudentsController < ApplicationController
 		if @student_evals != nil
 			if @student_evals.kind_of?(Array)
 				for e in @student_evals
-					if !e.isCompleted
+					if e.isCompleted == false
 						@evaluations << e
 					end
 				end
 			else
-				@evaluations << @student_evals
+				if @student_evals.isCompleted == false
+					@evaluations << @student_evals
+				end
 			end
 		end
 		render json: @evaluations
