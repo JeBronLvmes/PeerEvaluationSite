@@ -152,6 +152,7 @@ app.controller('evaluationCon', function($scope, $http) {
                     window.alert("success");
                 });
         }
+        $scope.updateCurProfFormView();
         $scope.toggleAddEvaluationForm();
 	};
 
