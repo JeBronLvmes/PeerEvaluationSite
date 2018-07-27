@@ -156,18 +156,12 @@ class StudentsController < ApplicationController
 	#
 	# Created by Jeb Alawi 7/26/18
 	def course_incomplete_eval
-		@student_evals = Student.find(params[:student_id]).evaluations.find_by(course_id: params[:course_id])
+		@student_evals = Student.find(params[:student_id]).evaluations.where('course_id = ?', params[:course_id])
 		@evaluations = []
 		if @student_evals != nil
-			if @student_evals.kind_of?(Array) #there are many forms
-				for e in @student_evals
-					if !e.isCompleted
-						@evaluations << e
-					end
-				end
-			else #there is only one form
-				if !@student_evals.isCompleted
-					@evaluations << @student_evals
+			for e in @student_evals
+				if !e.isCompleted
+					@evaluations << e
 				end
 			end
 		end

@@ -1,5 +1,5 @@
 <!-- Created by Houyi Fan 7/24/18 -->
-<div ng-app="evaluationApp" ng-controller="studentEvaluationCon" ng-init="init(<%= current_student.id %>)">
+<div ng-app="evaluationApp" ng-controller="studentEvaluationCon" ng-init="init(<%= current_student.id %>)" ng-cloak>
   <%if current_student != nil and current_student.id.to_s == params[:id].to_s%>
 
     <div class="container bg-light py-5 px-5">
