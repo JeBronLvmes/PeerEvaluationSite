@@ -22,4 +22,18 @@ class ProfessorFlowTest < ActionDispatch::IntegrationTest
      assert_response :success
      assert_select "h1", "Professors Sign-Up"
    end
+
+   test "can create a professor" do
+     get "/professors/sign_up"
+     assert_response :success
+
+     post "/professors",
+          params: { professor: { first_name: "Houyi", last_name: "Fake", dot_number: 123456, email: "fanosu.685@gmail.com", answer: "Anything", password: 123456, password_confirmation: 123456} }
+
+     assert_response :redirect
+     follow_redirect!
+     assert_response :success
+     assert_select "h1", "Peer Evaluation"
+     assert_select "p", "Welcome!"
+   end
 end
