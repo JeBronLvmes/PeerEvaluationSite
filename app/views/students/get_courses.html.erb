@@ -23,12 +23,12 @@
     <div class="container col mx-5 my-5 px-5" ng-show="showForm ">
       <form name="evaluationForm" ng-submit="submitEvaluation()">
         <div class="form-group">
-          <h3 id="stdFormTitle" >{{form_title}}</h3>
+          <h1 id="stdFormTitle" >{{form_title}}</h1>
         </div>
 
         <div class="form-group">
-          <label class="h5" for="form_answers">Complete the form below</label>
-          <textarea style="min-height:300px;" class="form-control-lg container-fluid" ng-model="form_questions" id="stdFormAnswers"/></textarea>
+          <label class="h5" for="form_answers">Complete the form below:</label>
+          <textarea style="min-height:800px;" class="form-control-lg container-fluid px-4 py-3" ng-model="form_questions" id="stdFormAnswers"/></textarea>
         </div>
 
         <button type="submit" class="btn btn-success">Submit</button>
