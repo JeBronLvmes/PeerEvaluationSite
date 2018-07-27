@@ -11,7 +11,7 @@
           <h4 class="modal-title">{{tempTitle}}</h4>
         </div>
         <div class="modal-body">
-          <p>{{tempData}}</p>
+          <p class="formContent">{{tempData}}</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -159,7 +159,7 @@
 
                 <div ng-hide="studentEval[g.id][s.id]">
                   <hr />
-                  <h3> Incomplete forms {{studentEval[g.id][s.id]}}</h3>
+                  <h3> Incomplete Forms</h3>
                   <table class="table table-sm">
                     <thead>
                     <th>Title</th>
@@ -169,7 +169,7 @@
                       <td>{{evaluation.title}}</td>
                     </tr>
                   </table>
-                  <h3> Completed forms</h3>
+                  <h3> Completed Forms</h3>
                   <table class="table table-sm">
                     <thead>
                     <th>Title</th>

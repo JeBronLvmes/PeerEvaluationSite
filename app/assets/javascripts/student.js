@@ -56,9 +56,7 @@ app.controller('studentCon', function($scope, $http) {
                 $scope.form_title = response.data.title;
                 $scope.form_questions = response.data.professor_form_info;
                 $scope.evaluationId = response.data.id;
-                console.log($scope.evaluation);
-                console.log($scope.form_title);
-                console.log($scope.form_questions);
+
             });
 
     };
@@ -69,13 +67,15 @@ app.controller('studentCon', function($scope, $http) {
      * @author Jeb Alawi 7/26/18
      */
     $scope.submitEvaluation = function(){
+        console.log($scope.form_questions);
         if (window.confirm("Are you sure you want to submit?")) {
+
             if ($scope.evaluationId != null) {
                 $http({
                     url: '/students/' + $scope.curStdId + '/courses/' + $scope.curCourseId + '/eval/' + $scope.evaluationId,
                     method: 'POST',
                     data: {
-                        'student_form_info': $scope.form_answers,
+                        'student_form_info': $scope.form_questions,
                         'isCompleted': true,
                     },
                     headers: {'Content-Type': 'application/json'}
@@ -112,7 +112,6 @@ app.controller('studentCon', function($scope, $http) {
                 } else{
                     $scope.incompleteForms = true;
                 }
-                console.log($scope.evaluations);
             });
     };
 

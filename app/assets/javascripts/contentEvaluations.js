@@ -164,8 +164,8 @@ app.controller('evaluationCon', function($scope, $http) {
 
     $scope.getData = function (form) {
         $scope.tempTitle = form.title;
-        $scope.tempData = form.professor_form_info;
-        console.log(form.professor_form_info);
+        $scope.tempData = form.student_form_info;
+        console.log(form.student_form_info);
     };
 
     /**
