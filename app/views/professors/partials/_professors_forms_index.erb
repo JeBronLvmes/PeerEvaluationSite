@@ -35,7 +35,7 @@
 
     <!-- all of the page content to the right of the class list navigation bar -->
     <!-- Add professors form -->
-    <div class="container-fluid bg-light px-5 py-5" name="addEvaluationForm" ng-show="showAddEvaluationForm" ng-cloak>
+    <div class="container-fluid bg-light px-5 py-5 " name="addEvaluationForm" ng-show="showAddEvaluationForm" ng-cloak>
         <h3>Professor Form:</h3>
         <br/>
 				<div class="form-group">
@@ -76,11 +76,10 @@
         <h1>{{course_name}}</h1>
       </div>
 
-      <div class="row px-1 mt-5">
+      <div class="row px-1 mt-5 " >
         <!-- Evaluation Forms View -->
         <div class="col" ng-switch on="isGroupTemp" ng-cloak>
-          <div ng-switch-when="true">
-            <hr/>
+          <div class="bg-white rounded py-3 px-3" ng-switch-when="true">
             <br />
             <h3>Forms:</h3>
 
@@ -113,26 +112,29 @@
             </div>
           </div>
           <!-- Evaluation Students View -->
-          <div ng-switch-when="false" ng-cloak>
-            <hr/>
+          <div  ng-switch-when="false" ng-cloak>
             <!-- Current Students Table -->
 
-            <div class="container-fluid mb-5" ng-repeat="g in groups" ng-cloak>
-              <span class="h1 mr-auto">{{ g.name }}</span>
-              <br>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Dot #</th>
-              <th>e-mail</th>
-              <th />
-              <th />
+            <div class="container-fluid mb-5 bg-white rounded py-3 px-3" ng-repeat="g in groups" ng-cloak>
+              <h2 class=" mr-auto">{{ g.name }}</h2>
               <br>
               <div ng-repeat="s in groupStudents[$index]">
-                <td>{{ s.first_name }}</td>
-                <td>{{ s.last_name }}</td>
-                <td>{{ s.dot_number }}</td>
-                <td>{{ s.email }}</td>
-                <td> <button class="btn btn-primary btn-sm" ng-click="showEvaluations(g.id, s.id)">Show Evaluations</button> </td> <br>
+                <table class="table table-sm">
+                  <thead>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Dot #</th>
+                    <th>e-mail</th>
+                    <th colspan="2"/>
+                  </thead>
+                  <tr>
+                    <td>{{ s.first_name }}</td>
+                    <td>{{ s.last_name }}</td>
+                    <td>{{ s.dot_number }}</td>
+                    <td>{{ s.email }}</td>
+                    <td> <button class="btn btn-primary btn-sm float-right" ng-click="showEvaluations(g.id, s.id)">Show Evaluations</button> </td> <br>
+                  </tr>
+                </table>
 
                 <div ng-hide="studentEval[g.id][s.id]">
                   <hr />
