@@ -3,7 +3,7 @@
 <div class="container-fluid bg-white" ng-app="evaluationApp" ng-controller="evaluationCon" ng-init="init(<%= professor.id %>)">
 
   <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
 
       <!-- Modal content-->
       <div class="modal-content">
@@ -176,7 +176,7 @@
                     <th />
                     </thead>
                     <tr ng-repeat="evaluation in evalData[g.id][s.id][0]">
-                      <td>{{evaluation.title}} <button data-toggle="modal" data-target="#myModal" ng-click="getData(evaluation)">Show Detail</button></td>
+                      <td>{{evaluation.title}} <button class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#myModal" ng-click="getData(evaluation)">Show Detail</button></td>
                     </tr>
                   </table>
                 </div>
