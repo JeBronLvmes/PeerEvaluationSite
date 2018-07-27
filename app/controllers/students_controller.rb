@@ -159,15 +159,9 @@ class StudentsController < ApplicationController
 		@student_evals = Student.find(params[:student_id]).evaluations.where('course_id = ?', params[:course_id])
 		@evaluations = []
 		if @student_evals != nil
-			if @student_evals.many? #there are many forms
-				for e in @student_evals
-					if !e.isCompleted
-						@evaluations << e
-					end
-				end
-			elsif !@student_evals.blank? #there is only one form
-				if @student_evals.isCompleted
-					@evaluations << @student_evals
+			for e in @student_evals
+				if !e.isCompleted
+					@evaluations << e
 				end
 			end
 		end
