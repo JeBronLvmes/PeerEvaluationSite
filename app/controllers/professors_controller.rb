@@ -48,9 +48,18 @@ class ProfessorsController < ApplicationController
   # Created by Houyi Fan on 7/23/18
 	def destroy
 		@professor = Professor.find(params[:id])
+
+    # manually destory all the courses and its students
+
+    @professor.courses.each do |course|
+      course.students.delete_all
+    end
+
+    @professor.courses.delete_all
+
 		@professor.destroy
 	 
-		redirect_to professors_path
+		redirect_to root_url
 	end
 
   def showCourses

@@ -74,9 +74,14 @@ class StudentsController < ApplicationController
 	# Created by Houyi Fan 7/22/18
 	def destroy
 		@student = Student.find(params[:id])
+
+		@student.courses.each do |course|
+			course.students.delete @student
+		end
+
 		@student.destroy
 	 
-		redirect_to students_path
+		redirect_to root_url
 	end
 
 	# searches for a student
